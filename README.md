@@ -28,7 +28,7 @@ A web-based currency exchange system designed for kiosks, offering real-time con
 
 ```sh
 # Clone the repository
-git clone https://github.com/Papunidze/Currency-Exchange-System.git
+git clone https://github.com/Papunidze/currency-exchange-system.git
 cd currency-exchange-system
 
 # Install dependencies
