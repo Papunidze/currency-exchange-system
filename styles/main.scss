@@ -2,6 +2,7 @@
 @use "mixins";
 @use "globals";
 @use "components";
+@use "root";
 
 * {
   box-sizing: border-box;
@@ -29,7 +30,7 @@ body {
   overflow: auto;
   padding: $padding-md;
   background-color: $backgrounds-primary;
-  color: $text-primary;
+  color: var(--text-primary);
   font-size: $font-size-base;
   font-weight: $font-weight-regular;
   font-family: $font-family-base;

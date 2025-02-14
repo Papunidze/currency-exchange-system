@@ -3,16 +3,20 @@
 $primary: #264060;
 $secondary: #f9f6f2;
 
-$text-primary: #171717;
-$text-secondary: #666;
-$text-light: #fff;
+$text-colors: (
+  primary: #171717,
+  secondary: #666,
+  light: #fff,
+);
 
-$button-primary: #006fee;
-$button-secondary: #3f3f46;
-$button-warning: #f5a524;
-$button-danger: #e53935;
-$button-success: #17c964;
-$button-loading: #d4d4d8;
+$buttons-variants: (
+  primary: #006fee,
+  secondary: #3f3f46,
+  warning: #f5a524,
+  danger: #e53935,
+  success: #17c964,
+  loading: #d4d4d8,
+);
 
 $backgrounds-primary: #ecedee;
 $backgrounds-secondary: #000000;

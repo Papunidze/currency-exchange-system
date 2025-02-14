@@ -1,0 +1,11 @@
+@use "variables" as *;
+
+:root {
+  @each $name, $value in $buttons-variants {
+    --button-variant-#{$name}: #{$value};
+  }
+
+  @each $name, $value in $text-colors {
+    --text-color-#{$name}: #{$value};
+  }
+}
