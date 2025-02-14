@@ -1,4 +1,39 @@
-@use "variables";
+@use "variables" as *;
 @use "mixins";
 @use "globals";
 @use "components";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: $font-family-base;
+  line-height: 14px;
+  text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: $backgrounds-primary;
+  height: 100%;
+  max-height: -webkit-fill-available;
+  overflow: auto;
+}
+
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: -webkit-fill-available;
+  overflow: auto;
+  padding: $padding-md;
+  background-color: $backgrounds-primary;
+  color: $text-primary;
+  font-size: $font-size-base;
+  font-weight: $font-weight-regular;
+  font-family: $font-family-base;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

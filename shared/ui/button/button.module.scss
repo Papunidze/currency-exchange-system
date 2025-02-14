@@ -1,0 +1,68 @@
+@use "sass:color";
+@use "styles/variables" as *;
+
+@mixin button($bg, $color: $text-light) {
+  background-color: $bg;
+  color: $color;
+  padding: $padding-md $padding-xl;
+  border-radius: $radius-md;
+  cursor: pointer;
+  font-size: $font-size-sm;
+  box-shadow: $shadow-sm;
+  user-select: none;
+  outline: none;
+  border: none;
+  font-family: $font-family-monospace;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    background-color: color.scale($bg, $lightness: -20%);
+  }
+}
+
+.btn-primary {
+  @include button($button-primary);
+}
+
+.btn-secondary {
+  @include button($button-secondary);
+}
+
+.btn-warning {
+  @include button($button-warning);
+}
+
+.btn-danger {
+  @include button($button-danger);
+}
+
+.btn-success {
+  @include button($button-success);
+}
+
+.btn-outlined {
+  @extend .btn-primary;
+  background-color: transparent;
+  color: $text-primary;
+  border: 1px solid $border-primary;
+  &:hover {
+    background-color: rgba($border-primary, 2.5);
+  }
+}
+
+.btn-loading {
+  @extend .btn-primary;
+  background-color: $button-loading;
+  cursor: not-allowed;
+  color: $text-primary;
+  &:hover {
+    background-color: $button-loading;
+  }
+}
+
+.button-span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+  display: inline-block;
+  padding: 0 $padding-md;
+}

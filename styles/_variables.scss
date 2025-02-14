@@ -1,0 +1,84 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Poppins:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap");
+
+$primary: #264060;
+$secondary: #f9f6f2;
+
+$text-primary: #171717;
+$text-secondary: #666;
+$text-light: #fff;
+
+$button-primary: #006fee;
+$button-secondary: #3f3f46;
+$button-warning: #f5a524;
+$button-danger: #e53935;
+$button-success: #17c964;
+$button-loading: #d4d4d8;
+
+$backgrounds-primary: #ecedee;
+$backgrounds-secondary: #000000;
+
+$border-primary: #e4e4e7;
+$border-secondary: #e4e4e7;
+
+$font-family-base: "Inter", sans-serif;
+$font-size-base: 16px;
+$font-size-sm: 14px;
+$font-size-lg: 18px;
+$font-size-xl: 22px;
+$font-size-xxl: 28px;
+
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+
+$shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+$shadow-lg: 0 6px 12px rgba(0, 0, 0, 0.2);
+$shadow-xl: 0 8px 16px rgba(0, 0, 0, 0.25);
+
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 12px;
+$border-radius-xl: 16px;
+
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 12px;
+$spacing-lg: 16px;
+$spacing-xl: 24px;
+$spacing-xxl: 32px;
+
+$padding-xs: 4px;
+$padding-sm: 8px;
+$padding-md: 12px;
+$padding-lg: 16px;
+$padding-xl: 24px;
+$padding-xxl: 32px;
+
+$margin-xs: 4px;
+$margin-sm: 8px;
+$margin-md: 12px;
+$margin-lg: 16px;
+$margin-xl: 24px;
+$margin-xxl: 32px;
+
+$transition-fast: 0.2s ease-in-out;
+$transition-medium: 0.3s ease-in-out;
+$transition-slow: 0.5s ease-in-out;
+
+$z-index-dropdown: 1000;
+$z-index-modal: 1050;
+$z-index-tooltip: 1100;
+
+$radius-xs: 4px;
+$radius-sm: 6px;
+$radius-md: 8px;
+$radius-lg: 12px;
+$radius-xl: 16px;
+$radius-xxl: 24px;
+$radius-full: 9999px;
+
+$font-family-base: "Inter", "Poppins", "Roboto", sans-serif;
+$font-family-heading: "Poppins", sans-serif;
+$font-family-monospace: "Roboto Mono", monospace;
