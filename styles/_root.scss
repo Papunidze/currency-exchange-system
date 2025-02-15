@@ -8,4 +8,56 @@
   @each $name, $value in $text-colors {
     --text-color-#{$name}: #{$value};
   }
+
+  @each $name, $value in $backgrounds {
+    --background-#{$name}: #{$value};
+  }
+
+  @each $name, $value in $border {
+    --border-#{$name}: #{$value};
+  }
+
+  @each $name, $value in $font-family {
+    --font-family-#{$name}: #{$value};
+  }
+
+  @each $name, $value in $font-size {
+    --font-size-#{$name}: #{$value};
+  }
+
+  @each $name, $value in $font-weight {
+    --font-weight-#{$name}: #{$value};
+  }
+
+  @each $name, $value in $shadow {
+    --shadow-#{$name}: #{$value};
+  }
+
+  @each $name, $value in $border-radius {
+    --border-radius-#{$name}: #{$value};
+  }
+
+  @each $name, $value in $spacing {
+    --spacing-#{$name}: #{$value};
+  }
+
+  @each $name, $value in $padding {
+    --padding-#{$name}: #{$value};
+  }
+
+  @each $name, $value in $margin {
+    --margin-#{$name}: #{$value};
+  }
+
+  @each $name, $value in $transition {
+    --transition-#{$name}: #{$value};
+  }
+
+  @each $name, $value in $z-index {
+    --z-index-#{$name}: #{$value};
+  }
+
+  @each $name, $value in $radius {
+    --radius-#{$name}: #{$value};
+  }
 }
