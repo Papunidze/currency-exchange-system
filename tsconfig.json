@@ -20,7 +20,7 @@
       }
     ],
     "paths": {
-      // "ui/*": ["shared/ui/*"],
+      "ui/*": ["shared/ui/*"],
       // "interface/*": ["shared/interfaces/*"],
       "styles/*": ["styles/*"]
     }

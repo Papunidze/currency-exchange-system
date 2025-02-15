@@ -1,1 +1,19 @@
 @use "variables" as *;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family-base);
+  line-height: 14px;
+  text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--backgrounds-primary);
+  height: 100%;
+  max-height: -webkit-fill-available;
+  overflow: auto;
+}

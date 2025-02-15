@@ -1,2 +1,19 @@
 @use "variables" as *;
 @use "mixins" as *;
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: -webkit-fill-available;
+  overflow: auto;
+  padding: var(--padding-md);
+  background-color: var(--backgrounds-primary);
+  color: var(--text-primary);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-regular);
+  font-family: var(--font-family-base);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

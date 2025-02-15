@@ -12,6 +12,9 @@
   border: none;
   font-family: var(--font-family-monospace);
   transition: all 0.3s ease-in-out;
+  &:focus {
+    transform: scale(1.05);
+  }
 }
 
 .btn {

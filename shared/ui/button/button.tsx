@@ -9,13 +9,17 @@ type ButtonVariant =
   | "btn-warning"
   | "btn-success";
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  children: React.ReactNode;
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
 }
-const Button = ({ children, variant = "btn-primary" }: ButtonProps) => {
+const Button = ({
+  children,
+  variant = "btn-primary",
+  ...props
+}: ButtonProps) => {
   return (
-    <button className={`${styles.btn} ${styles[variant]}`}>
+    <button className={`${styles.btn} ${styles[variant]}`} {...props}>
       <span className="button-span">{children}</span>
     </button>
   );
