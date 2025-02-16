@@ -1,0 +1,58 @@
+@use "styles/variables" as *;
+@use "sass:color";
+
+.input {
+  position: relative;
+}
+
+.input__label {
+  position: absolute;
+  font-family: var(--font-family-base);
+  left: 0;
+  top: 0;
+  padding: var(--spacing-xs) var(--spacing-xs);
+  margin: var(--spacing-sm);
+  background: transparent;
+  white-space: nowrap;
+  transform: translate(0, 0);
+  transform-origin: 0 0;
+  transition: transform 120ms ease-in;
+  font-weight: var(--font-weight-medium);
+  line-height: 1.2;
+  color: var(--text-colors-primary);
+  user-select: none;
+}
+
+.input__field {
+  box-sizing: border-box;
+  font-family: var(--font-family-base);
+  display: block;
+  width: 100%;
+  border: 2px solid var(--border-primary);
+  padding: var(--spacing-md) var(--spacing-sm);
+  color: var(--text-colors-primary);
+  background: transparent;
+  border-radius: var(--border-radius-md);
+  max-width: 100%;
+  &:focus {
+    outline: none;
+    border-color: $primary;
+  }
+
+  &:hover {
+    border-color: color.scale($primary, $lightness: 30%);
+  }
+}
+
+.input__field:not(:placeholder-shown) + .input__label {
+  transform: translate(0);
+  background: white;
+}
+
+.input__field:focus + .input__label,
+.input__field:placeholder-shown + .input__label,
+.input__field:user-invalid + .input__label,
+.input__field:user-valid + .input__label {
+  transform: translate(0.25rem, -65%) scale(0.8);
+  background: white;
+}

@@ -26,7 +26,7 @@
     background-color: var(--button-variant-#{$name});
     color: var(--text-color-light);
     &:hover {
-      background-color: color.scale($color, $lightness: -20%);
+      background-color: color.scale($color, $lightness: 20%);
     }
   }
 }
