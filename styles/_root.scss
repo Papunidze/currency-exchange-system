@@ -13,6 +13,10 @@
     --background-#{$name}: #{$value};
   }
 
+  @each $name, $value in $icon-sizes {
+    --icon-size-#{$name}: #{$value};
+  }
+
   @each $name, $value in $border {
     --border-#{$name}: #{$value};
   }

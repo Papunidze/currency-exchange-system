@@ -7,7 +7,7 @@ describe("Input component", () => {
     render(<Input label="Username" />);
     const labelElement = screen.getByText("Username");
     expect(labelElement).toBeInTheDocument();
-    expect(labelElement.tagName).toBe("SPAN");
+    expect(labelElement.tagName).toBe("LABEL");
   });
 
   it("applies the correct placeholder when not provided", () => {
@@ -48,5 +48,19 @@ describe("Input component", () => {
     const inputElement = screen.getByLabelText("Username");
     inputElement.focus();
     expect(inputElement).toHaveFocus();
+  });
+
+  it("renders startContent correctly", () => {
+    render(<Input label="Username" startContent={<span>Start</span>} />);
+    const startContentElement = screen.getByText("Start");
+    expect(startContentElement).toBeInTheDocument();
+    expect(startContentElement.tagName).toBe("SPAN");
+  });
+
+  it("renders endContent correctly", () => {
+    render(<Input label="Username" endContent={<span>End</span>} />);
+    const endContentElement = screen.getByText("End");
+    expect(endContentElement).toBeInTheDocument();
+    expect(endContentElement.tagName).toBe("SPAN");
   });
 });
