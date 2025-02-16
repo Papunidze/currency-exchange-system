@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useId } from "react";
 import styles from "./input.module.scss";
 
 export interface InputProps
@@ -14,7 +14,7 @@ const Input = ({
   endContent,
   ...props
 }: InputProps) => {
-  const uniqueId = `${label}-${Date.now()}`;
+  const uniqueId = useId();
 
   return (
     <div className={styles.inputWrapper}>
