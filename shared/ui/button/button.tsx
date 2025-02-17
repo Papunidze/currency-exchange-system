@@ -1,6 +1,7 @@
+import ProgressActivityIcon from "shared/icons";
 import styles from "./button.module.scss";
 
-type ButtonVariant =
+export type ButtonVariant =
   | "btn-primary"
   | "btn-secondary"
   | "btn-outlined"
@@ -20,6 +21,7 @@ const Button = ({
 }: ButtonProps) => {
   return (
     <button className={`${styles.btn} ${styles[variant]}`} {...props}>
+      {variant === "btn-loading" && <ProgressActivityIcon />}
       <span className="button-span">{children}</span>
     </button>
   );

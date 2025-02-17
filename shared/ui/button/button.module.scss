@@ -1,8 +1,9 @@
 @use "sass:color";
 @use "styles/variables" as *;
+@use "styles/animation" as *;
 
 %button {
-  padding: var(--padding-md) var(--padding-xl);
+  padding: var(--spacing-md) var(--spacing-xl);
   border-radius: var(--border-radius-md);
   cursor: pointer;
   font-size: var(--font-size-sm);
@@ -12,8 +13,17 @@
   border: none;
   font-family: var(--font-family-monospace);
   transition: all 0.3s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  flex-shrink: 0;
+  max-width: 100%;
+  &:active {
+    transform: scale(0.95);
+  }
   &:focus {
-    transform: scale(1.05);
+    transform: scale(0.99);
   }
 }
 
@@ -44,8 +54,13 @@
 
 .btn-loading {
   @extend %button;
+  gap: var(--spacing-sm);
   cursor: not-allowed;
-  color: var(--text-primary);
+  color: var(--text-color-primary);
+  padding: var(--spacing-sm) var(--spacing-xl);
+  svg {
+    animation: spin 1s linear infinite;
+  }
 }
 
 .button-span {
@@ -53,5 +68,5 @@
   text-overflow: ellipsis;
   text-wrap: nowrap;
   display: inline-block;
-  padding: 0 (--padding-md);
+  padding: 0 (--spaccing-md);
 }

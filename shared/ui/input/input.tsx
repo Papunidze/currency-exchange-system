@@ -3,7 +3,7 @@ import styles from "./input.module.scss";
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
-  label: string;
+  label?: string;
   startContent?: React.ReactNode;
   endContent?: React.ReactNode;
 }

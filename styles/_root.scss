@@ -45,14 +45,6 @@
     --spacing-#{$name}: #{$value};
   }
 
-  @each $name, $value in $padding {
-    --padding-#{$name}: #{$value};
-  }
-
-  @each $name, $value in $margin {
-    --margin-#{$name}: #{$value};
-  }
-
   @each $name, $value in $transition {
     --transition-#{$name}: #{$value};
   }
