@@ -13,6 +13,8 @@ export default function Page() {
       schema={signScheme}
       onSubmit={handleFormSubmit}
       submitButtonLabel="Sign In"
+      btnStyle="btn-secondary"
+      submitButtonProps={{ className: "custom-class" }}
     >
       <p>SignUp</p>
     </Form>

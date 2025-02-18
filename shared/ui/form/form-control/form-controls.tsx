@@ -1,5 +1,5 @@
 import Input from "@app-shared/ui/input";
-import styles from "./form.module.scss";
+import styles from "../form.module.scss";
 
 interface InputProps {
   label: string;
