@@ -1,19 +1,7 @@
-import ProgressActivityIcon from "shared/icons";
+import { ButtonProps } from "@app-shared/interfaces";
 import styles from "./button.module.scss";
+import ProgressActivityIcon from "@app-shared/icons";
 
-export type ButtonVariant =
-  | "btn-primary"
-  | "btn-secondary"
-  | "btn-outlined"
-  | "btn-loading"
-  | "btn-danger"
-  | "btn-warning"
-  | "btn-success";
-
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: ButtonVariant;
-}
 const Button = ({
   children,
   variant = "btn-primary",

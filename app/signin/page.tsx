@@ -1,6 +1,6 @@
 "use client";
 
-import Form from "ui/form";
+import Form from "@app-shared/ui/form";
 import { signScheme } from "./scheme";
 
 export default function Page() {

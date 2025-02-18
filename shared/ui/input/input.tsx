@@ -1,12 +1,6 @@
 import React, { useId } from "react";
 import styles from "./input.module.scss";
-
-export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
-  label?: string;
-  startContent?: React.ReactNode;
-  endContent?: React.ReactNode;
-}
+import { InputProps } from "@app-shared/interfaces";
 
 const Input = ({
   label = "Enter Text...",

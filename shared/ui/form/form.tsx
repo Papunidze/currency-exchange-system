@@ -1,21 +1,11 @@
 "use client";
 
-import { ReactNode, useState } from "react";
-import Button from "ui/button";
-import { ButtonVariant } from "ui/button/button";
-import FormControl from "./form-controls";
-import styles from "./form.module.scss";
-import { FormItem } from "app/signin/scheme";
+import { useState } from "react";
 
-export interface FormProps<T> {
-  submitButtonLabel?: string;
-  submitButtonProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
-  btnStyle?: ButtonVariant;
-  schema: FormItem[];
-  onSubmit: (data: T) => void;
-  isLoading?: boolean;
-  children?: ReactNode;
-}
+import FormControl from "./form-control/form-controls";
+import styles from "./form.module.scss";
+import { FormProps } from "@app-shared/interfaces";
+import Button from "../button";
 
 const Form = <T,>({
   submitButtonLabel = "Submit",
@@ -27,41 +17,55 @@ const Form = <T,>({
   children,
   ...props
 }: FormProps<T>) => {
-  const [formData, setFormData] = useState<T>(() => ({} as T));
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name } = e.target;
+
+    if (errors[name]) {
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
+  };
+
+  const validateForm = (formData: FormData): boolean => {
+    const newErrors: Record<string, string> = {};
+    let isValid = true;
+
+    schema.forEach((control) => {
+      const value = formData.get(control.name) as string;
+
+      if (control.validators) {
+        const validationResult = control.validators(value, formData);
+        if (validationResult) {
+          newErrors[control.name] = validationResult;
+          isValid = false;
+        }
+      }
+    });
+
+    setErrors(newErrors);
+    return isValid;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setErrors({});
     const form = new FormData(e.currentTarget as HTMLFormElement);
-    schema.forEach((control) => {
-      const value = form.get(control.name);
-      if (!value && control.validators?.required) {
-        setErrors((prev) => ({
-          ...prev,
-          [control.name]: `${control.label} is required.`,
-        }));
-        return;
-      }
-      for (const validator in control.validators) {
-        if (validator === "required") continue;
-        const regex = control.validators[validator] as RegExp;
-        if (!regex.test(value as string)) {
-          setErrors((prev) => ({
-            ...prev,
-            [control.name]: control.invalid || "Invalid value",
-          }));
-          return;
-        }
-      }
+
+    const formValues = {} as T;
+    schema.forEach((field) => {
+      const value = form.get(field.name);
+      formValues[field.name as keyof T] = value as T[keyof T];
     });
-    console.log(errors);
-    if (Object.keys(errors).length) return;
-    onSubmit(formData);
+
+    const isValid = validateForm(form);
+
+    if (isValid) {
+      onSubmit(formValues);
+    }
   };
 
   return (
@@ -72,7 +76,7 @@ const Form = <T,>({
             key={element.name}
             label={element.label}
             name={element.name}
-            type={element.type}
+            type={element.type || "text"}
             onChange={handleChange}
             error={errors[element.name]}
           />

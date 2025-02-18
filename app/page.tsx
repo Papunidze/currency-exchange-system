@@ -1,5 +1,5 @@
-import Button from "ui/button";
-import Input from "ui/input";
+import Button from "@app-shared/ui/button";
+import Input from "@app-shared/ui/input";
 
 export default function Home() {
   return (
