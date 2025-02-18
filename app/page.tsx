@@ -1,10 +1,10 @@
-import Button from "@app-shared/ui/button";
-import Input from "@app-shared/ui/input";
+import Button from '@app-shared/ui/button';
+import Input from '@app-shared/ui/input';
 
 export default function Home() {
   return (
-    <div style={{ display: "grid", gap: "5rem" }}>
-      <div style={{ display: "flex", gap: "1rem" }}>
+    <div style={{ display: 'grid', gap: '5rem' }}>
+      <div style={{ display: 'flex', gap: '1rem' }}>
         <Button>Primary</Button>
         <Button variant="btn-danger">Primary</Button>
         <Button variant="btn-loading">Primary</Button>
@@ -15,10 +15,10 @@ export default function Home() {
       </div>
       <div
         style={{
-          display: "grid",
-          gap: "10px",
-          maxWidth: "100%",
-          width: "300px",
+          display: 'grid',
+          gap: '10px',
+          maxWidth: '100%',
+          width: '300px',
         }}
       >
         <Input

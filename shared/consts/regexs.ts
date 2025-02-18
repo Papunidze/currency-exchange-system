@@ -1,8 +1,15 @@
+const email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const url = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
+const alpha = /^[A-Za-z]+$/;
+const alphanumeric = /^[A-Za-z0-9]+$/;
+const numeric = /^[0-9]+$/;
+const phone = /^\+?[\d\s-]+$/;
+const temp = '';
 export const REGEX_PATTERNS = {
-  email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-  url: /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/,
-  alpha: /^[A-Za-z]+$/,
-  alphanumeric: /^[A-Za-z0-9]+$/,
-  numeric: /^[0-9]+$/,
-  phone: /^\+?[\d\s-]+$/,
+  email,
+  url,
+  alpha,
+  alphanumeric,
+  numeric,
+  phone,
 } as const;

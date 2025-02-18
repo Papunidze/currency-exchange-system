@@ -1,9 +1,10 @@
-"use client";
+'use client';
 
-import Form from "@app-shared/ui/form";
-import { signScheme } from "./scheme";
+import Form from '@app-shared/ui/form';
 
-export default function Page() {
+import { signScheme } from './scheme';
+
+export function Page() {
   const handleFormSubmit = (data: unknown) => {
     console.log(data);
   };
@@ -14,7 +15,7 @@ export default function Page() {
       onSubmit={handleFormSubmit}
       submitButtonLabel="Sign In"
       btnStyle="btn-secondary"
-      submitButtonProps={{ className: "custom-class" }}
+      submitButtonProps={{ className: 'custom-class' }}
     >
       <p>SignUp</p>
     </Form>
