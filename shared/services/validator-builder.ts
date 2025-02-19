@@ -1,6 +1,6 @@
-import { DEFAULT_MESSAGES } from "@app-shared/consts/messages";
-import { REGEX_PATTERNS } from "@app-shared/consts/regexs";
-import { ValidatorFn } from "@app-shared/interfaces";
+import { DEFAULT_MESSAGES } from '@app-shared/constants/messages';
+import { REGEX_PATTERNS } from '@app-shared/constants/regexs';
+import { ValidatorFn } from '@app-shared/interfaces';
 
 export class ValidationBuilder<T> {
   private readonly validations: ValidatorFn<T>[] = [];
@@ -9,16 +9,16 @@ export class ValidationBuilder<T> {
 
   required(message?: string): this {
     this.validations.push((value: T) =>
-      value ? undefined : message || DEFAULT_MESSAGES.required(this.type)
+      value ? undefined : message || DEFAULT_MESSAGES.required(this.type),
     );
     return this;
   }
 
   min(minValue: number, message?: string): this {
     this.validations.push((value: T) => {
-      if (typeof value === "string" && value.length < minValue) {
+      if (typeof value === 'string' && value.length < minValue) {
         return message || DEFAULT_MESSAGES.min(this.type, minValue);
-      } else if (typeof value === "number" && value < minValue) {
+      } else if (typeof value === 'number' && value < minValue) {
         return message || DEFAULT_MESSAGES.min(this.type, minValue);
       }
       return undefined;
@@ -28,9 +28,9 @@ export class ValidationBuilder<T> {
 
   max(maxValue: number, message?: string): this {
     this.validations.push((value: T) => {
-      if (typeof value === "string" && value.length > maxValue) {
+      if (typeof value === 'string' && value.length > maxValue) {
         return message || DEFAULT_MESSAGES.max(this.type, maxValue);
-      } else if (typeof value === "number" && value > maxValue) {
+      } else if (typeof value === 'number' && value > maxValue) {
         return message || DEFAULT_MESSAGES.max(this.type, maxValue);
       }
       return undefined;
@@ -40,7 +40,7 @@ export class ValidationBuilder<T> {
 
   matches(pattern: RegExp, message: string): this {
     this.validations.push((value: T) => {
-      if (typeof value === "string" && !pattern.test(value)) {
+      if (typeof value === 'string' && !pattern.test(value)) {
         return message;
       }
       return undefined;
@@ -51,7 +51,7 @@ export class ValidationBuilder<T> {
   email(message?: string): this {
     return this.matches(
       REGEX_PATTERNS.email,
-      message || DEFAULT_MESSAGES.email
+      message || DEFAULT_MESSAGES.email,
     );
   }
 
@@ -62,28 +62,28 @@ export class ValidationBuilder<T> {
   alpha(message?: string): this {
     return this.matches(
       REGEX_PATTERNS.alpha,
-      message || DEFAULT_MESSAGES.alpha
+      message || DEFAULT_MESSAGES.alpha,
     );
   }
 
   alphanumeric(message?: string): this {
     return this.matches(
       REGEX_PATTERNS.alphanumeric,
-      message || DEFAULT_MESSAGES.alphanumeric
+      message || DEFAULT_MESSAGES.alphanumeric,
     );
   }
 
   numeric(message?: string): this {
     return this.matches(
       REGEX_PATTERNS.numeric,
-      message || DEFAULT_MESSAGES.numeric
+      message || DEFAULT_MESSAGES.numeric,
     );
   }
 
   phone(message?: string): this {
     return this.matches(
       REGEX_PATTERNS.phone,
-      message || DEFAULT_MESSAGES.phone
+      message || DEFAULT_MESSAGES.phone,
     );
   }
 

@@ -1,10 +1,18 @@
-import { ReactNode } from "react";
-import { ButtonVariant } from "./ui.interface";
+import { ReactNode } from 'react';
+import { ButtonVariant } from './ui.interface';
 
-export interface SchemaField
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+export type InputType =
+  | 'text'
+  | 'password'
+  | 'email'
+  | 'number'
+  | 'tel'
+  | 'date';
+
+export interface SchemaField {
   name: string;
   label: string;
+  type: InputType;
   validators?: ValidatorFn<string>;
 }
 
@@ -20,5 +28,5 @@ export interface FormProps<T> {
 
 export type ValidatorFn<T> = (
   value: T,
-  formData?: FormData
+  formData?: FormData,
 ) => string | undefined;

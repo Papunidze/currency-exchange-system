@@ -1,17 +1,16 @@
 'use client';
 
 import Form from '@app-shared/ui/form';
+import { newSchema } from './scheme';
 
-import { signScheme } from './scheme';
-
-export function Page() {
+export default function Page() {
   const handleFormSubmit = (data: unknown) => {
     console.log(data);
   };
 
   return (
     <Form
-      schema={signScheme}
+      schema={newSchema}
       onSubmit={handleFormSubmit}
       submitButtonLabel="Sign In"
       btnStyle="btn-secondary"

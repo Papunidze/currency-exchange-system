@@ -1,5 +1,5 @@
-import Input from "@app-shared/ui/input";
-import styles from "../form.module.scss";
+import Input from '@app-shared/ui/input';
+import styles from '../form.module.scss';
 
 interface InputProps {
   label: string;
@@ -20,7 +20,7 @@ const FormControl = ({ label, name, type, onChange, error }: InputProps) => (
     />
     <p
       className={`${styles.form__error__message} ${
-        error ? styles["form__error__message--visible"] : ""
+        error ? styles['form__error__message--visible'] : ''
       }`}
     >
       {error}
