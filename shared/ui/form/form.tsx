@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
 
-import FormControl from "./form-control/form-controls";
-import styles from "./form.module.scss";
-import { FormProps } from "@app-shared/interfaces";
-import Button from "../button";
+import FormControl from './form-control/form-controls';
+import styles from './form.module.scss';
+import { FormProps } from '@app-shared/interfaces';
+import Button from '@app-shared/ui/button';
 
-const Form = <T,>({
-  submitButtonLabel = "Submit",
+const Form = <T extends {}>({
+  submitButtonLabel = 'Submit',
   submitButtonProps,
-  btnStyle = "btn-primary",
+  btnStyle = 'btn-primary',
   schema,
   onSubmit,
   isLoading,
@@ -71,25 +71,25 @@ const Form = <T,>({
   return (
     <form {...props} onSubmit={handleSubmit} className={styles.form}>
       <div className={styles.form__container}>
-        {schema.map((element) => (
+        {schema.map((element, key) => (
           <FormControl
             key={element.name}
             label={element.label}
             name={element.name}
-            type={element.type || "text"}
+            type={element.type || 'text'}
             onChange={handleChange}
             error={errors[element.name]}
           />
         ))}
-        {children}
         <Button
           disabled={isLoading}
-          variant={isLoading ? "btn-loading" : btnStyle}
+          variant={isLoading ? 'btn-loading' : btnStyle}
           type="submit"
           {...submitButtonProps}
         >
           {submitButtonLabel}
         </Button>
+        {children}
       </div>
     </form>
   );

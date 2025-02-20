@@ -24,6 +24,7 @@ export interface FormProps<T> {
   onSubmit: (data: T) => void;
   isLoading?: boolean;
   children?: ReactNode;
+  props?: React.ButtonHTMLAttributes<HTMLFormElement>;
 }
 
 export type ValidatorFn<T> = (

@@ -1,4 +1,5 @@
 @use 'styles/variables' as *;
+@use 'styles/mixins' as *;
 @use 'sass:color';
 
 .input__wrapper {
@@ -7,8 +8,8 @@
   align-items: center;
   justify-content: flex-start;
   border-radius: var(--border-radius-md);
-  border: 2px solid var(--border-primary);
-  background-color: var(--body-bg, white);
+  border: 2px solid var(--border-secondary);
+  background-color: var(--background-light);
 
   &:focus-within {
     outline: none;
@@ -35,7 +36,7 @@
   left: var(--spacing-sm);
   top: 50%;
   padding: 0 var(--spacing-xs);
-  background-color: var(--body-bg, white);
+  background-color: var(--background-light);
   white-space: nowrap;
   transform-origin: 0 0;
   transition: transform 200ms ease-in-out;
@@ -67,10 +68,17 @@
   -moz-appearance: none;
   appearance: none;
   transition: all 0.15s ease-in-out;
+  @include respond(md) {
+    padding: 0.55rem var(--spacing-sm);
+  }
   &:focus,
   &:not(:placeholder-shown) {
     & + .input__label {
+      background: var(--background-light);
       transform: translateY(-170%) scale(0.8);
+      @include respond(md) {
+        transform: translateY(-150%) scale(0.8);
+      }
       color: $primary;
     }
   }
@@ -79,7 +87,7 @@
     color: transparent;
   }
   &:disabled {
-    background-color: var(--bs-secondary-bg, #e9ecef);
+    background-color: var(--background-primary, #e9ecef);
     opacity: 0.75;
     cursor: not-allowed;
   }

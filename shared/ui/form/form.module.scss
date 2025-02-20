@@ -2,8 +2,7 @@
   width: 100%;
   max-width: 32rem;
   margin: 0 auto;
-  background-color: var(--backgrounds-primary);
-  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-lg);
 
   &__container {
     display: flex;

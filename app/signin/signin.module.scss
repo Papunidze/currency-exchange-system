@@ -1,0 +1,60 @@
+@use 'styles/mixins' as *;
+
+.form {
+  &__wrapper {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md);
+  }
+  &__container {
+    background-color: var(--background-light);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-md);
+    padding: var(--shadow-md) var(--spacing-sm);
+    width: 100%;
+    max-width: 32rem;
+  }
+  &__title {
+    padding: var(--spacing-xl) 0;
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-xl);
+    display: flex;
+    justify-content: center;
+    margin-top: var(--spacing-md);
+  }
+  &__footer {
+    display: grid;
+    gap: var(--spacing-md);
+    text-align: center;
+  }
+}
+
+.forgot__password {
+  text-align: right;
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+}
+
+.social__buttons {
+  display: grid;
+  gap: var(--spacing-sm);
+  justify-items: center;
+
+  button {
+    width: 100%;
+  }
+}
+.signup__text {
+  margin-top: var(--spacing-md);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  justify-content: center;
+  width: 100%;
+  @include respond(md) {
+    font-size: var(--font-size-sm);
+  }
+}

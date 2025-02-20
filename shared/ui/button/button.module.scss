@@ -1,6 +1,6 @@
-@use "sass:color";
-@use "styles/variables" as *;
-@use "styles/animation" as *;
+@use 'sass:color';
+@use 'styles/variables' as *;
+@use 'styles/animation' as *;
 
 %button {
   padding: var(--spacing-md) var(--spacing-xl);
@@ -45,9 +45,9 @@
   @extend %button;
   background-color: transparent;
   color: var(--text-primary);
-  border: 1px solid var(--border-primary);
+  border: 1px solid var(--border-secondary);
   &:hover {
-    border: 1px solid var(--border-primary);
+    border: 1px solid var(--border-secondary);
     background-color: rgba(157, 148, 153, 0.11);
   }
 }

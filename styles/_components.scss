@@ -1,19 +1,107 @@
-@use "variables" as *;
-@use "mixins" as *;
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'sass:color';
 
 .layout {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 100vh;
   max-height: -webkit-fill-available;
   overflow: auto;
   padding: var(--spacing-md);
-  background-color: var(--backgrounds-primary);
-  color: var(--text-primary);
+  background-color: var(--background-primary);
+  color: var(--text-color-primary);
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-regular);
   font-family: var(--font-family-base);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.grid {
+  display: grid;
+  gap: var(--spacing-md);
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+.grid-cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+.grid-cols-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+.flex-col {
+  flex-direction: column;
+}
+.flex-center {
+  justify-content: center;
+  align-items: center;
+}
+.flex-between {
+  justify-content: space-between;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.link {
+  color: var(--text-color-link);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  font-weight: var(--font-weight-bold);
+  @include respond(md) {
+    font-size: var(--font-size-sm);
+  }
+  &:hover {
+    color: color.scale(rgb(41, 153, 245), $lightness: 20%);
+    text-decoration: underline;
+  }
+}
+
+.hidden {
+  display: none;
+}
+.visible {
+  display: block;
+}
+.inline-block {
+  display: inline-block;
+}
+.text-center {
+  text-align: center;
+}
+
+.full {
+  width: 100%;
+}
+
+.separator {
+  margin-top: 25px;
+  margin-bottom: 15px;
+  font-size: var(--font-size-sm);
+  text-align: center;
+
+  ::before {
+    content: '';
+    display: block;
+    margin: 10px;
+    margin-bottom: -8px;
+    border-bottom: 1px solid var(--border-secondary);
+  }
+  :nth-child(1) {
+    color: var(--text-color-primary);
+    background: var(--background-light);
+    font-family: var(--font-family-heading);
+  }
 }
