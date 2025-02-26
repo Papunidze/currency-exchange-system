@@ -13,6 +13,8 @@ const alpha = 'Only alphabetic characters allowed';
 const alphanumeric = 'Only alphanumeric characters allowed';
 const numeric = 'Only numeric characters allowed';
 const phone = 'Invalid phone number format';
+const password =
+  'Password must contain at least one uppercase letter, one lowercase letter, one number and one special character';
 
 export const DEFAULT_MESSAGES = {
   required,
@@ -24,4 +26,5 @@ export const DEFAULT_MESSAGES = {
   alphanumeric,
   numeric,
   phone,
+  password,
 } as const;

@@ -1,4 +1,4 @@
-import { InputType, SchemaField, ValidatorFn } from '@app-shared/interfaces';
+import { InputType, SchemaField, Validators } from '@app-shared/interfaces';
 
 export class SchemaBuilder {
   private readonly schema: SchemaField[] = [];
@@ -30,7 +30,7 @@ class FieldBuilder {
     return this;
   }
 
-  validation(validator: ValidatorFn<string>) {
+  validation(validator: Validators) {
     this.field.validators = validator;
     return this;
   }

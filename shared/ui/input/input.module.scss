@@ -13,10 +13,10 @@
 
   &:focus-within {
     outline: none;
-    border-color: $primary;
+    border-color: var(--primary);
     .input__start,
     .input__end {
-      border-color: $primary;
+      border-color: var(--primary);
     }
   }
 
@@ -76,10 +76,10 @@
     & + .input__label {
       background: var(--background-light);
       transform: translateY(-170%) scale(0.8);
+      color: var(--primary);
       @include respond(md) {
         transform: translateY(-150%) scale(0.8);
       }
-      color: $primary;
     }
   }
 

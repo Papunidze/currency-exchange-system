@@ -1,6 +1,9 @@
-@use "variables" as *;
+@use 'variables' as *;
 
 :root {
+  --primary: #{$primary};
+  --secondary: #{$secondary};
+
   @each $name, $value in $buttons-variants {
     --button-variant-#{$name}: #{$value};
   }

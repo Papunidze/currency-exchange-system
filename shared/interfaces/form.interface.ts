@@ -9,11 +9,16 @@ export type InputType =
   | 'tel'
   | 'date';
 
+export type Validators =
+  | ValidatorFn<string>
+  | ValidatorFn<number>
+  | ValidatorFn<boolean>;
+
 export interface SchemaField {
   name: string;
   label: string;
   type: InputType;
-  validators?: ValidatorFn<string>;
+  validators?: Validators;
 }
 
 export interface FormProps<T> {

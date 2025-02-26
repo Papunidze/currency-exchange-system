@@ -21,7 +21,8 @@
     ],
     "paths": {
       "@app-shared/*": ["shared/*"],
-      "@app-styles/*": ["styles/*"]
+      "@app-styles/*": ["styles/*"],
+      "@app-image/*": ["public/image/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

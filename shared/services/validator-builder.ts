@@ -55,6 +55,12 @@ export class ValidationBuilder<T> {
     );
   }
 
+  password(message?: string): this {
+    return this.matches(
+      REGEX_PATTERNS.password,
+      message || DEFAULT_MESSAGES.password,
+    );
+  }
   url(message?: string): this {
     return this.matches(REGEX_PATTERNS.url, message || DEFAULT_MESSAGES.url);
   }

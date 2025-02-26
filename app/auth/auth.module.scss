@@ -46,6 +46,12 @@
   button {
     width: 100%;
   }
+
+  img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
 }
 .signup__text {
   margin-top: var(--spacing-md);

@@ -4,7 +4,9 @@ const alpha = /^[A-Za-z]+$/;
 const alphanumeric = /^[A-Za-z0-9]+$/;
 const numeric = /^[0-9]+$/;
 const phone = /^\+?[\d\s-]+$/;
-const temp = '';
+const password =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
 export const REGEX_PATTERNS = {
   email,
   url,
@@ -12,4 +14,5 @@ export const REGEX_PATTERNS = {
   alphanumeric,
   numeric,
   phone,
+  password,
 } as const;
