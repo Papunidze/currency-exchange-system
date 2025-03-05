@@ -10,7 +10,7 @@
   border-radius: var(--border-radius-md);
   border: 2px solid var(--border-secondary);
   background-color: var(--background-light);
-
+  width: 100%;
   &:focus-within {
     outline: none;
     border-color: var(--primary);
@@ -47,13 +47,19 @@
   pointer-events: none;
   transform: translateY(-50%);
   z-index: 1;
+  ::before {
+    content: '';
+    width: 100%;
+    height: 10px;
+    background-color: red;
+  }
 }
 
 .input__field {
   display: block;
   width: 100%;
   max-width: 100%;
-  padding: 0.75rem var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-sm);
   font-family: var(--font-family-base);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-regular, 400);
@@ -75,10 +81,10 @@
   &:not(:placeholder-shown) {
     & + .input__label {
       background: var(--background-light);
-      transform: translateY(-170%) scale(0.8);
+      transform: translateY(-140%) scale(0.8);
       color: var(--primary);
       @include respond(md) {
-        transform: translateY(-150%) scale(0.8);
+        transform: translateY(-145%) scale(0.8);
       }
     }
   }

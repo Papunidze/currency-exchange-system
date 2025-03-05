@@ -1,9 +1,10 @@
 @use 'sass:color';
 @use 'styles/variables' as *;
 @use 'styles/animation' as *;
+@use 'styles/mixins' as *;
 
 %button {
-  padding: var(--spacing-md) var(--spacing-xl);
+  padding: var(--spacing-sm) var(--spacing-md);
   border-radius: var(--border-radius-md);
   cursor: pointer;
   font-size: var(--font-size-sm);
@@ -11,7 +12,7 @@
   user-select: none;
   outline: none;
   border: none;
-  font-family: var(--font-family-monospace);
+  font-family: var(--font-family-base);
   transition: all 0.3s ease-in-out;
   display: inline-flex;
   align-items: center;
@@ -26,6 +27,9 @@
   }
   &:focus {
     transform: scale(0.99);
+  }
+  @include respond(md) {
+    padding: 0;
   }
 }
 

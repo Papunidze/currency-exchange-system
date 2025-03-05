@@ -1,0 +1,64 @@
+.container {
+}
+
+.barContainer {
+  .sidebar {
+  }
+
+  .mainContent {
+  }
+
+  .dashboard {
+  }
+
+  .dashboardGrid {
+    @media (max-width: 1024px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .card {
+  }
+
+  .cardTitle {
+  }
+
+  .cardContent {
+  }
+
+  .exchangeSection,
+  .reportsSection,
+  .profitSection {
+  }
+
+  .exchangeCalculator,
+  .currentRates,
+  .exchangeHistory,
+  .reportsList,
+  .profitCalculation {
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .barContainer {
+    }
+
+    .mainContent {
+    }
+
+    .dashboard {
+    }
+  }
+
+  @media (max-width: 640px) {
+    .barContainer {
+    }
+    &.open {
+    }
+  }
+
+  .mainContent {
+  }
+}

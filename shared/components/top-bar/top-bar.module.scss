@@ -1,0 +1,125 @@
+.topbar {
+  width: 100%;
+  height: 64px;
+  background-color: var(--background-light);
+  border-bottom: 1px solid var(--border-color);
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 0 var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 100;
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  max-width: 350px;
+  width: 100%;
+}
+
+.searchButton {
+  background: transparent !important;
+  &:hover {
+    color: var(--text-color-primary);
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.actionButton {
+  position: relative;
+  background: transparent !important;
+
+  &:hover {
+    background-color: var(--background-hover) !important;
+    transform: scale(1.05);
+  }
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+.badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background-color: var(--color-danger);
+  color: var(--text-color-light);
+  border-radius: 50%;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.currentTime {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-left: var(--spacing-lg);
+
+  .date {
+    font-size: 0.75rem;
+    color: var(--text-color-secondary);
+    margin-bottom: 2px;
+  }
+
+  .time {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-color-primary);
+  }
+}
+
+.userProfile {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-left: var(--spacing-lg);
+  cursor: pointer;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-lg);
+
+  &:hover {
+    background-color: var(--background-hover);
+  }
+}
+
+.userAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.userName {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-color-primary);
+}
+
+.userRole {
+  font-size: 0.75rem;
+  color: var(--text-color-secondary);
+}

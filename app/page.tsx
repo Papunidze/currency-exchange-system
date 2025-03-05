@@ -1,45 +1,44 @@
-import Button from '@app-shared/ui/button';
-import Input from '@app-shared/ui/input';
+import LeftBar from '@app-shared/components/left-bar';
+import TopBar from '@app-shared/components/top-bar';
+import styles from './page.module.scss';
 
 export default function Home() {
   return (
-    <div style={{ display: 'grid', gap: '5rem' }}>
-      <div style={{ display: 'flex', gap: '1rem' }}>
-        <Button>Primary</Button>
-        <Button variant="btn-danger">Primary</Button>
-        <Button variant="btn-loading">Primary</Button>
-        <Button variant="btn-outlined">Primary</Button>
-        <Button variant="btn-secondary">Primary</Button>
-        <Button variant="btn-success">Primary</Button>
-        <Button variant="btn-warning">Primary</Button>
-      </div>
-      <div
-        style={{
-          display: 'grid',
-          gap: '10px',
-          maxWidth: '100%',
-          width: '300px',
-        }}
-      >
-        <Input
-          label="Name"
-          type="name"
-          startContent={
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="24px"
-              viewBox="0 -960 960 960"
-              width="24px"
-              fill="black"
-            >
-              <path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z" />
-            </svg>
-          }
-        />
-        <Input label="Email" type="email" endContent={<p>2</p>} />
-        <Input label="Password" type="password" />
-        <Input label="Number" type="number" />
-        <Button type="submit">Submit</Button>
+    <div className={styles.container}>
+      <section className={styles.barContainer}>
+        <TopBar />
+        <aside className={styles.sidebar}>
+          <LeftBar />
+        </aside>
+      </section>
+
+      <div className={styles.mainContent}>
+        <main className={styles.dashboard}>
+          <div className={styles.dashboardGrid}>
+            <section className={`${styles.card} ${styles.exchangeSection}`}>
+              <h2 className={styles.cardTitle}>Currency Exchange</h2>
+              <div className={styles.cardContent}>
+                <div className={styles.exchangeCalculator}></div>
+                <div className={styles.currentRates}></div>
+              </div>
+            </section>
+
+            <section className={`${styles.card} ${styles.reportsSection}`}>
+              <h2 className={styles.cardTitle}>Reports & History</h2>
+              <div className={styles.cardContent}>
+                <div className={styles.exchangeHistory}></div>
+                <div className={styles.reportsList}></div>
+              </div>
+            </section>
+          </div>
+
+          <section className={`${styles.card} ${styles.profitSection}`}>
+            <h2 className={styles.cardTitle}>Profit Analysis</h2>
+            <div className={styles.cardContent}>
+              <div className={styles.profitCalculation}></div>
+            </div>
+          </section>
+        </main>
       </div>
     </div>
   );

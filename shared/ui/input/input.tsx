@@ -7,6 +7,7 @@ const Input = ({
   startContent,
   endContent,
   placeholder = '',
+  className = '',
   ...props
 }: InputProps) => {
   const uniqueId = useId();
@@ -17,10 +18,10 @@ const Input = ({
         <div className={styles.input__start}>{startContent}</div>
       )}
       <input
-        className={styles.input__field}
-        {...props}
-        id={uniqueId}
+        className={`${styles.input__field} ${className}`}
         placeholder={placeholder}
+        id={uniqueId}
+        {...props}
       />
       <label className={styles.input__label} htmlFor={uniqueId}>
         {label}
