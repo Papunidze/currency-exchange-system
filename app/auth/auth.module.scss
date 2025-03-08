@@ -38,12 +38,12 @@
   cursor: pointer;
 }
 
-.social__buttons {
+.social__ <IconButtons {
   display: grid;
   gap: var(--spacing-sm);
   justify-items: center;
 
-  button {
+  <IconButton {
     width: 100%;
   }
 

@@ -1,2 +1,2 @@
-export { default } from "./form";
-export { default as FormControls } from "./form-control/form-controls";
+export { default } from './form';
+export type { FormProps } from './form.inerfaces';

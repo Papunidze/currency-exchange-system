@@ -4,8 +4,8 @@
   --primary: #{$primary};
   --secondary: #{$secondary};
 
-  @each $name, $value in $buttons-variants {
-    --button-variant-#{$name}: #{$value};
+  @each $name, $value in $variants {
+    --variant-#{$name}: #{$value};
   }
 
   @each $name, $value in $text-colors {

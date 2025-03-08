@@ -1,0 +1,98 @@
+.dialog {
+  position: relative;
+  width: 90%;
+  max-width: 100%;
+  background: var(--background-light);
+  border-radius: var(--border-radius-lg);
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  opacity: 0;
+  transform: scale(0.95) translateY(-10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+
+  &[data-visible='true'] {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+
+  // Size variants
+  &.sm {
+    max-width: 440px;
+  }
+  &.md {
+    max-width: 540px;
+  }
+  &.lg {
+    max-width: 720px;
+  }
+  &.xl {
+    max-width: 1080px;
+  }
+  &.full {
+    width: calc(100% - 32px);
+    height: calc(100% - 32px);
+  }
+
+  // Position variants
+  &.center {
+    margin: auto;
+    align-self: center;
+  }
+
+  &.top {
+    margin-top: 16px;
+    align-self: flex-start;
+  }
+}
+
+.content {
+  position: relative;
+  padding: 24px;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(var(--primary-rgb), 0.15);
+    border-radius: 3px;
+
+    &:hover {
+      background-color: rgba(var(--primary-rgb), 0.25);
+    }
+  }
+}
+
+.closeButton {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 1;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-color-primary);
+  margin: 0 0 8px;
+  padding-right: 40px;
+}
+
+.description {
+  font-size: 0.875rem;
+  color: var(--text-color-secondary);
+  margin: 0 0 20px;
+  line-height: 1.5;
+}
+
+.body {
+  position: relative;
+}

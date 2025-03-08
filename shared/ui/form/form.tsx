@@ -1,98 +1,154 @@
 'use client';
 
-import { useState } from 'react';
-
-import FormControl from './form-control/form-controls';
-import styles from './form.module.scss';
-import { FormProps } from '@app-shared/interfaces';
+import React from 'react';
 import Button from '@app-shared/ui/button';
+import Input from '@app-shared/ui/input';
+import Select from '@app-shared/ui/select';
+import styles from './form.module.scss';
+import { FormProps } from './form.inerfaces';
+import { SchemaField, SelectField } from '@app-shared/services/schema';
 
-const Form = <T extends {}>({
-  submitButtonLabel = 'Submit',
-  submitButtonProps,
-  btnStyle = 'btn-primary',
+export default function CreateForm<T extends Record<string, any>>({
   schema,
   onSubmit,
-  isLoading,
-  children,
-  ...props
-}: FormProps<T>) => {
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  defaultValues,
+  isLoading = false,
+  submitLabel = 'Submit',
+  selectVariant = 'primary',
+  buttonVariant = 'primary',
+  size = 'small',
+  title = 'Form',
+  content,
+}: FormProps<T>) {
+  const [formData, setFormData] = React.useState<Partial<T>>(
+    defaultValues || {},
+  );
+  const [errors, setErrors] = React.useState<Record<string, string>>({});
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name } = e.target;
-
-    if (errors[name]) {
-      setErrors((prev) => {
-        const newErrors = { ...prev };
-        delete newErrors[name];
-        return newErrors;
-      });
+  const validateField = (field: SchemaField, value: string) => {
+    if (field.required && !value) {
+      return `${field.label} is required`;
     }
+    if (field.validators) {
+      return (field.validators as (val: string) => string | undefined)(value);
+    }
+    return undefined;
   };
 
-  const validateForm = (formData: FormData): boolean => {
+  const handleChange = (field: SchemaField, value: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field.name]: value,
+    }));
+
+    const error = validateField(field, value);
+    setErrors((prev) => ({
+      ...prev,
+      [field.name]: error || '',
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    let hasErrors = false;
     const newErrors: Record<string, string> = {};
-    let isValid = true;
 
-    schema.forEach((control) => {
-      const value = formData.get(control.name) as string;
+    schema.forEach((field) => {
+      const value = String(formData[field.name as keyof T] || '');
+      const error = validateField(field, value);
 
-      if (control.validators) {
-        const validationResult = control.validators(value, formData);
-        if (validationResult) {
-          newErrors[control.name] = validationResult;
-          isValid = false;
-        }
+      if (error) {
+        hasErrors = true;
+        newErrors[field.name] = error;
       }
     });
 
     setErrors(newErrors);
-    return isValid;
+
+    if (!hasErrors) {
+      onSubmit(formData as T);
+    }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const form = new FormData(e.currentTarget as HTMLFormElement);
+  const renderField = (field: SchemaField) => {
+    const value = String(formData[field.name as keyof T] || '');
+    const error = errors[field.name];
 
-    const formValues = {} as T;
-    schema.forEach((field) => {
-      const value = form.get(field.name);
-      formValues[field.name as keyof T] = value as T[keyof T];
-    });
-
-    const isValid = validateForm(form);
-
-    if (isValid) {
-      onSubmit(formValues);
+    switch (field.type) {
+      case 'select':
+        const selectField = field as SelectField;
+        return (
+          <Select
+            key={field.name}
+            label={field.label}
+            value={value}
+            size={size}
+            options={selectField.options.map((opt) => ({
+              ...opt,
+              value: String(opt.value),
+            }))}
+            onChange={(val: string) => handleChange(field, val)}
+            error={errors[field.name]}
+            required={field.required}
+            variant={selectVariant}
+            placeholder={field.placeholder}
+          />
+        );
+      case 'textarea':
+        return (
+          <Input
+            key={field.name}
+            label={field.label}
+            value={value}
+            size={size}
+            onChange={(
+              e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+            ) => handleChange(field, e.target.value)}
+            errorMessage={errors[field.name]}
+            required={field.required}
+            placeholder={field.placeholder}
+          />
+        );
+      default:
+        return (
+          <Input
+            key={field.name}
+            type={field.type}
+            label={field.label}
+            value={value}
+            size={size}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleChange(field, e.target.value)
+            }
+            isInvalid={!!error}
+            errorMessage={errors[field.name]}
+            placeholder={field.placeholder}
+          />
+        );
     }
   };
 
   return (
-    <form {...props} onSubmit={handleSubmit} className={styles.form}>
-      <div className={styles.form__container}>
-        {schema.map((element, key) => (
-          <FormControl
-            key={element.name}
-            label={element.label}
-            name={element.name}
-            type={element.type || 'text'}
-            onChange={handleChange}
-            error={errors[element.name]}
-          />
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <h1>{title}</h1>
+      <div className={styles.fields}>
+        {schema.map((field) => (
+          <div key={field.name} className={styles.field}>
+            {renderField(field)}
+          </div>
         ))}
+      </div>
+      {content}
+      <div className={styles.actions}>
         <Button
-          disabled={isLoading}
-          variant={isLoading ? 'btn-loading' : btnStyle}
           type="submit"
-          {...submitButtonProps}
+          isLoading={isLoading}
+          variant={buttonVariant}
+          size={size}
         >
-          {submitButtonLabel}
+          {submitLabel || 'Submit'}
         </Button>
-        {children}
       </div>
     </form>
   );
-};
-
-export default Form;
+}

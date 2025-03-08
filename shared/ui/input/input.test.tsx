@@ -1,66 +1,116 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import "@testing-library/jest-dom";
-import Input from "./input";
+import { render, screen, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import Input from './input';
 
-describe("Input component", () => {
-  it("renders with the correct label text", () => {
-    render(<Input label="Username" />);
-    const labelElement = screen.getByText("Username");
-    expect(labelElement).toBeInTheDocument();
-    expect(labelElement.tagName).toBe("LABEL");
+describe('Input component', () => {
+  it('displays helper text when provided', () => {
+    render(<Input label="Username" helperText="Enter your username" />);
+    expect(screen.getByText('Enter your username')).toBeInTheDocument();
   });
 
-  it("applies the correct placeholder when not provided", () => {
-    render(<Input label="Username" placeholder="" />);
-    const inputElement = screen.getByPlaceholderText("");
-    expect(inputElement).toBeInTheDocument();
-  });
-
-  it("renders with the correct value when passed", () => {
-    render(<Input label="Username" value="testuser" />);
-    const inputElement = screen.getByDisplayValue("testuser");
-    expect(inputElement).toBeInTheDocument();
-  });
-
-  it("should call onChange when the input value changes", () => {
-    const handleChange = jest.fn();
-    render(<Input label="Username" onChange={handleChange} />);
-    const inputElement = screen.getByLabelText("Username");
-    fireEvent.change(inputElement, { target: { value: "newvalue" } });
-    expect(handleChange).toHaveBeenCalledTimes(1);
-  });
-
-  it("applies additional props to the input element", () => {
+  it('displays error message when isInvalid is true', () => {
     render(
       <Input
         label="Username"
-        data-testid="custom-input"
-        aria-label="custom input"
-      />
+        isInvalid={true}
+        errorMessage="Username is required"
+      />,
     );
-    const inputElement = screen.getByTestId("custom-input");
-    expect(inputElement).toBeInTheDocument();
-    expect(inputElement).toHaveAttribute("aria-label", "custom input");
+    expect(screen.getByText('Username is required')).toBeInTheDocument();
+    expect(screen.getByText('Username is required')).toHaveClass('errorText');
   });
 
-  it("should be focusable", () => {
+  it('prioritizes error message over helper text when isInvalid is true', () => {
+    render(
+      <Input
+        label="Username"
+        helperText="Enter your username"
+        errorMessage="Username is required"
+        isInvalid={true}
+      />,
+    );
+    expect(screen.getByText('Username is required')).toBeInTheDocument();
+    expect(screen.queryByText('Enter your username')).not.toBeInTheDocument();
+  });
+
+  it('applies medium size class by default', () => {
     render(<Input label="Username" />);
-    const inputElement = screen.getByLabelText("Username");
-    inputElement.focus();
-    expect(inputElement).toHaveFocus();
+    const inputWrapper = screen.getByLabelText('Username').closest('div');
+    expect(inputWrapper?.parentElement).toHaveClass('medium');
   });
 
-  it("renders startContent correctly", () => {
-    render(<Input label="Username" startContent={<span>Start</span>} />);
-    const startContentElement = screen.getByText("Start");
-    expect(startContentElement).toBeInTheDocument();
-    expect(startContentElement.tagName).toBe("SPAN");
+  it('applies the correct size class based on size prop', () => {
+    const { rerender } = render(<Input label="Username" size="small" />);
+    let inputWrapper = screen.getByLabelText('Username').closest('div');
+    expect(inputWrapper?.parentElement).toHaveClass('small');
+
+    rerender(<Input label="Username" size="large" />);
+    inputWrapper = screen.getByLabelText('Username').closest('div');
+    expect(inputWrapper?.parentElement).toHaveClass('large');
   });
 
-  it("renders endContent correctly", () => {
-    render(<Input label="Username" endContent={<span>End</span>} />);
-    const endContentElement = screen.getByText("End");
-    expect(endContentElement).toBeInTheDocument();
-    expect(endContentElement.tagName).toBe("SPAN");
+  it('applies fullWidth class by default', () => {
+    render(<Input label="Username" />);
+    const container = screen.getByLabelText('Username').closest('div')
+      ?.parentElement?.parentElement;
+    expect(container).toHaveClass('fullWidth');
+  });
+
+  it("doesn't apply fullWidth class when fullWidth=false", () => {
+    render(<Input label="Username" fullWidth={false} />);
+    const container = screen.getByLabelText('Username').closest('div')
+      ?.parentElement?.parentElement;
+    expect(container).not.toHaveClass('fullWidth');
+  });
+
+  it('sets disabled attribute on input element when disabled=true', () => {
+    render(<Input label="Username" disabled />);
+    expect(screen.getByLabelText('Username')).toBeDisabled();
+    const container = screen.getByLabelText('Username').closest('div')
+      ?.parentElement?.parentElement;
+    expect(container).toHaveClass('disabled');
+  });
+
+  it('applies valid class when isValid=true', () => {
+    render(<Input label="Username" isValid={true} />);
+    const inputWrapper = screen.getByLabelText('Username').closest('div');
+    expect(inputWrapper?.parentElement).toHaveClass('valid');
+  });
+
+  // ARIA attributes
+  it('sets aria-invalid attribute when isInvalid=true', () => {
+    render(<Input label="Username" isInvalid={true} />);
+    expect(screen.getByLabelText('Username')).toHaveAttribute(
+      'aria-invalid',
+      'true',
+    );
+  });
+
+  it('sets aria-describedby attribute when helper text is provided', () => {
+    render(<Input label="Username" helperText="Helper text" />);
+    const input = screen.getByLabelText('Username');
+    expect(input).toHaveAttribute('aria-describedby');
+    const describedById = input.getAttribute('aria-describedby');
+    expect(screen.getByText('Helper text').id).toBe(describedById);
+  });
+
+  // Event handlers
+  it('should call onFocus when input is focused', () => {
+    const handleFocus = jest.fn();
+    render(<Input label="Username" onFocus={handleFocus} />);
+    const inputElement = screen.getByLabelText('Username');
+
+    fireEvent.focus(inputElement);
+    expect(handleFocus).toHaveBeenCalledTimes(1);
+  });
+
+  it('should call onBlur when input loses focus', () => {
+    const handleBlur = jest.fn();
+    render(<Input label="Username" onBlur={handleBlur} />);
+    const inputElement = screen.getByLabelText('Username');
+
+    fireEvent.focus(inputElement);
+    fireEvent.blur(inputElement);
+    expect(handleBlur).toHaveBeenCalledTimes(1);
   });
 });

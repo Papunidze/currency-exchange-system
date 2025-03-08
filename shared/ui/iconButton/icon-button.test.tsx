@@ -47,4 +47,67 @@ describe('IconButton component', () => {
     const button = screen.getByTestId('custom-button');
     expect(button).toHaveAttribute('aria-label', 'custom icon button');
   });
+
+  it('applies loading class and sets aria-busy when isLoading is true', () => {
+    render(<IconButton icon={mockIcon} isLoading />);
+    const button = screen.getByRole('button');
+
+    expect(button).toHaveClass('loading');
+    expect(button).toHaveAttribute('aria-busy', 'true');
+  });
+
+  it('disables the button when isLoading is true', () => {
+    render(<IconButton icon={mockIcon} isLoading />);
+    expect(screen.getByRole('button')).toBeDisabled();
+  });
+
+  // Badge tests
+  it('renders badge when badgeCount is greater than 0', () => {
+    render(<IconButton icon={mockIcon} badgeCount={5} />);
+    expect(screen.getByText('5')).toBeInTheDocument();
+  });
+
+  it('does not render badge when badgeCount is 0', () => {
+    render(<IconButton icon={mockIcon} badgeCount={0} />);
+    expect(screen.queryByText('0')).not.toBeInTheDocument();
+  });
+
+  it('does not render badge when badgeCount is undefined', () => {
+    render(<IconButton icon={mockIcon} />);
+    expect(document.querySelector('.badge')).not.toBeInTheDocument();
+  });
+
+  it('shows "99+" when badgeCount is greater than 99', () => {
+    render(<IconButton icon={mockIcon} badgeCount={100} />);
+    expect(screen.getByText('99+')).toBeInTheDocument();
+  });
+
+  it('sets aria-label on the badge for accessibility', () => {
+    render(<IconButton icon={mockIcon} badgeCount={5} />);
+    expect(screen.getByText('5')).toHaveAttribute(
+      'aria-label',
+      '5 notifications',
+    );
+  });
+
+  it('uses ariaLabel prop for button aria-label', () => {
+    render(<IconButton icon={mockIcon} ariaLabel="Close dialog" />);
+    expect(screen.getByRole('button')).toHaveAttribute(
+      'aria-label',
+      'Close dialog',
+    );
+  });
+
+  it('applies disabled attribute when disabled prop is true', () => {
+    render(<IconButton icon={mockIcon} disabled />);
+    expect(screen.getByRole('button')).toBeDisabled();
+  });
+
+  it('does not trigger click event when disabled', () => {
+    const handleClick = jest.fn();
+    render(<IconButton icon={mockIcon} onClick={handleClick} disabled />);
+
+    fireEvent.click(screen.getByRole('button'));
+    expect(handleClick).not.toHaveBeenCalled();
+  });
 });

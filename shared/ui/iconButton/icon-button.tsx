@@ -1,27 +1,54 @@
-import { ButtonHTMLAttributes, ReactNode } from 'react';
+import { ButtonHTMLAttributes, ReactNode, forwardRef } from 'react';
 import styles from './icon-button.module.scss';
+import { IconButtonProps } from './iconButton.interfaces';
 
-interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  icon: ReactNode;
-  variant?: 'primary' | 'secondary' | 'danger' | 'success' | 'warning';
-  size?: 'small' | 'medium' | 'large';
-}
+const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
+  (
+    {
+      icon,
+      variant = 'primary',
+      size = 'medium',
+      isLoading = false,
+      ariaLabel,
+      className = '',
+      badgeCount,
+      disabled,
+      ...props
+    },
+    ref,
+  ) => {
+    const isDisabled = disabled || isLoading;
 
-const IconButton = ({
-  icon,
-  variant = 'primary',
-  size = 'medium',
-  className,
-  ...props
-}: IconButtonProps) => {
-  return (
-    <button
-      className={`${styles.iconButton} ${styles[variant]} ${styles[size]} ${className || ''}`}
-      {...props}
-    >
-      {icon}
-    </button>
-  );
-};
+    return (
+      <button
+        ref={ref}
+        type="button"
+        className={`
+          ${styles.iconButton} 
+          ${styles[variant]} 
+          ${styles[size]}
+          ${isLoading ? styles.loading : ''}
+          ${className}
+        `}
+        disabled={isDisabled}
+        aria-label={ariaLabel}
+        aria-busy={isLoading}
+        {...props}
+      >
+        {icon}
+        {badgeCount !== undefined && badgeCount > 0 && (
+          <span
+            className={styles.badge}
+            aria-label={`${badgeCount} notifications`}
+          >
+            {badgeCount > 99 ? '99+' : badgeCount}
+          </span>
+        )}
+      </button>
+    );
+  },
+);
+
+IconButton.displayName = 'IconButton';
 
 export default IconButton;

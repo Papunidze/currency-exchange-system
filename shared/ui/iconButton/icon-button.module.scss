@@ -3,50 +3,306 @@
   align-items: center;
   justify-content: center;
   border: none;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   cursor: pointer;
   background-color: var(--background-light);
   color: var(--text-color-primary);
-  transition: all 0.2s ease-in-out;
+  transition: all var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background-color: currentColor;
+    border-radius: var(--radius-full);
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition:
+      transform 0.3s ease,
+      opacity 0.2s ease;
+  }
 
   &:hover {
-    background-color: var(--button-variant-IconButton-hoverBg);
-    transform: scale(1.05);
+    background-color: var(--variant-IconButton-hoverBg);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+
+    &::before {
+      transform: translate(-50%, -50%) scale(1.5);
+      opacity: 0.05;
+    }
   }
 
   &:active {
-    transform: scale(0.95);
+    transform: translateY(1px);
+    box-shadow: var(--shadow-none);
+
+    &::before {
+      opacity: 0.1;
+      transform: translate(-50%, -50%) scale(0.9);
+    }
   }
 
   &:disabled {
-    opacity: 0.6;
+    opacity: 0.5;
     cursor: not-allowed;
+    box-shadow: none;
+
     &:hover {
       transform: none;
       background-color: var(--background-light);
+
+      &::before {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+      }
     }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--focus-ring-color);
+    outline: 2px solid var(--variant-primary);
     outline-offset: 2px;
+  }
+
+  &.primary {
+    background-color: var(--variant-primary);
+    color: var(--text-color-light);
+
+    &:hover {
+      filter: brightness(0.95);
+      background-color: var(--variant-primary);
+    }
+
+    &:active {
+      filter: brightness(0.9);
+    }
+  }
+
+  &.secondary {
+    background-color: var(--variant-secondary);
+    color: var(--text-color-light);
+
+    &:hover {
+      filter: brightness(0.95);
+      background-color: var(--variant-secondary);
+    }
+
+    &:active {
+      filter: brightness(0.9);
+    }
+  }
+
+  &.danger {
+    background-color: var(--variant-danger);
+    color: var(--text-color-light);
+
+    &:hover {
+      filter: brightness(0.95);
+      background-color: var(--variant-danger);
+    }
+
+    &:active {
+      filter: brightness(0.9);
+    }
+  }
+
+  &.success {
+    background-color: var(--variant-success);
+    color: var(--text-color-light);
+
+    &:hover {
+      filter: brightness(0.95);
+      background-color: var(--variant-success);
+    }
+
+    &:active {
+      filter: brightness(0.9);
+    }
+  }
+
+  &.warning {
+    background-color: var(--variant-warning);
+    color: var(--text-color-light);
+
+    &:hover {
+      filter: brightness(0.95);
+      background-color: var(--variant-warning);
+    }
+
+    &:active {
+      filter: brightness(0.9);
+    }
+  }
+
+  &.ghost {
+    background-color: transparent;
+
+    &:hover {
+      background-color: var(--variant-IconButton-hoverBg);
+      box-shadow: none;
+    }
+
+    &:active {
+      background-color: rgba(0, 0, 0, 0.07);
+    }
+  }
+}
+
+.badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: var(--radius-full);
+  background-color: var(--variant-danger);
+  color: var(--text-color-light);
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center;
+  animation: badgePop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.2s ease;
+
+  // Outer border effect using box-shadow
+  box-shadow:
+    0 0 0 2px var(--background-light),
+    0 2px 4px rgba(0, 0, 0, 0.2);
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow:
+      0 0 0 2px var(--background-light),
+      0 3px 6px rgba(0, 0, 0, 0.25);
   }
 }
 
 .small {
   width: 32px;
   height: 32px;
-  padding: 6px;
+  padding: var(--spacing-xs);
+  font-size: var(--icon-size-md);
+
+  .badge {
+    min-width: 18px;
+    height: 18px;
+    font-size: 0.65rem;
+    padding: 0 4px;
+    top: -5px;
+    right: -5px;
+    box-shadow:
+      0 0 0 1.5px var(--background-light),
+      0 2px 4px rgba(0, 0, 0, 0.2);
+
+    &:hover {
+      box-shadow:
+        0 0 0 1.5px var(--background-light),
+        0 3px 6px rgba(0, 0, 0, 0.25);
+    }
+  }
 }
 
 .medium {
   width: 40px;
   height: 40px;
-  padding: 8px;
+  padding: var(--spacing-sm);
+  font-size: var(--icon-size-lg);
+
+  .badge {
+    min-width: 20px;
+    height: 20px;
+    font-size: 0.75rem;
+  }
 }
 
 .large {
   width: 48px;
   height: 48px;
-  padding: 10px;
+  padding: var(--spacing-md);
+  font-size: var(--icon-size-xl);
+
+  .badge {
+    min-width: 24px;
+    height: 24px;
+    font-size: 0.8rem;
+    top: -8px;
+    right: -8px;
+    padding: 0 6px;
+    box-shadow:
+      0 0 0 2.5px var(--background-light),
+      0 2px 4px rgba(0, 0, 0, 0.2);
+
+    &:hover {
+      box-shadow:
+        0 0 0 2.5px var(--background-light),
+        0 3px 6px rgba(0, 0, 0, 0.25);
+    }
+  }
+}
+
+@keyframes badgePop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading {
+  position: relative;
+  color: transparent !important;
+  pointer-events: none;
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-top: -8px;
+    margin-left: -8px;
+    border-radius: var(--radius-full);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: var(--text-color-light);
+    animation: spin 0.8s linear infinite;
+  }
+
+  &.primary::after,
+  &.secondary::after,
+  &.danger::after,
+  &.success::after,
+  &.warning::after {
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: var(--text-color-light);
+  }
+
+  &.ghost::after {
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-top-color: var(--text-color-primary);
+  }
 }

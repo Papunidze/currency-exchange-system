@@ -1,0 +1,113 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: var(--background-primary);
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.main {
+  flex: 1;
+  padding: var(--spacing-xl);
+  overflow-y: auto;
+}
+
+.title {
+  font-size: var(--font-size-xxl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-xl);
+  color: var(--text-color-primary);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--border-primary);
+}
+
+.demoSection {
+  margin-bottom: var(--spacing-xxl);
+
+  h2 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--spacing-lg);
+    color: var(--text-color-primary);
+  }
+}
+
+.demoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.demoFlex {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.demoItem {
+  background-color: var(--background-light);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: var(--spacing-md);
+  background-color: var(--background-light);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.responsiveDemo {
+  background-color: var(--background-light);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-sm);
+
+  p {
+    margin-bottom: var(--spacing-md);
+    color: var(--text-color-secondary);
+    font-style: italic;
+  }
+}
+
+.responsiveButtons {
+  display: flex;
+  justify-content: center;
+  padding: var(--spacing-md) 0;
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .demoGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .main {
+    padding: var(--spacing-md);
+  }
+
+  .buttonGroup {
+    flex-direction: column;
+  }
+
+  .responsiveButton {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .demoGrid {
+    grid-template-columns: 1fr;
+  }
+}

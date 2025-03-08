@@ -1,87 +1,38 @@
-import { VALIDATORS } from '@app-shared/constants';
-import { SchemaBuilder } from '@app-shared/services';
+import { FIELDS } from '@app-shared/constants';
+import { VALIDATORS } from '@app-shared/constants/validators';
+import { V } from '@app-shared/constants/validators';
+import { createSchema, field } from '@app-shared/services/schema';
 
-const SIGN_UP_SCHEME = new SchemaBuilder();
-const SIGN_IN_SCHEME = new SchemaBuilder();
+export const userSchema = createSchema()
+  .object({
+    name: field('Full Name')
+      .type('text')
+      .validators(V.string().required('Required Name').min(2, 'Min 2').build()),
+    email: FIELDS.email(),
+    password: field('Password')
+      .type('password')
+      .validators(VALIDATORS.password()),
+    age: field('Age')
+      .type('number')
+      .validators(V.number().required().min(18).max(120).toValidator()),
 
-export const signInSchema = SIGN_UP_SCHEME.Object({
-  email: SIGN_UP_SCHEME.name('email')
-    .type('text')
-    .label('Email')
-    .validation(
-      VALIDATORS.string()
-        .email('Please enter a valid email address')
-        .required('Email is required')
-        .build(),
-    )
-    .add(),
-  password: SIGN_UP_SCHEME.name('password')
-    .type('password')
-    .label('Password')
-    .validation(
-      VALIDATORS.string()
-        .min(6, 'Password must be at least 6 characters')
-        .required('Password is required')
-        .build(),
-    )
-    .add(),
-});
-
-export const signUpScheme = SIGN_IN_SCHEME.Object({
-  name: SIGN_IN_SCHEME.name('username')
-    .type('text')
-    .label('Full Name')
-    .validation(
-      VALIDATORS.string()
-        .min(2, 'Name must be at least 2 characters')
-        .required('Full name is required')
-        .build(),
-    )
-    .add(),
-  email: SIGN_IN_SCHEME.name('email')
-    .type('text')
-    .label('Email')
-    .validation(
-      VALIDATORS.string()
-        .email('Please enter a valid email address')
-        .required('Email is required')
-        .build(),
-    )
-    .add(),
-  number: SIGN_IN_SCHEME.name('number')
-    .type('tel')
-    .label('Phone Number')
-    .validation(
-      VALIDATORS.number()
-        .phone('Please enter a valid phone number')
-        .required('Phone number is required')
-        .build(),
-    )
-    .add(),
-  password: SIGN_IN_SCHEME.name('password')
-    .type('password')
-    .label('Create Password')
-    .validation(
-      VALIDATORS.string()
-        .min(6, 'Password must be at least 6 characters')
-        .required('Password is required')
-        .password()
-        .build(),
-    )
-    .add(),
-  passwordConfirm: SIGN_IN_SCHEME.name('password_confirm')
-    .type('password')
-    .label('Confirm Password')
-    .validation(
-      VALIDATORS.string()
-        .min(6, 'Password must be at least 6 characters')
-        .required('Please confirm your password')
-        .test('Password Not Match', (value, formData) => {
-          if (!formData) return false;
-          const password = formData.get('password');
-          return value && password ? value === password : false;
-        })
-        .build(),
-    )
-    .add(),
-});
+    phone: field('Phone Number')
+      .type('tel')
+      .validators(
+        V.string()
+          .matches(/^\+?[0-9\s-()]{7,}$/, 'Invalid phone format')
+          .toValidator(),
+      ),
+    address: field('Address')
+      .type('textarea')
+      .placeholder('Enter your full address'),
+    role: field('User Role')
+      .type('select')
+      .options([
+        { value: 'user', label: 'Regular User' },
+        { value: 'admin', label: 'Administrator' },
+        { value: 'manager', label: 'Manager' },
+      ])
+      .defaultValue('user'),
+  })
+  .build();
