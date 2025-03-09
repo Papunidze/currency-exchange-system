@@ -30,13 +30,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     const [isFocused, setIsFocused] = useState(false);
     const [hasValue, setHasValue] = useState(Boolean(value || defaultValue));
 
-    const statusClass = isInvalid ? styles.error : isValid ? styles.valid : '';
-    const labelStatusClass = isInvalid
-      ? styles.errorLabel
-      : isValid
-        ? styles.validLabel
-        : '';
-
     const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
       setIsFocused(true);
       props.onFocus?.(e);
@@ -54,21 +47,23 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <div
-        className={cn(
-          styles.inputContainer,
-          fullWidth ? styles.fullWidth : '',
-          disabled ? styles.disabled : '',
-        )}
+        className={cn(styles.inputContainer, {
+          [styles.fullWidth]: fullWidth,
+          [styles.disabled]: disabled,
+        })}
       >
         <div
           className={cn(
             styles.inputWrapper,
             styles[size],
-            statusClass,
+            {
+              [styles.error]: isInvalid,
+              [styles.valid]: isValid,
+              [styles.focused]: isFocused,
+              [styles.hasValue]: hasValue,
+              [styles.bothContent]: startContent && endContent,
+            },
             className,
-            isFocused ? styles.focused : '',
-            hasValue ? styles.hasValue : '',
-            startContent && endContent ? styles.bothContent : '',
           )}
         >
           {startContent && (
@@ -97,7 +92,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             {label && (
               <label
                 htmlFor={uniqueId}
-                className={`${styles.inputLabel} ${labelStatusClass}`}
+                className={cn(styles.inputLabel, {
+                  [styles.errorLabel]: isInvalid,
+                  [styles.validLabel]: isValid,
+                })}
               >
                 {label}
                 {required && (
@@ -122,10 +120,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         {(helperText || errorMessage) && (
           <div
             id={`${uniqueId}-helper`}
-            className={`
-              ${styles.helperText}
-              ${isInvalid ? styles.errorText : ''}
-            `}
+            className={cn(styles.helperText, { [styles.errorText]: isInvalid })}
           >
             {isInvalid ? errorMessage : helperText}
           </div>

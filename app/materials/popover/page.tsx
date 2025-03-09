@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Button from '@app-shared/ui/button';
 import styles from './page.module.scss';
-import { Popover } from '@app-shared/ui/popover';
+import Popover from '@app-shared/ui/popover';
 
 const placements = ['top', 'bottom', 'left', 'right'] as const;
 
@@ -129,7 +129,6 @@ export default function PopoverDemo() {
         </div>
       </section>
 
-      {/* Complex Examples */}
       <section>
         <h2>Complex Examples</h2>
         <div className={styles.grid}>

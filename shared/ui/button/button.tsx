@@ -29,6 +29,16 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       onClick?.(e);
     };
 
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleClick(
+          e as unknown as React.MouseEvent<HTMLButtonElement, MouseEvent>,
+        );
+      }
+      props.onKeyDown?.(e);
+    };
+
     return (
       <button
         ref={ref}
@@ -36,21 +46,16 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           styles.button,
           styles[variant],
           styles[size],
-          fullWidth ? styles.fullWidth : '',
-          isLoading ? styles.loading : '',
+          {
+            [styles.fullWidth]: fullWidth,
+            [styles.loading]: isLoading,
+          },
           className,
         )}
         disabled={disabled || isLoading}
         onClick={handleClick}
         aria-busy={isLoading}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            handleClick(
-              e as unknown as React.MouseEvent<HTMLButtonElement, MouseEvent>,
-            );
-          }
-        }}
+        onKeyDown={handleKeyDown}
         {...props}
       >
         {startIcon && !isLoading && (

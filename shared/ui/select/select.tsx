@@ -2,6 +2,7 @@
 import React, { useId, useState, useRef, useEffect } from 'react';
 import styles from './select.module.scss';
 import IconButton from '../iconButton';
+import { cn } from '@app-shared/lib/utils';
 
 export interface SelectOption {
   value: string;
@@ -97,29 +98,28 @@ const Select = ({
   };
 
   const chevronIcon = (
-    <span className={`${styles.chevron} ${isOpen ? styles.open : ''}`}>▼</span>
+    <span className={cn(styles.chevron, { [styles.open]: isOpen })}>▼</span>
   );
 
   return (
     <div
-      className={`
-        ${styles.selectContainer}
-        ${fullWidth ? styles.fullWidth : ''}
-        ${disabled ? styles.disabled : ''}
-        ${className}
-      `}
+      className={cn(
+        styles.selectContainer,
+        {
+          [styles.fullWidth]: fullWidth,
+          [styles.disabled]: disabled,
+        },
+        className,
+      )}
       ref={selectRef}
     >
       <div
-        className={`
-          ${styles.select}
-          ${styles[variant]}
-          ${styles[size]}
-          ${isOpen ? styles.open : ''}
-          ${error ? styles.error : ''}
-          ${isFocused || hasValue ? styles.focused : ''}
-          ${!selectedValue ? 'placeholder-shown' : ''}
-        `}
+        className={cn(styles.select, styles[variant], styles[size], {
+          [styles.open]: isOpen,
+          [styles.error]: !!error,
+          [styles.focused]: isFocused || hasValue,
+          'placeholder-shown': !selectedValue,
+        })}
         onClick={toggleDropdown}
         role="combobox"
         aria-expanded={isOpen}
@@ -133,7 +133,7 @@ const Select = ({
         {label && (
           <label
             id={`${id}-label`}
-            className={`${styles.label} ${error ? styles.errorLabel : ''}`}
+            className={cn(styles.label, { [styles.errorLabel]: !!error })}
           >
             {label}
             {required && <span className={styles.required}>*</span>}
@@ -141,7 +141,7 @@ const Select = ({
         )}
         <IconButton
           icon={chevronIcon}
-          variant={variant === 'ghost' ? 'ghost' : 'ghost'}
+          variant="ghost"
           size="small"
           className={styles.chevronButton}
           aria-hidden="true"
@@ -167,11 +167,10 @@ const Select = ({
           {options.map((option) => (
             <li
               key={option.value}
-              className={`
-                ${styles.option}
-                ${option.value === selectedValue ? styles.selected : ''}
-                ${option.disabled ? styles.disabled : ''}
-              `}
+              className={cn(styles.option, {
+                [styles.selected]: option.value === selectedValue,
+                [styles.disabled]: option.disabled,
+              })}
               role="option"
               aria-selected={option.value === selectedValue}
               onClick={() => handleSelect(option)}
@@ -186,7 +185,7 @@ const Select = ({
       )}
 
       {(error || helperText) && (
-        <div className={`${styles.helper} ${error ? styles.error : ''}`}>
+        <div className={cn(styles.helper, { [styles.error]: !!error })}>
           {error || helperText}
         </div>
       )}
