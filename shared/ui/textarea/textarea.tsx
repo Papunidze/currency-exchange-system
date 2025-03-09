@@ -3,7 +3,7 @@ import { cn } from '@app-shared/lib/utils';
 import styles from './textarea.module.scss';
 import { TextareaProps } from './textarea.interfaces';
 
-export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
+const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
   (
     {
       label,
@@ -143,3 +143,5 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
 );
 
 Textarea.displayName = 'Textarea';
+
+export default Textarea;

@@ -8,7 +8,7 @@ import styles from './form.module.scss';
 import { FormProps } from './form.inerfaces';
 import { SchemaField, SelectField } from '@app-shared/services/schema';
 
-export default function CreateForm<T extends Record<string, any>>({
+function CreateForm<T extends Record<string, any>>({
   schema,
   onSubmit,
   defaultValues,
@@ -152,3 +152,7 @@ export default function CreateForm<T extends Record<string, any>>({
     </form>
   );
 }
+
+CreateForm.displayName = 'Form';
+
+export default CreateForm;

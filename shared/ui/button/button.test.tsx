@@ -66,7 +66,6 @@ describe('Button component', () => {
     expect(screen.getByRole('button')).toHaveClass('fullWidth');
   });
 
-  // Icon tests
   it('renders startIcon when provided', () => {
     const IconMock = () => <svg data-testid="start-icon" />;
     render(<Button startIcon={<IconMock />}>With Icon</Button>);
@@ -85,7 +84,6 @@ describe('Button component', () => {
     );
   });
 
-  // Interaction tests
   it('calls onClick handler when clicked', () => {
     const handleClick = jest.fn();
     render(<Button onClick={handleClick}>Clickable</Button>);
@@ -118,7 +116,6 @@ describe('Button component', () => {
     expect(handleClick).not.toHaveBeenCalled();
   });
 
-  // Accessibility tests
   it('should be focusable', () => {
     render(<Button>Focusable Button</Button>);
     const button = screen.getByRole('button');
@@ -135,5 +132,36 @@ describe('Button component', () => {
     const buttonElement = screen.getByTestId('custom-button');
     expect(buttonElement).toBeInTheDocument();
     expect(buttonElement).toHaveAttribute('aria-label', 'custom button');
+  });
+
+  // Keyboard interaction tests
+  it('should trigger onClick when Space key is pressed', () => {
+    const handleClick = jest.fn();
+    render(<Button onClick={handleClick}>Space Key</Button>);
+    const button = screen.getByRole('button');
+
+    fireEvent.keyDown(button, { key: ' ', code: 'Space' });
+    expect(handleClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('should trigger onClick when Enter key is pressed', () => {
+    const handleClick = jest.fn();
+    render(<Button onClick={handleClick}>Enter Key</Button>);
+    const button = screen.getByRole('button');
+
+    fireEvent.keyDown(button, { key: 'Enter', code: 'Enter' });
+    expect(handleClick).toHaveBeenCalledTimes(1);
+  });
+
+  // Loading state appearance tests
+  it('should show loading spinner when isLoading is true', () => {
+    render(<Button isLoading>Loading State</Button>);
+    expect(screen.getByRole('status')).toBeInTheDocument();
+    expect(screen.getByRole('status')).toHaveClass('spinner');
+  });
+
+  it('should hide button content when loading', () => {
+    render(<Button isLoading>Hidden Content</Button>);
+    expect(screen.queryByText('Hidden Content')).not.toBeVisible();
   });
 });

@@ -3,9 +3,8 @@ import { createPortal } from 'react-dom';
 import { PopoverProps } from './popover.interfaces';
 import styles from './popover.module.scss';
 import { cn } from '@app-shared/lib/utils';
-import { Backdrop } from '../backdrop';
 
-export const Popover = ({
+const Popover = ({
   children,
   content,
   placement = 'bottom',
@@ -185,3 +184,7 @@ export const Popover = ({
     </>
   );
 };
+
+Popover.displayName = 'Popover';
+
+export default Popover;

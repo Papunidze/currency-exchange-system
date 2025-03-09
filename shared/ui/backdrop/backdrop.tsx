@@ -3,7 +3,7 @@ import styles from './backdrop.module.scss';
 import { cn } from '@app-shared/lib/utils';
 import { BackdropProps } from './backdrop.interfaces';
 
-export const Backdrop: FC<BackdropProps> = ({
+const Backdrop: FC<BackdropProps> = ({
   isOpen = false,
   className,
   opacity = 50,
@@ -57,3 +57,7 @@ export const Backdrop: FC<BackdropProps> = ({
     </div>
   );
 };
+
+Backdrop.displayName = 'Backdrop';
+
+export default Backdrop;

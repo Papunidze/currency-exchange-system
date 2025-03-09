@@ -1,0 +1,68 @@
+.wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.interactive {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.rounded {
+  border-radius: 50%;
+
+  .image {
+    border-radius: 50%;
+  }
+}
+
+.social {
+  border-radius: 4px;
+
+  .image {
+    border-radius: 4px;
+  }
+}
+
+.logo {
+}
+
+.banner {
+  width: 100%;
+
+  &.top {
+    object-position: top;
+  }
+
+  &.center {
+    object-position: center;
+  }
+
+  &.bottom {
+    object-position: bottom;
+  }
+}
+
+.avatar {
+  background-color: #f0f0f0;
+}
+
+.icon {
+}
+
+// Base image styles
+.image {
+  max-width: 100%;
+  height: auto;
+}

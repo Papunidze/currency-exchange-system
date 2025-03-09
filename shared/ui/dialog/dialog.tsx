@@ -1,12 +1,12 @@
 import { FC, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { Backdrop } from '@app-shared/ui/backdrop';
+import Backdrop from '@app-shared/ui/backdrop';
 import IconButton from '@app-shared/ui/iconButton';
 import { cn } from '@app-shared/lib/utils';
 import styles from './dialog.module.scss';
 import { DialogProps } from './dialog.interfaces';
 
-export const Dialog: FC<DialogProps> = ({
+const Dialog: FC<DialogProps> = ({
   isOpen,
   title,
   description,
@@ -98,3 +98,7 @@ export const Dialog: FC<DialogProps> = ({
 
   return createPortal(dialog, document.body);
 };
+
+Dialog.displayName = 'Dialog';
+
+export default Dialog;

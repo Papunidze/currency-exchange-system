@@ -1,2 +1,7 @@
-export * from './popover';
-export * from './popover.interfaces';
+export { default } from './popover';
+
+export type {
+  PopoverProps,
+  PopoverPosition,
+  PopoverTrigger,
+} from './popover.interfaces';

@@ -1,4 +1,4 @@
-import { SelectHTMLAttributes, ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 export interface SelectOption {
   value: string;
@@ -8,21 +8,27 @@ export interface SelectOption {
   icon?: ReactNode;
 }
 
-export type SelectSize = 'small' | 'medium' | 'large';
-export type SelectVariant = 'primary' | 'secondary';
+export type SelectVariant =
+  | 'primary'
+  | 'secondary'
+  | 'success'
+  | 'warning'
+  | 'danger'
+  | 'ghost';
 
-export interface SelectProps
-  extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'size'> {
+export interface SelectProps {
   options: SelectOption[];
+  value?: string;
+  defaultValue?: string;
+  onChange?: (value: string) => void;
   label?: string;
+  placeholder?: string;
+  disabled?: boolean;
+  required?: boolean;
   error?: string;
   helperText?: string;
-  size?: SelectSize;
-  variant?: SelectVariant;
+  className?: string;
+  size?: 'small' | 'medium' | 'large';
   fullWidth?: boolean;
-  isLoading?: boolean;
-  isSearchable?: boolean;
-  isClearable?: boolean;
-  startIcon?: ReactNode;
-  endIcon?: ReactNode;
+  variant?: SelectVariant;
 }

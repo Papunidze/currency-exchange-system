@@ -1,2 +1,6 @@
-export { Dialog } from './dialog';
-export type { DialogProps } from './dialog';
+export { default } from './dialog';
+export type {
+  DialogProps,
+  DialogSize,
+  DialogVariant,
+} from './dialog.interfaces';

@@ -113,4 +113,55 @@ describe('Input component', () => {
     fireEvent.blur(inputElement);
     expect(handleBlur).toHaveBeenCalledTimes(1);
   });
+
+  it('should handle controlled input value changes', () => {
+    const handleChange = jest.fn();
+    const { rerender } = render(
+      <Input label="Username" value="initial" onChange={handleChange} />,
+    );
+    const input = screen.getByLabelText('Username');
+
+    expect(input).toHaveValue('initial');
+
+    rerender(
+      <Input label="Username" value="updated" onChange={handleChange} />,
+    );
+    expect(input).toHaveValue('updated');
+  });
+
+  it('should handle different input types', () => {
+    const { rerender } = render(<Input label="Number" type="number" />);
+    expect(screen.getByLabelText('Number')).toHaveAttribute('type', 'number');
+
+    rerender(<Input label="Password" type="password" />);
+    expect(screen.getByLabelText('Password')).toHaveAttribute(
+      'type',
+      'password',
+    );
+
+    rerender(<Input label="Email" type="email" />);
+    expect(screen.getByLabelText('Email')).toHaveAttribute('type', 'email');
+  });
+
+  it('should handle maxLength restriction', () => {
+    render(<Input label="Limited" maxLength={5} />);
+    const input = screen.getByLabelText('Limited');
+
+    fireEvent.change(input, { target: { value: '123456' } });
+    expect(input).toHaveValue('12345');
+  });
+
+  it('should handle placeholder changes', () => {
+    const { rerender } = render(
+      <Input label="Dynamic" placeholder="Initial placeholder" />,
+    );
+    expect(
+      screen.getByPlaceholderText('Initial placeholder'),
+    ).toBeInTheDocument();
+
+    rerender(<Input label="Dynamic" placeholder="Updated placeholder" />);
+    expect(
+      screen.getByPlaceholderText('Updated placeholder'),
+    ).toBeInTheDocument();
+  });
 });

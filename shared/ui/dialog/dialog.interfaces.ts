@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactNode } from 'react';
+import { HTMLAttributes } from 'react';
 
 export type DialogSize = 'small' | 'medium' | 'large';
 export type DialogVariant = 'primary' | 'secondary' | 'outlined';
