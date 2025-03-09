@@ -1,5 +1,3 @@
-import { HTMLAttributes, ReactNode } from 'react';
-
 export type BackdropVariant = 'light' | 'dark' | 'blur';
 
 export interface BackdropProps {

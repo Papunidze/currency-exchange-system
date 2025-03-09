@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { Popover } from '@app-shared/ui/popover';
 import Button from '@app-shared/ui/button';
 import styles from './page.module.scss';
+import { Popover } from '@app-shared/ui/popover';
 
 const placements = ['top', 'bottom', 'left', 'right'] as const;
 
@@ -64,7 +64,6 @@ export default function PopoverDemo() {
         </div>
       </section>
 
-      {/* Placement Examples */}
       <section>
         <h2>Placement Variants</h2>
         <div className={styles.placementGrid}>

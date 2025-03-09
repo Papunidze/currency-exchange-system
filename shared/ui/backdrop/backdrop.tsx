@@ -48,7 +48,12 @@ export const Backdrop: FC<BackdropProps> = ({
       }
       aria-hidden="true"
     >
-      {children}
+      <div
+        className={styles.backdropContent}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {children}
+      </div>
     </div>
   );
 };

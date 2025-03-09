@@ -1,30 +1,19 @@
-import { HTMLAttributes, ReactNode } from 'react';
+import { ReactNode } from 'react';
 
-export type PopoverPlacement =
-  | 'top'
-  | 'bottom'
-  | 'left'
-  | 'right'
-  | 'top-start'
-  | 'top-end'
-  | 'bottom-start'
-  | 'bottom-end'
-  | 'left-start'
-  | 'left-end'
-  | 'right-start'
-  | 'right-end';
-export type PopoverTrigger = 'click' | 'hover' | 'focus';
+export type PopoverPosition = 'top' | 'bottom' | 'left' | 'right';
+export type PopoverTrigger = 'click' | 'hover';
 
-export interface PopoverProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, 'content'> {
+export interface PopoverProps {
+  children: ReactNode;
+  content: ReactNode;
+  placement?: PopoverPosition;
+  trigger?: PopoverTrigger;
   isOpen?: boolean;
   onOpenChange?: (isOpen: boolean) => void;
-  trigger?: PopoverTrigger;
-  placement?: PopoverPlacement;
+  showArrow?: boolean;
   offset?: number;
-  arrow?: boolean;
-  content: ReactNode;
-  children: ReactNode;
-  closeOnClickOutside?: boolean;
-  closeOnEsc?: boolean;
+  className?: string;
+  contentClassName?: string;
+  tailClassName?: string;
+  hasBackdrop?: boolean;
 }

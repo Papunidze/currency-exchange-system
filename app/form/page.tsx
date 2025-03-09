@@ -25,7 +25,7 @@ const Form = () => {
         onSubmit={handleSubmit}
         selectVariant="secondary"
         buttonVariant="secondary"
-        size="large"
+        size="medium"
         defaultValues={{
           userType: 'personal',
         }}
