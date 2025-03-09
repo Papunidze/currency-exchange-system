@@ -146,6 +146,15 @@ const Select = ({
           className={styles.chevronButton}
           aria-hidden="true"
         />
+        <fieldset
+          aria-hidden="true"
+          className={styles.selectFieldset}
+          tabIndex={-1}
+        >
+          <legend className={styles.selectLegend}>
+            <span>{label}</span>
+          </legend>
+        </fieldset>
       </div>
 
       {isOpen && (

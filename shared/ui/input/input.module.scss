@@ -35,14 +35,27 @@
   .inputWrapper:focus-within &,
   .input:not(:placeholder-shown) ~ & {
     top: -6px;
-    left: 12px;
+    left: 10px;
     transform: translateY(0) scale(0.85);
     color: var(--text-color-primary);
     font-weight: 500;
     border-radius: 2px;
-    background-color: var(--background-light);
-    box-shadow: 0 0 0 2px var(--background-light);
+    background-color: transparent;
     padding: 0 4px;
+  }
+
+  .inputWrapper.large:focus-within &,
+  .inputWrapper.large .input:not(:placeholder-shown) ~ & {
+    top: -8px;
+    left: 6px;
+  }
+
+  .inputWrapper:focus-within .inputStart ~ .inputField & {
+    left: -45px;
+  }
+
+  .inputWrapper.bothContent:focus-within & {
+    left: -33px !important;
   }
 
   &.errorLabel {
@@ -70,19 +83,28 @@
   transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: visible;
 
-  // Focus state
-  &:focus-within {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
+  &:focus-within,
+  &.hasValue {
+    border: 0;
 
     .inputStart,
     .inputEnd {
       border-color: var(--primary);
     }
+    .inputFieldset {
+      display: block;
+    }
   }
 
-  // Hover state
-  &:hover:not(:focus-within) {
+  &:has(input[type='date']) {
+    border: 0;
+
+    .inputFieldset {
+      display: block;
+    }
+  }
+
+  &:hover:not(:focus-within):not(.hasValue) {
     border-color: var(--border-primary);
 
     .inputStart,
@@ -91,11 +113,10 @@
     }
   }
 
-  // Size variants
   &.small {
     height: 36px;
     .input {
-      padding: 16px 12px 4px;
+      padding: 8.5px 14px;
       font-size: 13px;
     }
     .inputLabel {
@@ -106,7 +127,7 @@
   &.medium {
     height: 44px;
     .input {
-      padding: 20px 12px 4px;
+      padding: 16.5px 14px;
       font-size: 14px;
     }
     .inputLabel {
@@ -117,7 +138,7 @@
   &.large {
     height: 52px;
     .input {
-      padding: 24px 12px 4px;
+      padding: 16.5px 14px;
       font-size: 16px;
     }
     .inputLabel {
@@ -163,7 +184,6 @@
   min-width: 0;
 }
 
-// Actual input element
 .input {
   width: 100%;
   background: transparent;
@@ -173,7 +193,7 @@
   font-family: var(--font-family-base);
   transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   height: 100%;
-  padding: 20px 12px 4px;
+  padding: 16.5px 14px;
 
   &::placeholder {
     color: transparent;
@@ -191,7 +211,6 @@
   }
 }
 
-// Start and end content
 .inputStart,
 .inputEnd {
   display: flex;
@@ -218,6 +237,49 @@
   &.errorText {
     color: var(--variant-danger);
   }
+}
+.inputFieldset {
+  display: none;
+  text-align: left;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  top: -5px;
+  left: 0;
+  margin: 0;
+  padding: 0 8px;
+  pointer-events: none;
+  border-radius: var(--border-radius-md);
+  border-style: solid;
+  border-width: 1px;
+  overflow: hidden;
+  min-width: 0%;
+  border-color: rgba(0, 0, 0, 0.23);
+  .inputLegend {
+    float: unset;
+    width: auto;
+    overflow: hidden;
+    display: block;
+    padding: 0;
+    height: 11px;
+    font-size: 0.75em;
+    visibility: hidden;
+    white-space: nowrap;
+    span {
+      padding-left: 5px;
+      padding-right: 5px;
+      display: inline-block;
+      opacity: 0;
+      visibility: visible;
+    }
+    .inputWrapper.large & span {
+      padding-right: 7px;
+    }
+  }
+}
+
+.inputWrapper:focus-within .inputFieldset {
+  display: block;
 }
 
 :root {

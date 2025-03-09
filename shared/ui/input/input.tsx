@@ -68,6 +68,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             className,
             isFocused ? styles.focused : '',
             hasValue ? styles.hasValue : '',
+            startContent && endContent ? styles.bothContent : '',
           )}
         >
           {startContent && (
@@ -107,6 +108,15 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           </div>
 
           {endContent && <div className={styles.inputEnd}>{endContent}</div>}
+          <fieldset
+            aria-hidden="true"
+            className={styles.inputFieldset}
+            tabIndex={-1}
+          >
+            <legend className={styles.inputLegend}>
+              <span>{label}</span>
+            </legend>
+          </fieldset>
         </div>
 
         {(helperText || errorMessage) && (

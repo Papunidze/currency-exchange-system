@@ -21,7 +21,7 @@
 .select {
   position: relative;
   width: 100%;
-  border: 1.5px solid var(--border-secondary);
+  border: var(--border-secondary);
   border-radius: var(--border-radius-md);
   background-color: var(--background-light);
   cursor: pointer;
@@ -31,6 +31,15 @@
   justify-content: space-between;
   padding-right: 8px;
   backdrop-filter: blur(8px);
+  &.focused,
+  &.open,
+  &:not(.placeholder-shown) {
+    border: 0;
+
+    .selectFieldset {
+      display: block;
+    }
+  }
 
   &:hover:not(.disabled) {
     border-color: var(--primary);
@@ -39,7 +48,7 @@
 
     .label {
       transform: translateY(-50%) scale(0.85);
-      background: var(--background-light);
+
       color: var(--primary);
     }
 
@@ -50,6 +59,9 @@
     .chevron {
       transform: translateY(1px);
       color: var(--primary);
+      margin-left: 0;
+      border-left: none;
+      padding-left: 0;
     }
   }
   &.focused,
@@ -64,7 +76,7 @@
   }
 
   &.primary {
-    border: 1.5px solid var(--variant-primary);
+    border: var(--variant-primary);
     background-color: transparent;
 
     .value,
@@ -72,21 +84,14 @@
       color: var(--variant-primary);
     }
 
-    .label {
-      color: var(--text-color-light);
-      font-weight: 500;
-      background: var(--variant-primary);
-      box-shadow: 0 0 0 2px var(--background-light);
-    }
-
     &:hover:not(.disabled) {
-      border-color: var(--variant-primary-dark);
-      box-shadow: 0 4px 12px rgba(var(--variant-primary-rgb), 0.12);
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.12);
 
       .value,
       .chevron,
       .label {
-        color: var(--variant-primary-dark);
+        color: var(--primary);
       }
     }
 
@@ -97,7 +102,7 @@
   }
 
   &.secondary {
-    border: 1.5px solid var(--variant-secondary);
+    border: var(--variant-secondary);
     background-color: transparent;
 
     .value,
@@ -105,21 +110,14 @@
       color: var(--variant-secondary);
     }
 
-    .label {
-      color: var(--text-color-light);
-      font-weight: 500;
-      background: var(--variant-secondary);
-      box-shadow: 0 0 0 2px var(--background-light);
-    }
-
     &:hover:not(.disabled) {
-      border-color: var(--variant-secondary-dark);
+      border-color: var(--variant-secondary);
       box-shadow: 0 4px 12px rgba(var(--variant-secondary-rgb), 0.12);
 
       .value,
       .chevron,
       .label {
-        color: var(--variant-secondary-dark);
+        color: var(--variant-secondary);
       }
     }
 
@@ -130,7 +128,7 @@
   }
 
   &.success {
-    border: 1.5px solid var(--variant-success);
+    border: var(--variant-success);
     background-color: transparent;
 
     .value,
@@ -138,20 +136,14 @@
       color: var(--variant-success);
     }
 
-    .label {
-      color: var(--text-color-light);
-      background: var(--variant-success);
-      box-shadow: 0 0 0 2px var(--background-light);
-    }
-
     &:hover:not(.disabled) {
-      border-color: var(--variant-success-dark);
+      border-color: var(--variant-success);
       box-shadow: 0 4px 12px rgba(var(--variant-success-rgb), 0.12);
 
       .value,
       .chevron,
       .label {
-        color: var(--variant-success-dark);
+        color: var(--variant-success);
       }
     }
 
@@ -162,7 +154,7 @@
   }
 
   &.warning {
-    border: 1.5px solid var(--variant-warning);
+    border: var(--variant-warning);
     background-color: transparent;
 
     .value,
@@ -170,20 +162,14 @@
       color: var(--variant-warning);
     }
 
-    .label {
-      color: var(--text-color-light);
-      background: var(--variant-warning);
-      box-shadow: 0 0 0 2px var(--background-light);
-    }
-
     &:hover:not(.disabled) {
-      border-color: var(--variant-warning-dark);
+      border-color: var(--variant-warning);
       box-shadow: 0 4px 12px rgba(var(--variant-warning-rgb), 0.12);
 
       .value,
       .chevron,
       .label {
-        color: var(--variant-warning-dark);
+        color: var(--variant-warning);
       }
     }
 
@@ -194,7 +180,7 @@
   }
 
   &.danger {
-    border: 1.5px solid var(--variant-danger);
+    border: var(--variant-danger);
     background-color: transparent;
 
     .value,
@@ -202,20 +188,14 @@
       color: var(--variant-danger);
     }
 
-    .label {
-      color: var(--text-color-light);
-      background: var(--variant-danger);
-      box-shadow: 0 0 0 2px var(--background-light);
-    }
-
     &:hover:not(.disabled) {
-      border-color: var(--variant-danger-dark);
+      border-color: var(--variant-danger);
       box-shadow: 0 4px 12px rgba(var(--variant-danger-rgb), 0.12);
 
       .value,
       .chevron,
       .label {
-        color: var(--variant-danger-dark);
+        color: var(--variant-danger);
       }
     }
 
@@ -240,14 +220,8 @@
       background-color: rgba(var(--primary-rgb), 0.03);
     }
 
-    .label {
-      background: transparent;
-      box-shadow: 0 0 0 2px transparent;
-    }
-
     &:hover:not(.disabled) .label {
       color: var(--primary);
-      background: var(--background-light);
     }
   }
 
@@ -349,16 +323,15 @@
   z-index: 1;
   letter-spacing: 0.02em;
   font-weight: 450;
-  background: var(--background-light);
+
   border-radius: 4px;
-  box-shadow: 0 0 0 2px var(--background-light);
 
   .select.focused &,
   .select.open &,
   .select:not(.placeholder-shown) & {
     top: 0;
     transform: translateY(-50%) scale(0.85);
-
+    left: 6px;
     font-weight: 500;
     letter-spacing: 0.03em;
   }
@@ -378,8 +351,6 @@
   font-size: 10px;
   color: var(--text-color-secondary);
   transition: transform 0.2s ease;
-  margin-left: 8px;
-
   &.open {
     transform: rotate(180deg);
   }
@@ -496,5 +467,48 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+.selectFieldset {
+  display: none;
+  text-align: left;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  top: -5px;
+  left: 0;
+  margin: 0;
+  padding: 0 8px;
+  pointer-events: none;
+  border-radius: var(--border-radius-md);
+  border-style: solid;
+  border-width: 1px;
+  overflow: hidden;
+  min-width: 0%;
+  border-color: inherit;
+
+  .selectLegend {
+    float: unset;
+    width: auto;
+    overflow: hidden;
+    display: block;
+    padding: 0;
+    height: 11px;
+    font-size: 0.75em;
+    visibility: hidden;
+    white-space: nowrap;
+
+    span {
+      padding-left: 5px;
+      padding-right: 5px;
+      display: inline-block;
+      opacity: 0;
+      visibility: visible;
+    }
+
+    .select.large & span {
+      padding-right: 7px;
+    }
   }
 }

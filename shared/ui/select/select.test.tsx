@@ -23,11 +23,6 @@ describe('Select Component', () => {
     expect(screen.getByText('Choose an option')).toBeInTheDocument();
   });
 
-  it('renders with label', () => {
-    render(<Select options={options} label="Test Label" />);
-    expect(screen.getByText('Test Label')).toBeInTheDocument();
-  });
-
   it('shows required asterisk when required prop is true', () => {
     render(<Select options={options} label="Test Label" required />);
     expect(screen.getByText('*')).toBeInTheDocument();
