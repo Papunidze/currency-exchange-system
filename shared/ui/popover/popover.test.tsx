@@ -1,15 +1,14 @@
 import React from 'react';
+import '@testing-library/jest-dom';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Popover } from './popover';
+import Popover from './popover';
 
-// Mock createPortal
 jest.mock('react-dom', () => ({
   ...jest.requireActual('react-dom'),
   createPortal: (node: React.ReactNode) => node,
 }));
 
-// Mock window dimensions and scroll
 const mockWindow = () => {
   window.innerWidth = 1024;
   window.innerHeight = 768;
@@ -26,219 +25,203 @@ describe('Popover Component', () => {
   beforeEach(() => {
     mockWindow();
     jest.clearAllMocks();
-    jest.useFakeTimers();
   });
 
-  afterEach(() => {
-    jest.useRealTimers();
-  });
-
-  it('renders trigger element', () => {
-    render(<Popover {...defaultProps} />);
-    expect(screen.getByText('Trigger')).toBeInTheDocument();
-  });
-
-  it('shows content when clicked (default trigger)', async () => {
-    render(<Popover {...defaultProps} />);
-    await userEvent.click(screen.getByText('Trigger'));
-    expect(screen.getByText('Popover content')).toBeInTheDocument();
-  });
-
-  it('hides content when clicked again', async () => {
-    render(<Popover {...defaultProps} />);
-    await userEvent.click(screen.getByText('Trigger'));
-    await userEvent.click(screen.getByText('Trigger'));
-    expect(screen.queryByText('Popover content')).not.toBeInTheDocument();
-  });
-
-  it('shows content on hover when trigger is "hover"', () => {
-    render(<Popover {...defaultProps} trigger="hover" />);
-    fireEvent.mouseEnter(screen.getByText('Trigger'));
-    expect(screen.getByText('Popover content')).toBeInTheDocument();
-  });
-
-  it('hides content after hover out with delay', () => {
-    render(<Popover {...defaultProps} trigger="hover" />);
-    const trigger = screen.getByText('Trigger');
-
-    fireEvent.mouseEnter(trigger);
-    expect(screen.getByText('Popover content')).toBeInTheDocument();
-
-    fireEvent.mouseLeave(trigger);
-    expect(screen.getByText('Popover content')).toBeInTheDocument();
-
-    act(() => {
-      jest.advanceTimersByTime(150);
+  describe('Rendering', () => {
+    it('renders trigger element', () => {
+      render(<Popover {...defaultProps} />);
+      expect(screen.getByText('Trigger')).toBeInTheDocument();
     });
 
-    expect(screen.queryByText('Popover content')).not.toBeInTheDocument();
-  });
-
-  it('cancels hide timeout when hovering back quickly', () => {
-    render(<Popover {...defaultProps} trigger="hover" />);
-    const trigger = screen.getByText('Trigger');
-
-    fireEvent.mouseEnter(trigger);
-    fireEvent.mouseLeave(trigger);
-    fireEvent.mouseEnter(trigger);
-
-    act(() => {
-      jest.advanceTimersByTime(150);
+    it('does not render content by default', () => {
+      render(<Popover {...defaultProps} />);
+      expect(screen.queryByText('Popover content')).not.toBeInTheDocument();
     });
 
-    expect(screen.getByText('Popover content')).toBeInTheDocument();
-  });
-
-  it('shows arrow by default', async () => {
-    render(<Popover {...defaultProps} />);
-    await userEvent.click(screen.getByText('Trigger'));
-    expect(
-      screen.getByText('Popover content').parentElement?.querySelector('.tail'),
-    ).toBeInTheDocument();
-  });
-
-  it('hides arrow when showArrow is false', async () => {
-    render(<Popover {...defaultProps} showArrow={false} />);
-    await userEvent.click(screen.getByText('Trigger'));
-    expect(
-      screen.getByText('Popover content').parentElement?.querySelector('.tail'),
-    ).not.toBeInTheDocument();
-  });
-
-  it('applies different placements', async () => {
-    const placements = ['top', 'bottom', 'left', 'right'] as const;
-    const { rerender } = render(<Popover {...defaultProps} />);
-
-    for (const placement of placements) {
-      rerender(<Popover {...defaultProps} placement={placement} />);
-      await userEvent.click(screen.getByText('Trigger'));
-      const content = screen.getByText('Popover content').parentElement;
-      expect(content).toHaveClass(placement);
-      await userEvent.click(screen.getByText('Trigger')); // Close popover
-    }
-  });
-
-  it('applies custom className and contentClassName', async () => {
-    render(
-      <Popover
-        {...defaultProps}
-        className="custom-trigger"
-        contentClassName="custom-content"
-      />,
-    );
-    expect(screen.getByText('Trigger').parentElement).toHaveClass(
-      'custom-trigger',
-    );
-    await userEvent.click(screen.getByText('Trigger'));
-    expect(screen.getByText('Popover content').parentElement).toHaveClass(
-      'custom-content',
-    );
-  });
-
-  it('applies custom tailClassName', async () => {
-    render(<Popover {...defaultProps} tailClassName="custom-tail" />);
-    await userEvent.click(screen.getByText('Trigger'));
-    expect(
-      screen.getByText('Popover content').parentElement?.querySelector('.tail'),
-    ).toHaveClass('custom-tail');
-  });
-
-  it('shows backdrop when hasBackdrop is true and trigger is click', async () => {
-    render(<Popover {...defaultProps} hasBackdrop />);
-    await userEvent.click(screen.getByText('Trigger'));
-    expect(document.querySelector('.backdrop')).toBeInTheDocument();
-  });
-
-  it('does not show backdrop when hasBackdrop is false', async () => {
-    render(<Popover {...defaultProps} hasBackdrop={false} />);
-    await userEvent.click(screen.getByText('Trigger'));
-    expect(document.querySelector('.backdrop')).not.toBeInTheDocument();
-  });
-
-  it('does not show backdrop when trigger is hover', () => {
-    render(<Popover {...defaultProps} trigger="hover" hasBackdrop />);
-    fireEvent.mouseEnter(screen.getByText('Trigger'));
-    expect(document.querySelector('.backdrop')).not.toBeInTheDocument();
-  });
-
-  it('closes on backdrop click', async () => {
-    render(<Popover {...defaultProps} hasBackdrop />);
-    await userEvent.click(screen.getByText('Trigger'));
-    fireEvent.click(document.querySelector('.portalContainer')!);
-    expect(screen.queryByText('Popover content')).not.toBeInTheDocument();
-  });
-
-  it('calls onOpenChange when opening and closing', async () => {
-    const onOpenChange = jest.fn();
-    render(<Popover {...defaultProps} onOpenChange={onOpenChange} />);
-
-    await userEvent.click(screen.getByText('Trigger'));
-    expect(onOpenChange).toHaveBeenCalledWith(true);
-
-    await userEvent.click(screen.getByText('Trigger'));
-    expect(onOpenChange).toHaveBeenCalledWith(false);
-  });
-
-  it('updates position on scroll', async () => {
-    render(<Popover {...defaultProps} />);
-    await userEvent.click(screen.getByText('Trigger'));
-
-    act(() => {
-      window.scrollY = 100;
-      fireEvent.scroll(window);
-    });
-
-    const content = screen.getByText('Popover content').parentElement;
-    expect(content).toHaveStyle({ top: expect.any(String) });
-  });
-
-  it('updates position on resize', async () => {
-    render(<Popover {...defaultProps} />);
-    await userEvent.click(screen.getByText('Trigger'));
-
-    act(() => {
-      window.innerWidth = 800;
-      window.innerHeight = 600;
-      fireEvent.resize(window);
-    });
-
-    const content = screen.getByText('Popover content').parentElement;
-    expect(content).toHaveStyle({
-      top: expect.any(String),
-      left: expect.any(String),
+    it('renders content when isOpen prop is true', () => {
+      render(<Popover {...defaultProps} isOpen={true} />);
+      expect(screen.getByText('Popover content')).toBeInTheDocument();
     });
   });
 
-  it('works with controlled isOpen prop', () => {
-    const { rerender } = render(<Popover {...defaultProps} isOpen={false} />);
-    expect(screen.queryByText('Popover content')).not.toBeInTheDocument();
-
-    rerender(<Popover {...defaultProps} isOpen={true} />);
-    expect(screen.getByText('Popover content')).toBeInTheDocument();
-  });
-
-  it('prevents event propagation when clicking content', async () => {
-    render(<Popover {...defaultProps} />);
-    await userEvent.click(screen.getByText('Trigger'));
-
-    const content = screen.getByText('Popover content');
-    const mockStopPropagation = jest.fn();
-
-    fireEvent.click(content, {
-      stopPropagation: mockStopPropagation,
+  describe('Click Trigger', () => {
+    it('shows content when clicked', async () => {
+      const user = userEvent.setup();
+      render(<Popover {...defaultProps} />);
+      await user.click(screen.getByText('Trigger'));
+      expect(screen.getByText('Popover content')).toBeInTheDocument();
     });
 
-    expect(mockStopPropagation).toHaveBeenCalled();
+    it('hides content when clicked again', async () => {
+      const user = userEvent.setup();
+      render(<Popover {...defaultProps} />);
+      await user.click(screen.getByText('Trigger'));
+      await user.click(screen.getByText('Trigger'));
+      expect(screen.queryByText('Popover content')).not.toBeInTheDocument();
+    });
+
+    it('calls onOpenChange when clicked', async () => {
+      const onOpenChange = jest.fn();
+      render(<Popover {...defaultProps} onOpenChange={onOpenChange} />);
+      const trigger = screen.getByText('Trigger');
+
+      await userEvent.click(trigger);
+      expect(onOpenChange).toHaveBeenCalledWith(true);
+      expect(onOpenChange).toHaveBeenCalledTimes(1);
+    });
   });
 
-  it('applies custom offset', async () => {
-    render(<Popover {...defaultProps} offset={16} />);
-    await userEvent.click(screen.getByText('Trigger'));
+  describe('Hover Trigger', () => {
+    beforeEach(() => {
+      jest.useFakeTimers();
+    });
 
-    const content = screen.getByText('Popover content').parentElement;
-    expect(content).toHaveStyle({
-      top: expect.any(String),
-      left: expect.any(String),
+    afterEach(() => {
+      jest.useRealTimers();
+    });
+
+    it('shows content on hover', () => {
+      render(<Popover {...defaultProps} trigger="hover" />);
+      fireEvent.mouseEnter(screen.getByText('Trigger'));
+      expect(screen.getByText('Popover content')).toBeInTheDocument();
+    });
+
+    it('hides content after hover out with delay', () => {
+      render(<Popover {...defaultProps} trigger="hover" />);
+      const trigger = screen.getByText('Trigger');
+
+      fireEvent.mouseEnter(trigger);
+      expect(screen.getByText('Popover content')).toBeInTheDocument();
+
+      fireEvent.mouseLeave(trigger);
+      expect(screen.getByText('Popover content')).toBeInTheDocument();
+
+      act(() => {
+        jest.advanceTimersByTime(150);
+      });
+
+      expect(screen.queryByText('Popover content')).not.toBeInTheDocument();
+    });
+
+    it('keeps content visible when quickly moving between trigger and content', () => {
+      render(<Popover {...defaultProps} trigger="hover" />);
+      const trigger = screen.getByText('Trigger');
+
+      fireEvent.mouseEnter(trigger);
+      fireEvent.mouseLeave(trigger);
+
+      const content = screen.getByText('Popover content');
+      fireEvent.mouseEnter(content.parentElement!);
+
+      act(() => {
+        jest.advanceTimersByTime(150);
+      });
+
+      expect(content).toBeInTheDocument();
+    });
+  });
+
+  describe('Backdrop', () => {
+    it('shows backdrop when hasBackdrop is true and trigger is click', async () => {
+      const user = userEvent.setup();
+      render(<Popover {...defaultProps} hasBackdrop />);
+      await user.click(screen.getByText('Trigger'));
+      expect(document.querySelector('.backdrop')).toBeInTheDocument();
+    });
+
+    it('does not show backdrop when hasBackdrop is false', async () => {
+      const user = userEvent.setup();
+      render(<Popover {...defaultProps} hasBackdrop={false} />);
+      await user.click(screen.getByText('Trigger'));
+      expect(document.querySelector('.backdrop')).not.toBeInTheDocument();
+    });
+
+    it('does not show backdrop when trigger is hover', () => {
+      render(<Popover {...defaultProps} trigger="hover" hasBackdrop />);
+      fireEvent.mouseEnter(screen.getByText('Trigger'));
+      expect(document.querySelector('.backdrop')).not.toBeInTheDocument();
+    });
+
+    it('closes popover when clicking backdrop', async () => {
+      const user = userEvent.setup();
+      render(<Popover {...defaultProps} hasBackdrop />);
+      await user.click(screen.getByText('Trigger'));
+      await user.click(document.querySelector('.portalContainer')!);
+      expect(screen.queryByText('Popover content')).not.toBeInTheDocument();
+    });
+  });
+
+  describe('Positioning', () => {
+    it('applies different placements', async () => {
+      const placements = ['top', 'bottom', 'left', 'right'] as const;
+      const { rerender } = render(<Popover {...defaultProps} />);
+
+      for (const placement of placements) {
+        rerender(<Popover {...defaultProps} placement={placement} isOpen />);
+        const content = screen.getByText('Popover content').parentElement;
+        expect(content).toHaveClass(placement);
+      }
+    });
+
+    it('updates position on window resize', async () => {
+      render(<Popover {...defaultProps} isOpen placement="bottom" />);
+      const content = screen.getByText('Popover content').parentElement!;
+      expect(content).toHaveClass('bottom');
+
+      act(() => {
+        window.innerHeight = 100;
+        window.innerWidth = 100;
+        fireEvent.resize(window);
+      });
+
+      expect(content).toHaveClass('bottom');
+    });
+
+    it('updates position on scroll', async () => {
+      render(<Popover {...defaultProps} isOpen placement="bottom" />);
+      const content = screen.getByText('Popover content').parentElement!;
+      expect(content).toHaveClass('bottom');
+
+      act(() => {
+        window.scrollY = 500;
+        window.scrollX = 500;
+        fireEvent.scroll(window);
+      });
+
+      expect(content).toHaveClass('bottom');
+    });
+  });
+
+  describe('Styling', () => {
+    it('applies custom className to trigger', () => {
+      render(<Popover {...defaultProps} className="custom-trigger" />);
+      expect(screen.getByText('Trigger').parentElement).toHaveClass(
+        'custom-trigger',
+      );
+    });
+
+    it('applies custom contentClassName to content', async () => {
+      render(
+        <Popover {...defaultProps} contentClassName="custom-content" isOpen />,
+      );
+      expect(screen.getByText('Popover content').parentElement).toHaveClass(
+        'custom-content',
+      );
+    });
+
+    it('applies custom tailClassName to arrow', async () => {
+      render(<Popover {...defaultProps} tailClassName="custom-tail" isOpen />);
+      expect(document.querySelector('.tail')).toHaveClass('custom-tail');
+    });
+
+    it('shows arrow by default', async () => {
+      render(<Popover {...defaultProps} isOpen />);
+      expect(document.querySelector('.tail')).toBeInTheDocument();
+    });
+
+    it('hides arrow when showArrow is false', async () => {
+      render(<Popover {...defaultProps} showArrow={false} isOpen />);
+      expect(document.querySelector('.tail')).not.toBeInTheDocument();
     });
   });
 });

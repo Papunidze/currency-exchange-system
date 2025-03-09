@@ -1,4 +1,5 @@
 import React from 'react';
+import '@testing-library/jest-dom';
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Select from './select';
@@ -131,8 +132,8 @@ describe('Select Component', () => {
 
     await userEvent.click(screen.getByRole('combobox'));
 
-    const selectedOption = screen.getByText('Option 1').parentElement;
+    const selectedOption = screen.getByRole('option', { selected: true });
     expect(selectedOption).toHaveClass('selected');
-    expect(selectedOption?.querySelector('.checkmark')).toBeInTheDocument();
+    expect(selectedOption.querySelector('.checkmark')).toBeInTheDocument();
   });
 });

@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { Backdrop } from './backdrop';
+import '@testing-library/jest-dom';
+import Backdrop from './backdrop';
 
 describe('Backdrop Component', () => {
   const defaultProps = {
@@ -89,20 +90,14 @@ describe('Backdrop Component', () => {
 
   it('prevents event propagation when content is clicked', () => {
     const handleClick = jest.fn();
-    const { container } = render(
+    render(
       <Backdrop {...defaultProps} onClick={handleClick}>
         <div>Backdrop content</div>
       </Backdrop>,
     );
 
-    const content = container.querySelector('.backdropContent');
-    const mockStopPropagation = jest.fn();
-
-    fireEvent.click(content!, {
-      stopPropagation: mockStopPropagation,
-    });
-
-    expect(mockStopPropagation).toHaveBeenCalled();
+    const content = screen.getByText('Backdrop content');
+    fireEvent.click(content);
     expect(handleClick).not.toHaveBeenCalled();
   });
 

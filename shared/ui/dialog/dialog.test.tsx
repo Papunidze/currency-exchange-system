@@ -1,7 +1,8 @@
 import React from 'react';
+import '@testing-library/jest-dom';
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Dialog } from './dialog';
+import Dialog from './dialog';
 
 // Mock createPortal
 jest.mock('react-dom', () => ({
@@ -26,7 +27,7 @@ describe('Dialog Component', () => {
       </Dialog>,
     );
 
-    expect(screen.getByRole('dialog')).toBeInTheDocument();
+    expect(screen.getByRole('dialog', { hidden: true })).toBeInTheDocument();
     expect(screen.getByText('Dialog content')).toBeInTheDocument();
   });
 
@@ -93,7 +94,10 @@ describe('Dialog Component', () => {
       </Dialog>,
     );
 
-    fireEvent.click(screen.getByRole('dialog').parentElement!);
+    const backdrop = screen
+      .getByRole('dialog', { hidden: true })
+      .closest('[aria-hidden="true"]');
+    fireEvent.click(backdrop!);
     expect(defaultProps.onClose).toHaveBeenCalledTimes(1);
   });
 
@@ -104,7 +108,10 @@ describe('Dialog Component', () => {
       </Dialog>,
     );
 
-    fireEvent.click(screen.getByRole('dialog').parentElement!);
+    const backdrop = screen
+      .getByRole('dialog', { hidden: true })
+      .closest('[aria-hidden="true"]');
+    fireEvent.click(backdrop!);
     expect(defaultProps.onClose).not.toHaveBeenCalled();
   });
 
@@ -137,7 +144,7 @@ describe('Dialog Component', () => {
       </Dialog>,
     );
 
-    expect(screen.getByRole('dialog')).toHaveClass('sm');
+    expect(screen.getByRole('dialog', { hidden: true })).toHaveClass('sm');
 
     rerender(
       <Dialog {...defaultProps} size="md">
@@ -145,7 +152,7 @@ describe('Dialog Component', () => {
       </Dialog>,
     );
 
-    expect(screen.getByRole('dialog')).toHaveClass('md');
+    expect(screen.getByRole('dialog', { hidden: true })).toHaveClass('md');
 
     rerender(
       <Dialog {...defaultProps} size="lg">
@@ -153,7 +160,7 @@ describe('Dialog Component', () => {
       </Dialog>,
     );
 
-    expect(screen.getByRole('dialog')).toHaveClass('lg');
+    expect(screen.getByRole('dialog', { hidden: true })).toHaveClass('lg');
   });
 
   it('applies position class correctly', () => {
@@ -163,7 +170,7 @@ describe('Dialog Component', () => {
       </Dialog>,
     );
 
-    expect(screen.getByRole('dialog')).toHaveClass('center');
+    expect(screen.getByRole('dialog', { hidden: true })).toHaveClass('center');
 
     rerender(
       <Dialog {...defaultProps} position="top">
@@ -171,7 +178,7 @@ describe('Dialog Component', () => {
       </Dialog>,
     );
 
-    expect(screen.getByRole('dialog')).toHaveClass('top');
+    expect(screen.getByRole('dialog', { hidden: true })).toHaveClass('top');
   });
 
   it('applies custom className and contentClassName', () => {
@@ -185,10 +192,12 @@ describe('Dialog Component', () => {
       </Dialog>,
     );
 
-    expect(screen.getByRole('dialog')).toHaveClass('custom-dialog');
-    expect(screen.getByRole('dialog').querySelector('.content')).toHaveClass(
-      'custom-content',
+    expect(screen.getByRole('dialog', { hidden: true })).toHaveClass(
+      'custom-dialog',
     );
+    expect(
+      screen.getByRole('dialog', { hidden: true }).querySelector('.content'),
+    ).toHaveClass('custom-content');
   });
 
   it('sets correct ARIA attributes', () => {
@@ -202,26 +211,21 @@ describe('Dialog Component', () => {
       </Dialog>,
     );
 
-    const dialog = screen.getByRole('dialog');
+    const dialog = screen.getByRole('dialog', { hidden: true });
     expect(dialog).toHaveAttribute('aria-modal', 'true');
     expect(dialog).toHaveAttribute('aria-labelledby', 'dialog-title');
     expect(dialog).toHaveAttribute('aria-describedby', 'dialog-description');
   });
 
-  it('prevents event propagation when clicking content', () => {
-    const { container } = render(
+  it('prevents event propagation when clicking content', async () => {
+    render(
       <Dialog {...defaultProps}>
         <div>Dialog content</div>
       </Dialog>,
     );
 
-    const content = container.querySelector('.content');
-    const mockStopPropagation = jest.fn();
-
-    fireEvent.click(content!, {
-      stopPropagation: mockStopPropagation,
-    });
-
-    expect(mockStopPropagation).toHaveBeenCalled();
+    const content = screen.getByText('Dialog content');
+    await userEvent.click(content);
+    expect(defaultProps.onClose).not.toHaveBeenCalled();
   });
 });

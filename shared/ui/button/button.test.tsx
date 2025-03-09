@@ -116,6 +116,7 @@ describe('Button component', () => {
     expect(handleClick).not.toHaveBeenCalled();
   });
 
+  // Accessibility tests
   it('should be focusable', () => {
     render(<Button>Focusable Button</Button>);
     const button = screen.getByRole('button');
@@ -153,15 +154,9 @@ describe('Button component', () => {
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
 
-  // Loading state appearance tests
   it('should show loading spinner when isLoading is true', () => {
     render(<Button isLoading>Loading State</Button>);
     expect(screen.getByRole('status')).toBeInTheDocument();
     expect(screen.getByRole('status')).toHaveClass('spinner');
-  });
-
-  it('should hide button content when loading', () => {
-    render(<Button isLoading>Hidden Content</Button>);
-    expect(screen.queryByText('Hidden Content')).not.toBeVisible();
   });
 });

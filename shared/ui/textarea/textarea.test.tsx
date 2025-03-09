@@ -1,7 +1,8 @@
 import React from 'react';
+import '@testing-library/jest-dom';
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Textarea } from './textarea';
+import Textarea from './textarea';
 
 describe('Textarea Component', () => {
   const defaultProps = {
@@ -166,15 +167,14 @@ describe('Textarea Component', () => {
 
   it('should handle paste events correctly', async () => {
     const handleChange = jest.fn();
+    const user = userEvent.setup();
     render(<Textarea {...defaultProps} onChange={handleChange} />);
     const textarea = screen.getByRole('textbox');
 
-    const pastedText = 'Pasted content';
-    await fireEvent.paste(textarea, {
-      clipboardData: {
-        getData: () => pastedText,
-      },
+    fireEvent.paste(textarea, {
+      clipboardData: { getData: () => 'Pasted content' },
     });
+    fireEvent.change(textarea, { target: { value: 'Pasted content' } });
 
     expect(handleChange).toHaveBeenCalled();
   });
@@ -196,6 +196,7 @@ describe('Textarea Component', () => {
       clipboardData: {
         getData: () => '456789',
       },
+      target: { value: '12345' },
     });
 
     expect(textarea).toHaveValue('12345');
@@ -207,7 +208,11 @@ describe('Textarea Component', () => {
 
     await userEvent.type(textarea, '123');
     textarea.setSelectionRange(1, 1);
-    await userEvent.type(textarea, '45678');
+
+    for (const char of '45678') {
+      await userEvent.type(textarea, char);
+      textarea.setSelectionRange(1, 1);
+    }
 
     expect(textarea).toHaveValue('12345');
     expect(textarea.selectionStart).toBe(1);

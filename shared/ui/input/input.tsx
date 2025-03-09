@@ -2,6 +2,7 @@
 import React, { useId, forwardRef, useState } from 'react';
 import styles from './input.module.scss';
 import { InputProps } from './input.interfaces';
+import { cn } from '@app-shared/lib/utils';
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
   (
@@ -53,21 +54,21 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <div
-        className={`
-          ${styles.inputContainer}
-          ${fullWidth ? styles.fullWidth : ''}
-          ${disabled ? styles.disabled : ''}
-        `}
+        className={cn(
+          styles.inputContainer,
+          fullWidth ? styles.fullWidth : '',
+          disabled ? styles.disabled : '',
+        )}
       >
         <div
-          className={`
-            ${styles.inputWrapper} 
-            ${styles[size]} 
-            ${statusClass}
-            ${className}
-            ${isFocused ? styles.focused : ''}
-            ${hasValue ? styles.hasValue : ''}
-          `}
+          className={cn(
+            styles.inputWrapper,
+            styles[size],
+            statusClass,
+            className,
+            isFocused ? styles.focused : '',
+            hasValue ? styles.hasValue : '',
+          )}
         >
           {startContent && (
             <div className={styles.inputStart}>{startContent}</div>

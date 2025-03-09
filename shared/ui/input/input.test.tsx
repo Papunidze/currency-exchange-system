@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Input from './input';
+import userEvent from '@testing-library/user-event';
 
 describe('Input component', () => {
   it('displays helper text when provided', () => {
@@ -143,11 +144,11 @@ describe('Input component', () => {
     expect(screen.getByLabelText('Email')).toHaveAttribute('type', 'email');
   });
 
-  it('should handle maxLength restriction', () => {
+  it('should handle maxLength restriction', async () => {
     render(<Input label="Limited" maxLength={5} />);
     const input = screen.getByLabelText('Limited');
 
-    fireEvent.change(input, { target: { value: '123456' } });
+    await userEvent.type(input, '123456');
     expect(input).toHaveValue('12345');
   });
 

@@ -38,9 +38,9 @@
     box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.08);
 
     .label {
-      color: var(--primary);
       transform: translateY(-50%) scale(0.85);
       background: var(--background-light);
+      color: var(--primary);
     }
 
     .value {
@@ -52,7 +52,6 @@
       color: var(--primary);
     }
   }
-
   &.focused,
   &.open {
     border-color: var(--primary);
@@ -335,7 +334,6 @@
     font-weight: normal;
   }
 }
-
 .label {
   position: absolute;
   left: 12px;

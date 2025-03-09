@@ -3,7 +3,7 @@ import styles from './backdrop.module.scss';
 import { cn } from '@app-shared/lib/utils';
 import { BackdropProps } from './backdrop.interfaces';
 
-const Backdrop: FC<BackdropProps> = ({
+const Backdrop = ({
   isOpen = false,
   className,
   opacity = 50,
@@ -12,7 +12,7 @@ const Backdrop: FC<BackdropProps> = ({
   onClick,
   zIndex = 50,
   children,
-}) => {
+}: BackdropProps) => {
   useEffect(() => {
     if (disableScroll) {
       if (isOpen) {
