@@ -3,7 +3,7 @@
 import React from 'react';
 import CreateForm from '@app-shared/ui/form';
 import { signInFormData, userSchema } from './action';
-import Image from '@app-shared/components/Image';
+import Image from '@app-components/Image';
 import IconButton from '@app-shared/ui/iconButton';
 import AuthLayout from '../auth-layout';
 import styles from '../auth.module.scss';

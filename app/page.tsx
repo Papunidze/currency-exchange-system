@@ -1,3 +1,5 @@
+import TopBar from '@app-layout/top-bar';
+import SideBar from '@app-layout/side-bar';
 import styles from './page.module.scss';
 import { Metadata } from 'next';
 
@@ -11,9 +13,11 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className={styles.container}>
-      TopBar
+      <TopBar />
       <div className={styles.content}>
-        LeftBar
+        <div className={styles.dashboardLayout}>
+          <SideBar />
+        </div>
         <section className={styles.mainSection}>
           <div className={styles.hero}>
             <h1>Fast & Secure Currency Exchange</h1>

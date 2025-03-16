@@ -9,6 +9,13 @@
 .content {
   display: flex;
   flex: 1;
+  padding: var(--spacing-xl);
+  background-color: var(--background-primary);
+}
+
+.dashboardLayout {
+  display: flex;
+  min-height: calc(100vh - 64px);
 }
 
 .mainSection {
@@ -67,7 +74,7 @@
 }
 
 .converterCard {
-  background-color: var(--backgrounds-secondary);
+  background-color: var(--background-secondary);
   border-radius: var(--radius-lg);
   padding: var(--spacing-xl);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
@@ -107,7 +114,7 @@
 }
 
 .featureCard {
-  background-color: var(--backgrounds-secondary);
+  background-color: var(--background-secondary);
   border-radius: var(--radius-lg);
   padding: var(--spacing-xl);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
@@ -153,7 +160,7 @@
 }
 
 .marketOverview {
-  background-color: var(--backgrounds-secondary);
+  background-color: var(--background-secondary);
   border-radius: var(--radius-lg);
   padding: var(--spacing-xl);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);

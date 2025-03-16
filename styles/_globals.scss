@@ -16,7 +16,6 @@ html {
   font-size: var(--font-size-base);
   height: 100%;
   scroll-behavior: smooth;
-  // Improve text rendering
   text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }
@@ -114,7 +113,6 @@ object {
   height: auto;
 }
 
-// Add lazy loading animation
 img.lazy-load {
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -173,7 +171,7 @@ ol {
   top: -40px;
   left: 0;
   padding: 0.5rem 1rem;
-  background-color: var(--primary);
+  background-color: transparent;
   color: white;
   z-index: 9999;
   transition: top 0.2s ease;

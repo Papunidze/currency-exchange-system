@@ -6,6 +6,15 @@
   gap: var(--spacing-xs);
 }
 
+.row {
+  flex-direction: row;
+}
+
+.column {
+  flex-direction: column;
+  justify-content: center;
+}
+
 .logo {
   display: flex;
   align-items: center;

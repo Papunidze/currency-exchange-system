@@ -24,7 +24,9 @@
       "@app-styles/*": ["styles/*"],
       "@app-image/*": ["public/image/*"],
       "@app-services/*": ["shared/services/*"],
-      "@shared/lib/*": ["shared/lib/*"]
+      "@app-lib/*": ["shared/lib/*"],
+      "@app-components/*": ["shared/components/*"],
+      "@app-layout/*": ["shared/components/layout/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

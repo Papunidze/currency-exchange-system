@@ -5,4 +5,5 @@ export interface LogoProps {
   text?: string;
   showText?: boolean;
   className?: string;
+  direction?: 'row' | 'column';
 }
