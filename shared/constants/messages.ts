@@ -27,11 +27,9 @@ const max = (params: MessageParams) => {
   return `${params.field || 'This field'} must be less than or equal to ${params.max}`;
 };
 
-const email = (params: MessageParams) =>
-  `Please enter a valid email address${params.field ? ` for ${params.field}` : ''}`;
+const email = (params: MessageParams) => `Please enter a valid email address`;
 
-const url = (params: MessageParams) =>
-  `Please enter a valid URL${params.field ? ` for ${params.field}` : ''}`;
+const url = (params: MessageParams) => `Please enter a valid URL`;
 
 const alpha = (params: MessageParams) =>
   `${params.field || 'This field'} must contain only letters`;
@@ -42,8 +40,7 @@ const alphanumeric = (params: MessageParams) =>
 const numeric = (params: MessageParams) =>
   `${params.field || 'This field'} must contain only numbers`;
 
-const phone = (params: MessageParams) =>
-  `Please enter a valid phone number${params.field ? ` for ${params.field}` : ''}`;
+const phone = (params: MessageParams) => `Please enter a valid phone number`;
 
 const password = (params: MessageParams) => {
   const requirements = [
@@ -62,8 +59,7 @@ const pattern = (params: MessageParams) =>
 const oneOf = (params: MessageParams) =>
   `${params.field || 'This field'} must be one of: ${params.allowed?.join(', ')}`;
 
-const date = (params: MessageParams) =>
-  `Please enter a valid date${params.field ? ` for ${params.field}` : ''}`;
+const date = (params: MessageParams) => `Please enter a valid date`;
 
 const fileType = (params: MessageParams) =>
   `${params.field || 'File'} must be of type: ${params.allowed?.join(', ')}`;

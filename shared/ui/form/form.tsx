@@ -7,8 +7,9 @@ import Select from '@app-shared/ui/select';
 import styles from './form.module.scss';
 import { FormProps } from './form.inerfaces';
 import { SchemaField, SelectField } from '@app-shared/services/schema';
+import { cn } from '@app-shared/lib/utils';
 
-function CreateForm<T extends Record<string, any>>({
+function CreateForm<T>({
   schema,
   onSubmit,
   defaultValues,
@@ -16,22 +17,48 @@ function CreateForm<T extends Record<string, any>>({
   submitLabel = 'Submit',
   selectVariant = 'primary',
   buttonVariant = 'primary',
+  className = '',
   size = 'small',
-  title = 'Form',
+  title = '',
   content,
+  children,
 }: FormProps<T>) {
-  const [formData, setFormData] = React.useState<Partial<T>>(
-    defaultValues || {},
+  const [formData, setFormData] = React.useState<Record<string, unknown>>(
+    (defaultValues as Record<string, unknown>) || {},
   );
+
   const [errors, setErrors] = React.useState<Record<string, string>>({});
+  const [isSubmitted, setIsSubmitted] = React.useState<boolean>(false);
+
+  // Convert formData to FormData object for validators
+  const createFormDataObject = (): FormData => {
+    const fData = new FormData();
+    Object.entries(formData).forEach(([key, value]) => {
+      if (value !== undefined && value !== null) {
+        fData.append(key, String(value));
+      }
+    });
+    return fData;
+  };
 
   const validateField = (field: SchemaField, value: string) => {
     if (field.required && !value) {
       return `${field.label} is required`;
     }
+
     if (field.validators) {
-      return (field.validators as (val: string) => string | undefined)(value);
+      // Create FormData object to pass to validators
+      const formDataObj = createFormDataObject();
+
+      // Call the validator with both the value and the FormData
+      return (
+        field.validators as (
+          val: string,
+          formData?: FormData,
+        ) => string | undefined
+      )(value, formDataObj);
     }
+
     return undefined;
   };
 
@@ -41,20 +68,24 @@ function CreateForm<T extends Record<string, any>>({
       [field.name]: value,
     }));
 
-    const error = validateField(field, value);
-    setErrors((prev) => ({
-      ...prev,
-      [field.name]: error || '',
-    }));
+    if (isSubmitted && errors[field.name]) {
+      setErrors((prev) => ({
+        ...prev,
+        [field.name]: '',
+      }));
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    setIsSubmitted(true);
+
     let hasErrors = false;
     const newErrors: Record<string, string> = {};
 
     schema.forEach((field) => {
-      const value = String(formData[field.name as keyof T] || '');
+      const value = String(formData[field.name] || '');
       const error = validateField(field, value);
 
       if (error) {
@@ -66,13 +97,13 @@ function CreateForm<T extends Record<string, any>>({
     setErrors(newErrors);
 
     if (!hasErrors) {
-      onSubmit(formData as T);
+      onSubmit(formData as unknown as T);
     }
   };
 
   const renderField = (field: SchemaField) => {
-    const value = String(formData[field.name as keyof T] || '');
-    const error = errors[field.name];
+    const value = String(formData[field.name] || '');
+    const error = isSubmitted ? errors[field.name] || '' : '';
 
     switch (field.type) {
       case 'select':
@@ -88,11 +119,26 @@ function CreateForm<T extends Record<string, any>>({
               value: String(opt.value),
             }))}
             onChange={(val: string) => handleChange(field, val)}
-            error={errors[field.name]}
+            error={error}
             required={field.required}
             variant={selectVariant}
             placeholder={field.placeholder}
           />
+        );
+      case 'checkbox':
+        return (
+          <div key={field.name} className="checkbox-field">
+            <Input
+              type="checkbox"
+              label={field.label}
+              checked={Boolean(formData[field.name])}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleChange(field, String(e.target.checked))
+              }
+              errorMessage={error}
+              required={field.required}
+            />
+          </div>
         );
       case 'textarea':
         return (
@@ -104,7 +150,7 @@ function CreateForm<T extends Record<string, any>>({
             onChange={(
               e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
             ) => handleChange(field, e.target.value)}
-            errorMessage={errors[field.name]}
+            errorMessage={error}
             required={field.required}
             placeholder={field.placeholder}
           />
@@ -121,7 +167,7 @@ function CreateForm<T extends Record<string, any>>({
               handleChange(field, e.target.value)
             }
             isInvalid={!!error}
-            errorMessage={errors[field.name]}
+            errorMessage={error}
             placeholder={field.placeholder}
           />
         );
@@ -129,8 +175,8 @@ function CreateForm<T extends Record<string, any>>({
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
-      <h1>{title}</h1>
+    <form onSubmit={handleSubmit} className={cn(styles.form, className)}>
+      {title && <h1>{title}</h1>}
       <div className={styles.fields}>
         {schema.map((field) => (
           <div key={field.name} className={styles.field}>
@@ -141,6 +187,7 @@ function CreateForm<T extends Record<string, any>>({
       {content}
       <div className={styles.actions}>
         <Button
+          fullWidth
           type="submit"
           isLoading={isLoading}
           variant={buttonVariant}
@@ -149,10 +196,11 @@ function CreateForm<T extends Record<string, any>>({
           {submitLabel || 'Submit'}
         </Button>
       </div>
+      {children}
     </form>
   );
 }
 
-CreateForm.displayName = 'Form';
+CreateForm.displayName = 'CreateForm';
 
 export default CreateForm;

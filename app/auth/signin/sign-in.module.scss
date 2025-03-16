@@ -1,0 +1,112 @@
+.signInContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+.forgotPassword {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--spacing-xs);
+}
+
+.divider {
+  position: relative;
+  text-align: center;
+  margin: var(--spacing-lg) 0;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: var(--border-primary);
+  }
+
+  span {
+    position: relative;
+    padding: 0 var(--spacing-sm);
+    background-color: var(--background-light);
+    color: var(--text-color-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    text-transform: capitalize;
+  }
+}
+
+.section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: var(--spacing-md);
+}
+
+.card {
+  width: 100%;
+  max-width: 420px;
+  background-color: var(--background-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-xl);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+
+  h1 {
+    font-size: var(--font-size-xxl);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-color-primary);
+    margin-bottom: var(--spacing-xs);
+  }
+
+  p {
+    color: var(--text-color-secondary);
+    font-size: var(--font-size-sm);
+  }
+}
+
+.form {
+  margin-bottom: var(--spacing-md);
+
+  :global(.form-group) {
+    margin-bottom: var(--spacing-md);
+  }
+
+  :global(.form-control) {
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-primary);
+    padding: var(--spacing-sm);
+  }
+
+  :global(.btn-primary) {
+    width: 100%;
+    margin-top: var(--spacing-md);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-sm) 0;
+    font-weight: var(--font-weight-medium);
+    transition: var(--transition-normal);
+  }
+}
+
+.signup {
+  text-align: center;
+  color: var(--text-color-secondary);
+  font-size: var(--font-size-sm);
+
+  a {
+    margin-left: var(--spacing-xs);
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: var(--spacing-lg);
+  }
+}

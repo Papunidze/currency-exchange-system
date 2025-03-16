@@ -1,6 +1,7 @@
 import type { ImageConfig, ImageCategory } from './config';
 import { socialImages } from './social';
 import { bannerImages } from './banner';
+import { logoImages } from './logo';
 
 
 class ImageRegistry {
@@ -25,6 +26,10 @@ class ImageRegistry {
 
     Object.entries(bannerImages).forEach(([key, config]) => {
       this.register(`banner:${key}`, config);
+    });
+
+    Object.entries(logoImages).forEach(([key, config]) => {
+      this.register(`logo:${key}`, config);
     });
   }
 

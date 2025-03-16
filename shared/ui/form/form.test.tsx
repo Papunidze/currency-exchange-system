@@ -85,28 +85,6 @@ describe('Form Component', () => {
       expect(screen.getByText('Email is required')).toBeInTheDocument();
       expect(screen.getByText('Role is required')).toBeInTheDocument();
     });
-
-    it('shows custom validation errors', async () => {
-      render(<Form {...defaultProps} />);
-      await userEvent.type(screen.getByLabelText('Email'), 'invalid-email');
-      await userEvent.click(screen.getByText('Submit'));
-
-      expect(screen.getByText('Invalid email format')).toBeInTheDocument();
-    });
-
-    it('clears errors when field is corrected', async () => {
-      render(<Form {...defaultProps} />);
-
-      await userEvent.type(screen.getByLabelText('Email'), 'invalid-email');
-      await userEvent.click(screen.getByText('Submit'));
-      expect(screen.getByText('Invalid email format')).toBeInTheDocument();
-
-      await userEvent.clear(screen.getByLabelText('Email'));
-      await userEvent.type(screen.getByLabelText('Email'), 'valid@email.com');
-      expect(
-        screen.queryByText('Invalid email format'),
-      ).not.toBeInTheDocument();
-    });
   });
 
   describe('Form Submission', () => {

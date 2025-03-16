@@ -3,6 +3,7 @@ import type { StaticImageData } from 'next/image';
 export type ImageCategory = 'social' | 'logo' | 'banner' | 'avatar' | 'icon';
 
 export interface BaseImageConfig {
+  priority?: boolean;
   src: StaticImageData;
   alt: string;
   width: number;
@@ -16,7 +17,7 @@ export interface SocialImageConfig extends BaseImageConfig {
   provider: SocialProvider;
 }
 
-export type LogoVariant = 'default' | 'light' | 'dark';
+export type LogoVariant = 'primary';
 export interface LogoImageConfig extends BaseImageConfig {
   category: 'logo';
   variant: LogoVariant;

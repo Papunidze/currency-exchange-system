@@ -9,7 +9,6 @@ export class ValidationBuilder<T> {
 
   required(message?: string): this {
     this.validations.push((value: T) => {
-      console.log(this);
       if (value === undefined || value === null || value === '')
         return message || DEFAULT_MESSAGES.required({ field: this.type });
       if (Array.isArray(value) && value.length === 0)

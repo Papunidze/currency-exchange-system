@@ -1,20 +1,15 @@
 import React from 'react';
 import NextImage from 'next/image';
 import type { ImageConfig } from '@app-image/config';
-import { isSocialImage, isBannerImage, isAvatarImage } from '@app-image/config';
+import {
+  isSocialImage,
+  isBannerImage,
+  isAvatarImage,
+  isLogoImage,
+} from '@app-image/config';
 import { imageRegistry } from '@app-image/registry';
 import styles from './image.module.scss';
-
-export interface ImageProps {
-  imageKey: string;
-  size?: number;
-  width?: number;
-  height?: number;
-  className?: string;
-  onClick?: () => void;
-  alt?: string;
-  objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
-}
+import { ImageProps } from './image.interafaces';
 
 export const Image: React.FC<ImageProps> = ({
   imageKey,
@@ -27,7 +22,6 @@ export const Image: React.FC<ImageProps> = ({
   objectFit = 'contain',
 }) => {
   const config = imageRegistry.get(imageKey);
-
   if (!config) {
     console.warn(`Image with key "${imageKey}" not found in registry`);
     return null;
@@ -49,6 +43,9 @@ export const Image: React.FC<ImageProps> = ({
       return `${baseClass} ${categoryClass} ${styles[config.position]}`;
     }
 
+    if (isLogoImage(config)) {
+      return `${baseClass} ${categoryClass} ${styles[config.variant]}`;
+    }
     return `${baseClass} ${categoryClass}`;
   };
 
@@ -63,6 +60,7 @@ export const Image: React.FC<ImageProps> = ({
       tabIndex={onClick ? 0 : undefined}
     >
       <NextImage
+        priority={config.priority || false}
         src={config.src}
         alt={alt || config.alt}
         width={finalWidth}

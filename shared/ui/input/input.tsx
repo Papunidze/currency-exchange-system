@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useId, forwardRef, useState } from 'react';
 import styles from './input.module.scss';
 import { InputProps } from './input.interfaces';
@@ -44,7 +45,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       setHasValue(Boolean(e.target.value));
       props.onChange?.(e);
     };
-
+    
+    const hasValues = value !== undefined && value !== '';
     return (
       <div
         className={cn(styles.inputContainer, {
@@ -60,7 +62,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
               [styles.error]: isInvalid,
               [styles.valid]: isValid,
               [styles.focused]: isFocused,
-              [styles.hasValue]: hasValue,
+              [styles.hasValue]: hasValues,
               [styles.bothContent]: startContent && endContent,
             },
             className,

@@ -33,7 +33,8 @@
   line-height: 1;
 
   .inputWrapper:focus-within &,
-  .input:not(:placeholder-shown) ~ & {
+  .input:not(:placeholder-shown) ~ &,
+  .input.hasValue ~ & { 
     top: -6px;
     left: 10px;
     transform: translateY(0) scale(0.85);

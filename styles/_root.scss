@@ -59,4 +59,8 @@
   @each $name, $value in $radius {
     --radius-#{$name}: #{$value};
   }
+
+  @each $name, $value in $scrollbar {
+    --scrollbar-#{$name}: #{$value};
+  }
 }

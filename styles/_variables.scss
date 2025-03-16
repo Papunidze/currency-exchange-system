@@ -9,15 +9,17 @@ $text-colors: (
   secondary: rgb(102, 102, 102),
   light: rgb(255, 255, 255),
   link: rgb(41, 153, 245),
+  tertiary: rgb(153, 153, 153),
 );
 
 $variants: (
-  primary: rgb(0, 111, 238),
+  primary: rgb(46, 78, 121),
   secondary: rgb(63, 63, 70),
   warning: rgb(245, 165, 36),
   danger: rgb(229, 57, 53),
   success: rgb(23, 201, 100),
   loading: rgb(212, 212, 216),
+  dark: #1d4ed8,
   IconButton-hoverBg: rgba(0, 0, 0, 0.04),
 );
 
@@ -25,6 +27,7 @@ $backgrounds: (
   primary: rgb(236, 237, 238),
   secondary: rgb(0, 0, 0),
   light: rgb(255, 255, 255),
+  white: rgb(255, 255, 255),
 );
 
 $icon-sizes: (
@@ -57,17 +60,24 @@ $font-family: (
 );
 
 $font-size: (
+  xs: 12px,
   base: 16px,
   sm: 14px,
   lg: 18px,
   xl: 22px,
   xxl: 28px,
+  2xl: 32px,
+  3xl: 40px,
+  4xl: 48px,
+  5xl: 56px,
+  6xl: 68px,
 );
 
 $font-weight: (
   light: 300,
   regular: 400,
   medium: 500,
+  semibold: 600,
   bold: 700,
 );
 
@@ -92,12 +102,17 @@ $border-radius: (
 );
 
 $spacing: (
+  2xs: 2px,
   xs: 4px,
   sm: 8px,
   md: 12px,
   lg: 16px,
   xl: 24px,
-  xxl: 32px,
+  2xl: 32px,
+  3xl: 48px,
+  4xl: 64px,
+  5xl: 80px,
+  6xl: 96px,
 );
 
 $transition: (
@@ -120,4 +135,10 @@ $radius: (
   xl: 16px,
   xxl: 24px,
   full: 9999px,
+);
+
+$scrollbar: (
+  track: #f1f1f1,
+  thumb: #c1c1c1,
+  thumb-hover: #a8a8a8,
 );

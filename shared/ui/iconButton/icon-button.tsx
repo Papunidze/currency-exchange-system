@@ -1,6 +1,7 @@
 import { ButtonHTMLAttributes, ReactNode, forwardRef } from 'react';
 import styles from './icon-button.module.scss';
 import { IconButtonProps } from './iconButton.interfaces';
+import { cn } from '@app-shared/lib/utils';
 
 const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
   (
@@ -23,13 +24,13 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       <button
         ref={ref}
         type="button"
-        className={`
-          ${styles.iconButton} 
-          ${styles[variant]} 
-          ${styles[size]}
-          ${isLoading ? styles.loading : ''}
-          ${className}
-        `}
+        className={cn(
+          styles.iconButton,
+          styles[variant],
+          styles[size],
+          isLoading && styles.loading,
+          className
+        )}
         disabled={isDisabled}
         aria-label={ariaLabel}
         aria-busy={isLoading}

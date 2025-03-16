@@ -34,9 +34,7 @@ $form-transition: var(--transition-fast);
     }
   }
 
-  &:focus-within {
-    box-shadow: var(--shadow-2xl);
-  }
+
 
   @include respond(sm) {
     padding: var(--spacing-lg);
@@ -73,9 +71,6 @@ $form-transition: var(--transition-fast);
   justify-content: flex-end;
   align-items: center;
   gap: var(--spacing-md);
-  margin-top: var(--spacing-lg);
-  padding-top: var(--spacing-lg);
-  border-top: 1px solid var(--border-primary);
 
   @include respond(sm) {
     flex-direction: column;

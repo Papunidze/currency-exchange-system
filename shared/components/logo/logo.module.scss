@@ -1,0 +1,94 @@
+.logoContainer {
+  display: flex;
+  align-items: center;
+  user-select: none;
+  justify-content: center;
+  gap: var(--spacing-xs);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logoIcon {
+  width: auto;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.08));
+  transition: transform 0.2s ease;
+}
+
+.logoText {
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-lg);
+  font-family: var(--font-family-heading);
+  background: linear-gradient(to right, var(--primary), var(--variant-dark));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  margin-left: var(--spacing-xs);
+}
+
+.sm {
+  .logoText {
+    font-size: var(--font-size-md);
+  }
+}
+
+.md {
+  .logoText {
+    font-size: var(--font-size-lg);
+  }
+}
+
+.lg {
+  .logoText {
+    font-size: var(--font-size-xl);
+  }
+}
+
+.vertical {
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  text-align: center;
+
+  .logoText {
+    margin-left: 0;
+  }
+}
+
+.primary {
+  .logoText {
+    background: linear-gradient(to right, var(--primary), var(--variant-dark));
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+}
+
+.monochrome {
+  .logoIcon {
+    filter: grayscale(1);
+  }
+
+  .logoText {
+    background: linear-gradient(
+      to right,
+      var(--text-color-primary),
+      var(--text-color-secondary)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+}
+
+.light {
+  .logoIcon {
+    filter: brightness(1.5);
+  }
+
+  .logoText {
+    background: white;
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+}
