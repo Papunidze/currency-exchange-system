@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className={styles.container}>
-      <TopBar />
+      <TopBar userName="Giga" />
       <div className={styles.content}>
         <div className={styles.dashboardLayout}>
           <SideBar />

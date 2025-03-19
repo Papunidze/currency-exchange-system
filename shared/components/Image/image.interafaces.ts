@@ -1,10 +1,15 @@
-export interface ImageProps {
+export interface ImageProps extends Partial<ImageOptionalProps> {
   imageKey: string;
-  size?: number;
-  width?: number;
-  height?: number;
-  className?: string;
-  onClick?: () => void;
-  alt?: string;
-  objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
+}
+
+export type ImageFit = 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
+
+export interface ImageOptionalProps {
+  size: number;
+  width: number;
+  height: number;
+  className: string;
+  alt: string;
+  objectFit: ImageFit;
+  onClick: () => void;
 }

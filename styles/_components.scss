@@ -5,7 +5,7 @@
 .layout {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   max-height: -webkit-fill-available;
   overflow: auto;
   padding: var(--spacing-md);

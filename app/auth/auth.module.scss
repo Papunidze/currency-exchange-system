@@ -34,7 +34,7 @@
 }
 
 .authWrapper {
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   display: flex;
   align-items: center;
@@ -44,10 +44,10 @@
 }
 
 .authContainer {
-  background-color: var(--background-white);
+  background-color: var(--background-light);
   border-radius: var(--radius-lg);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  padding: var(--spacing-xxl) var(--spacing-xl);
+  padding: var(--spacing-xl) var(--spacing-xl);
   width: 100%;
   max-width: 480px;
   display: flex;
