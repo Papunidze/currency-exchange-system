@@ -53,6 +53,13 @@ const ICON_PATHS = {
   SEARCH: 'M15.5 14.5l5 5M19 10.5a8.5 8.5 0 11-17 0 8.5 8.5 0 0117 0z',
   BELL: 'M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1',
   USER: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z',
+  // Adding the new icon paths
+  SUN: 'M12 17.5a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zm0 1.5a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-16a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1zm0 19a1 1 0 0 1-1-1v-1a1 1 0 1 1 2 0v1a1 1 0 0 1-1 1zm9-10a1 1 0 1 1 0 2h-1a1 1 0 1 1 0-2h1zM4 12a1 1 0 0 1-1 1H2a1 1 0 1 1 0-2h1a1 1 0 0 1 1 1zm16.95-6.95a1 1 0 0 1 0 1.414l-.707.707a1 1 0 1 1-1.414-1.414l.707-.707a1 1 0 0 1 1.414 0zM5.636 19.95a1 1 0 0 1-1.414 0l-.707-.707a1 1 0 1 1 1.414-1.414l.707.707a1 1 0 0 1 0 1.414zM19.95 18.536l-.707.707a1 1 0 0 1-1.414-1.414l.707-.707a1 1 0 0 1 1.414 1.414zM5.636 5.636a1 1 0 0 1-1.414-1.414l.707-.707a1 1 0 0 1 1.414 1.414l-.707.707z',
+  MOON: 'M21.53 15.93c-.16-.27-.61-.69-1.73-.49a8.46 8.46 0 01-1.88.13 8.409 8.409 0 01-5.91-2.82 8.068 8.068 0 01-1.44-8.66c.44-1.01.13-1.54-.09-1.76s-.77-.55-1.83-.11a10.318 10.318 0 00-6.32 10.21 10.475 10.475 0 007.04 8.99 10 10 0 002.89.55c.16.01.32.02.48.02a10.5 10.5 0 008.47-4.27c.67-.93.49-1.52.32-1.79z',
+  DASHBOARD: 'M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z',
+  LOGOUT:
+    'M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5-5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z',
+  CHEVRON_DOWN: 'M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z',
 } as const;
 
 export const HomeIcon = createIcon('HomeIcon', ICON_PATHS.HOME);
@@ -65,3 +72,13 @@ export const SearchIcon = createIcon('SearchIcon', ICON_PATHS.SEARCH);
 export const BellIcon = createIcon('BellIcon', ICON_PATHS.BELL);
 export const UserIcon = createIcon('UserIcon', ICON_PATHS.USER);
 export const MenuIcon = createIcon('MenuIcon', ICON_PATHS.MENU);
+
+// Adding the new icon exports
+export const SunIcon = createIcon('SunIcon', ICON_PATHS.SUN);
+export const MoonIcon = createIcon('MoonIcon', ICON_PATHS.MOON);
+export const DashboardIcon = createIcon('DashboardIcon', ICON_PATHS.DASHBOARD);
+export const LogoutIcon = createIcon('LogoutIcon', ICON_PATHS.LOGOUT);
+export const ChevronDownIcon = createIcon(
+  'ChevronDownIcon',
+  ICON_PATHS.CHEVRON_DOWN,
+);

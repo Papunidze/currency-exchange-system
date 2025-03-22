@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import { MainLayout } from '@app-layouts/index';
 
 export const metadata: Metadata = {
   title: 'Home - Fast & Secure Currency Exchange',
@@ -9,9 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  return (
-    <MainLayout userName="John">
-      <h1>Welcome to Currency Exchange System</h1>
-    </MainLayout>
-  );
+  return <h1>Welcome to Currency Exchange System</h1>;
 }

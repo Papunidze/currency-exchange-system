@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import styles from './auth.module.scss';
-import Logo from '@app-components/logo';
+import { Logo } from '@app-shared/components/media';
 
 interface AuthLayoutProps {
   children: ReactNode;

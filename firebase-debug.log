@@ -1,0 +1,87 @@
+[debug] [2025-03-22T14:22:54.926Z] ----------------------------------------------------------------------
+[debug] [2025-03-22T14:22:54.929Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Papu\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2025-03-22T14:22:54.930Z] CLI Version:   13.35.1
+[debug] [2025-03-22T14:22:54.930Z] Platform:      win32
+[debug] [2025-03-22T14:22:54.930Z] Node Version:  v22.13.0
+[debug] [2025-03-22T14:22:54.931Z] Time:          Sat Mar 22 2025 07:22:54 GMT-0700 (Pacific Daylight Time)
+[debug] [2025-03-22T14:22:54.931Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-03-22T14:22:55.213Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-03-22T14:22:55.214Z] > authorizing via signed-in user (papunidze07@gmail.com)
+[debug] [2025-03-22T14:22:55.214Z] [iam] checking project currency-exchange-system for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2025-03-22T14:22:55.217Z] Checked if tokens are valid: true, expires at: 1742656642227
+[debug] [2025-03-22T14:22:55.217Z] Checked if tokens are valid: true, expires at: 1742656642227
+[debug] [2025-03-22T14:22:55.218Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/currency-exchange-system:testIamPermissions [none]
+[debug] [2025-03-22T14:22:55.219Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/currency-exchange-system:testIamPermissions x-goog-quota-user=projects/currency-exchange-system
+[debug] [2025-03-22T14:22:55.219Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/currency-exchange-system:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-03-22T14:22:56.272Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/currency-exchange-system:testIamPermissions 200
+[debug] [2025-03-22T14:22:56.272Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/currency-exchange-system:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-03-22T14:22:56.272Z] Checked if tokens are valid: true, expires at: 1742656642227
+[debug] [2025-03-22T14:22:56.273Z] Checked if tokens are valid: true, expires at: 1742656642227
+[debug] [2025-03-22T14:22:56.273Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/currency-exchange-system [none]
+[debug] [2025-03-22T14:22:56.722Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/currency-exchange-system 200
+[debug] [2025-03-22T14:22:56.723Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/currency-exchange-system {"projectId":"currency-exchange-system","projectNumber":"871127094768","displayName":"Currency-Exchange-System","name":"projects/currency-exchange-system","resources":{"hostingSite":"currency-exchange-system"},"state":"ACTIVE","etag":"1_b388faca-da76-4bfb-b772-c9bab61547bd"}
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+   The integration is known to work with Next.js version 12 - 15.0. You may encounter errors.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2025-03-22T14:23:09.947Z] Checked if tokens are valid: true, expires at: 1742656642227
+[debug] [2025-03-22T14:23:09.947Z] Checked if tokens are valid: true, expires at: 1742656642227
+[debug] [2025-03-22T14:23:09.947Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/currency-exchange-system/sites/currency-exchange-system [none]
+[debug] [2025-03-22T14:23:11.200Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/currency-exchange-system/sites/currency-exchange-system 200
+[debug] [2025-03-22T14:23:11.201Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/currency-exchange-system/sites/currency-exchange-system {"name":"projects/currency-exchange-system/sites/currency-exchange-system","defaultUrl":"https://currency-exchange-system.web.app","type":"DEFAULT_SITE"}
+[info]    ▲ Next.js 15.1.7
+
+[info] 
+
+[info]    Creating an optimized production build ...
+
+[info] <w> [webpack.cache.PackFileCacheStrategy] Skipped not serializable cache item 'Compilation/modules|javascript/auto|C:\Users\Papu\Desktop\currency-exchange-system\node_modules\next\dist\build\webpack\loaders\next-flight-css-loader.js??ruleSet[1].rules[13].oneOf[7].use[0]!C:\Users\Papu\Desktop\currency-exchange-system\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[13].oneOf[7].use[1]!C:\Users\Papu\Desktop\currency-exchange-system\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[13].oneOf[7].use[2]!C:\Users\Papu\Desktop\currency-exchange-system\node_modules\next\dist\build\webpack\loaders\resolve-url-loader\index.js??ruleSet[1].rules[13].oneOf[7].use[3]!C:\Users\Papu\Desktop\currency-exchange-system\node_modules\next\dist\compiled\sass-loader\cjs.js??ruleSet[1].rules[13].oneOf[7].use[4]!C:\Users\Papu\Desktop\currency-exchange-system\shared\ui\input\input.module.scss|ssr': No serializer registered for CssSyntaxError
+<w> while serializing webpack/lib/cache/PackFileCacheStrategy.PackContentItems -> webpack/lib/NormalModule -> webpack/lib/ModuleBuildError -> CssSyntaxError
+
+[info] Failed to compile.
+
+
+[info] ./app/auth/auth-layout.tsx
+Module not found: Can't resolve '@app-components/logo'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./app/auth/signin/page.tsx
+
+./app/auth/signin/page.tsx
+Module not found: Can't resolve '@app-components/Image'
+
+https://nextjs.org/docs/messages/module-not-found
+
+./app/auth/signup/page.tsx
+Module not found: Can't resolve '@app-components/Image'
+
+https://nextjs.org/docs/messages/module-not-found
+
+./app/form/page.tsx
+Module not found: Can't resolve '@app-shared/schema'
+
+https://nextjs.org/docs/messages/module-not-found
+
+./app/materials/popins/page.tsx
+Module not found: Can't resolve '@app-shared/ui/popins'
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[info] 
+
+[info] > Build failed because of webpack errors
+
+[debug] [2025-03-22T14:23:20.316Z] Error: ENOENT: no such file or directory, open 'C:\Users\Papu\Desktop\currency-exchange-system\.next\server\middleware-manifest.json'
+[error] 
+[error] Error: An unexpected error has occurred.
