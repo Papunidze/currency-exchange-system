@@ -1,8 +1,8 @@
 import React from 'react';
-import Image from '@app-shared/components/Image';
 import styles from './logo.module.scss';
 import { cn } from '@app-shared/lib/utils';
 import { LogoProps } from './logo.interfaces';
+import Image from '@app-components/media/image';
 
 const Logo = ({
   size = 'md',

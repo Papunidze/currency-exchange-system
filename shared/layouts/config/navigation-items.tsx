@@ -1,13 +1,31 @@
+import React from 'react';
 import {
   HomeIcon,
   WalletIcon,
   ExchangeIcon,
   ChartIcon,
   SettingsIcon,
-  SignOutIcon,
 } from '@app-shared/icons';
 
-export const navigationItems = [
+export interface Badge {
+  text: string;
+  variant: 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info';
+}
+
+export interface NavigationItem {
+  icon: React.ReactElement;
+  label: string;
+  href: string;
+  ariaLabel: string;
+  badge?: Badge;
+}
+
+export interface NavigationGroup {
+  group: string;
+  items: NavigationItem[];
+}
+
+export const navigationItems: NavigationGroup[] = [
   {
     group: 'Main',
     items: [
@@ -22,12 +40,20 @@ export const navigationItems = [
         label: 'Wallet',
         href: '/wallet',
         ariaLabel: 'View your wallet',
+        badge: {
+          text: 'New',
+          variant: 'primary',
+        },
       },
       {
         icon: <ExchangeIcon />,
         label: 'Exchange',
         href: '/exchange',
         ariaLabel: 'Currency exchange',
+        badge: {
+          text: '5',
+          variant: 'info',
+        },
       },
     ],
   },

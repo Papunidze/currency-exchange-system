@@ -9,9 +9,9 @@ import {
 } from '@app-image/config';
 import { imageRegistry } from '@app-image/registry';
 import styles from './image.module.scss';
-import { ImageProps } from './image.interafaces';
+import { ImageProps } from './image.interfaces';
 
-export const Image: React.FC<ImageProps> = ({
+export const Image = ({
   imageKey,
   size,
   width,
@@ -20,7 +20,7 @@ export const Image: React.FC<ImageProps> = ({
   onClick,
   alt,
   objectFit = 'contain',
-}) => {
+}: ImageProps) => {
   const config = imageRegistry.get(imageKey);
   if (!config) {
     console.warn(`Image with key "${imageKey}" not found in registry`);
