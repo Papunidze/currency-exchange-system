@@ -1,17 +1,18 @@
 'use client';
 
-import React from 'react';
+import React, { JSX } from 'react';
+
+import { Image } from '@app-shared/components/media';
 import CreateForm from '@app-shared/ui/form';
-import { signInFormData, userSchema } from './action';
 import IconButton from '@app-shared/ui/iconButton';
+
+import { signInFormData, userSchema } from './action';
 import AuthLayout from '../auth-layout';
 import styles from '../auth.module.scss';
-import { Image } from '@app-shared/components/media';
 
-const SignIn: React.FC = () => {
-  const onSubmit = (data: signInFormData) => {
-    console.log(data);
-    // TODO: Handle authentication
+const SignIn = (): JSX.Element => {
+  const onSubmit = (data: signInFormData): void => {
+    console.warn(data);
   };
 
   return (
@@ -58,7 +59,7 @@ const SignIn: React.FC = () => {
       </div>
 
       <div className={styles.accountPrompt}>
-        <span>Don't have an account?</span>
+        <span>Don&apos;st have an account?</span>
         <a href="/auth/signup">Sign up</a>
       </div>
     </AuthLayout>

@@ -1,20 +1,22 @@
 'use client';
 
-import React from 'react';
+import { useRouter } from 'next/navigation';
+import React, { JSX } from 'react';
+
+import { Image } from '@app-shared/components/media';
 import CreateForm from '@app-shared/ui/form';
-import { SignUpFormData, userSchema } from './action';
 import IconButton from '@app-shared/ui/iconButton';
+
+import { SignUpFormData, userSchema } from './action';
 import AuthLayout from '../auth-layout';
 import styles from '../auth.module.scss';
-import { useRouter } from 'next/navigation';
-import { Image } from '@app-shared/components/media';
 
-const SignUp: React.FC = () => {
+const SignUp = (): JSX.Element => {
   const router = useRouter();
   const [isLoading, setIsLoading] = React.useState(false);
 
-  const onSubmit = async (data: SignUpFormData) => {
-    console.log(data);
+  const onSubmit = async (data: SignUpFormData): Promise<void> => {
+    console.warn(data);
 
     try {
       setIsLoading(true);
@@ -42,11 +44,11 @@ const SignUp: React.FC = () => {
         content={
           <div className={styles.termsInfo}>
             <small>
-              By signing up, you agree to our{' '}
+              By signing up, you agree to our
               <a href="/terms" target="_blank" rel="noopener noreferrer">
                 Terms of Service
-              </a>{' '}
-              and{' '}
+              </a>
+              and
               <a href="/privacy" target="_blank" rel="noopener noreferrer">
                 Privacy Policy
               </a>

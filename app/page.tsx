@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { JSX } from 'react';
 
 export const metadata: Metadata = {
   title: 'Home - Fast & Secure Currency Exchange',
@@ -7,6 +8,6 @@ export const metadata: Metadata = {
   keywords: ['currency exchange', 'home', 'exchange rates', 'forex'],
 };
 
-export default function Home() {
+export default function Home(): JSX.Element {
   return <h1>Welcome to Currency Exchange System</h1>;
 }

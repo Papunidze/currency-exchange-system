@@ -1,6 +1,8 @@
 .icon {
   fill: var(--text-color-secondary);
-  transition: fill 0.3s ease-in-out, transform 0.2s ease-in-out;
+  transition:
+    fill 0.3s ease-in-out,
+    transform 0.2s ease-in-out;
 
   &.large {
     width: 48px;

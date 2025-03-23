@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter, Open_Sans } from 'next/font/google';
+import { JSX } from 'react';
 import 'styles/main.scss';
 
-// Configure fonts
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
@@ -88,7 +88,7 @@ export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-}) {
+}): JSX.Element {
   return (
     <html lang="en" className={`${inter.variable} ${openSans.variable}`}>
       <body>

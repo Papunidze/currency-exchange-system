@@ -34,8 +34,6 @@ $form-transition: var(--transition-fast);
     }
   }
 
-
-
   @include respond(sm) {
     padding: var(--spacing-lg);
     gap: var(--spacing-lg);

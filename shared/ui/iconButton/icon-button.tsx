@@ -29,7 +29,7 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
           styles[variant],
           styles[size],
           isLoading && styles.loading,
-          className
+          className,
         )}
         disabled={isDisabled}
         aria-label={ariaLabel}

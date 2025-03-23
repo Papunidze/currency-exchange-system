@@ -1,6 +1,8 @@
-import React, { ReactNode } from 'react';
-import styles from './auth.module.scss';
+import React, { JSX, ReactNode } from 'react';
+
 import { Logo } from '@app-shared/components/media';
+
+import styles from './auth.module.scss';
 
 interface AuthLayoutProps {
   children: ReactNode;
@@ -14,7 +16,7 @@ export default function AuthLayout({
   title,
   subtitle,
   showLogo = true,
-}: AuthLayoutProps) {
+}: AuthLayoutProps): JSX.Element {
   return (
     <div className={styles.authWrapper}>
       <div className={styles.authContainer}>

@@ -38,19 +38,19 @@
 .logo {
   display: flex;
   align-items: center;
-  
+
   .image {
     object-fit: contain;
   }
-  
+
   &.primary {
     height: auto;
   }
-  
+
   &.secondary {
     filter: brightness(0.9);
   }
-  
+
   &.monochrome {
     filter: grayscale(1);
   }
@@ -80,36 +80,36 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  
+
   .image {
     object-fit: contain;
   }
-  
+
   &.ui {
     width: 24px;
     height: 24px;
   }
-  
+
   &.action {
     width: 20px;
     height: 20px;
   }
-  
+
   &.navigation {
     width: 24px;
     height: 24px;
   }
-  
+
   &.small {
     width: 16px;
     height: 16px;
   }
-  
+
   &.medium {
     width: 32px;
     height: 32px;
   }
-  
+
   &.large {
     width: 48px;
     height: 48px;

@@ -3,7 +3,8 @@ import { SelectVariant } from '@app-shared/ui/select';
 import { ButtonVariant } from '@app-shared/ui/button';
 import { HTMLAttributes, ReactNode } from 'react';
 
-export interface FormProps<T> extends Omit<HTMLAttributes<HTMLFormElement>, 'onSubmit' | 'content'> {
+export interface FormProps<T>
+  extends Omit<HTMLAttributes<HTMLFormElement>, 'onSubmit' | 'content'> {
   schema: SchemaField[];
   onSubmit: (data: T) => void;
   defaultValues?: Partial<T>;

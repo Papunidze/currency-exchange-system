@@ -45,7 +45,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       setHasValue(Boolean(e.target.value));
       props.onChange?.(e);
     };
-    
+
     const hasValues = value !== undefined && value !== '';
     return (
       <div
