@@ -195,10 +195,6 @@
   }
 }
 
-:global(.popover-backdrop) {
-  display: none;
-}
-
 @media (max-width: 767px) {
   .topbar {
     padding: 0 var(--spacing-md);

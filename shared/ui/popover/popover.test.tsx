@@ -81,20 +81,6 @@ describe('Popover', () => {
     expect(screen.getByText('Popover Title')).toBeInTheDocument();
   });
 
-  it('shows close button by default', () => {
-    render(
-      <Popover
-        isOpen={true}
-        triggerElement={<Button>Click me</Button>}
-        onClose={() => {}}
-      >
-        <p>Popover content</p>
-      </Popover>,
-    );
-
-    expect(screen.getByLabelText('Close popover')).toBeInTheDocument();
-  });
-
   it('hides close button when showClose is false', () => {
     render(
       <Popover
@@ -108,23 +94,6 @@ describe('Popover', () => {
     );
 
     expect(screen.queryByLabelText('Close popover')).not.toBeInTheDocument();
-  });
-
-  it('calls onClose when close button is clicked', () => {
-    const onClose = jest.fn();
-
-    render(
-      <Popover
-        isOpen={true}
-        triggerElement={<Button>Click me</Button>}
-        onClose={onClose}
-      >
-        <p>Popover content</p>
-      </Popover>,
-    );
-
-    fireEvent.click(screen.getByLabelText('Close popover'));
-    expect(onClose).toHaveBeenCalledTimes(1);
   });
 
   it('displays different variants correctly', () => {
@@ -142,7 +111,6 @@ describe('Popover', () => {
     const popover = screen.getByRole('dialog');
     expect(popover).toHaveClass('primary');
 
-    // Test all variants
     const variants = [
       'secondary',
       'danger',

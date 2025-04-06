@@ -253,17 +253,6 @@ const Popover = ({
                 </h2>
               )}
 
-              {showClose && (
-                <button
-                  type="button"
-                  className={styles.closeButton}
-                  onClick={onClose}
-                  aria-label="Close popover"
-                >
-                  &#x2715;
-                </button>
-              )}
-
               {children}
             </div>
           </div>,
