@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
 import React, { JSX, Suspense } from 'react';
 
 import { Image } from '@app-shared/components/media';
@@ -12,11 +11,7 @@ import { signInFormData, userSchema } from './action';
 import AuthLayout from '../auth-layout';
 import styles from '../auth.module.scss';
 
-// Component that uses useSearchParams
 const SignInContent = (): JSX.Element => {
-  const searchParams = useSearchParams();
-  const isRegistered = searchParams.get('registered') === 'true';
-
   const onSubmit = (data: signInFormData): void => {
     console.warn(data);
   };
@@ -24,19 +19,8 @@ const SignInContent = (): JSX.Element => {
   return (
     <AuthLayout
       title="Welcome Back"
-      subtitle={
-        isRegistered
-          ? 'Registration successful! Please sign in to continue'
-          : 'Sign in to your account to continue'
-      }
+      subtitle={'Sign in to your account to continue'}
     >
-      {isRegistered && (
-        <div className={styles.successMessage}>
-          Your account has been created successfully. Please sign in to
-          continue.
-        </div>
-      )}
-
       <CreateForm<signInFormData>
         schema={userSchema}
         onSubmit={onSubmit}
