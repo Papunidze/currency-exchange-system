@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
 
+export type CheckBoxVariant = 'primary' | 'secondary';
+
 export interface CheckboxProps {
   checked?: boolean;
   onChange?: (checked: boolean) => void;
@@ -7,7 +9,7 @@ export interface CheckboxProps {
   disabled?: boolean;
   className?: string;
   size?: 'sm' | 'md' | 'lg';
-  variant?: 'primary' | 'secondary';
+  variant?: CheckBoxVariant;
   name?: string;
   error?: string;
 }

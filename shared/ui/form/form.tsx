@@ -18,6 +18,7 @@ function CreateForm<T>({
   submitLabel = 'Submit',
   selectVariant = 'primary',
   buttonVariant = 'primary',
+  checkboxVariant = 'primary',
   className = '',
   size = 'small',
   title = '',
@@ -139,7 +140,7 @@ function CreateForm<T>({
               }}
               label={field.linkText || field.label}
               size={'sm'}
-              variant={buttonVariant}
+              variant={checkboxVariant}
               disabled={isLoading}
             />
             {field.helperText && (
