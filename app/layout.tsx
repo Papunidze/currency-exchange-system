@@ -29,9 +29,9 @@ export const metadata: Metadata = {
     'exchange rates',
     'currency converter',
   ],
-  authors: [{ name: 'Your Company Name' }],
-  creator: 'Your Company Name',
-  publisher: 'Your Company Name',
+  authors: [{ name: 'CurrencyX' }],
+  creator: 'CurrencyX',
+  publisher: 'CurrencyX',
   formatDetection: {
     telephone: false,
   },

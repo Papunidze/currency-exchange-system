@@ -18,6 +18,7 @@ export interface BaseSchemaField {
   hidden?: boolean;
   required?: boolean;
   helperText?: string;
+  linkText?: string;
   attributes?: Record<string, unknown>;
   startContent?: ReactNode;
   endContent?: ReactNode;

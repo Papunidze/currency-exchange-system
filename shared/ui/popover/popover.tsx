@@ -1,187 +1,275 @@
-import { useEffect, useRef, useState } from 'react';
+'use client';
+
+import React, { FC, useRef, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { PopoverProps } from './popover.interfaces';
-import styles from './popover.module.scss';
 import { cn } from '@app-shared/lib/utils';
+import styles from './popover.module.scss';
+import { PopoverProps } from './popover.interfaces';
 
 const Popover = ({
+  isOpen,
   children,
-  content,
-  placement = 'bottom',
-  trigger = 'click',
-  isOpen: controlledIsOpen,
-  onOpenChange,
-  showArrow = true,
-  offset = 8,
+  triggerElement,
+  title,
   className,
   contentClassName,
-  tailClassName,
-  hasBackdrop = true,
+  showClose = true,
+  closeOnOutsideClick = true,
+  closeOnEscape = true,
+  size = 'md',
+  variant = 'primary',
+  placement = 'bottom',
+  onClose,
+  onOpen,
+  offset = 8,
+  ...props
 }: PopoverProps) => {
-  const [internalIsOpen, setInternalIsOpen] = useState<boolean>(false);
-  const isOpen = controlledIsOpen ?? internalIsOpen;
-  const triggerRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const [coords, setCoords] = useState<{ top: number; left: number }>({
-    top: 0,
-    left: 0,
-  });
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(
-    undefined,
-  );
-  const isHoveringRef = useRef<boolean>(false);
+  const [mounted, setMounted] = useState(false);
+  const [position, setPosition] = useState({ top: 0, left: 0 });
+  const [isVisible, setIsVisible] = useState(false);
 
-  const handleOpenChange = (newIsOpen: boolean) => {
-    if (onOpenChange) {
-      onOpenChange(newIsOpen);
-    } else {
-      setInternalIsOpen(newIsOpen);
-    }
+  const triggerRef = useRef<HTMLDivElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
+  const scrollY = useRef(0);
+  const bodyRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    bodyRef.current = document.body;
+    const style = document.createElement('style');
+    style.textContent = `
+      body.popover-open {
+        transition: transform 0.15s ease-out;
+      }
+    `;
+    document.head.appendChild(style);
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+
+  const lockScroll = () => {
+    if (!bodyRef.current) return;
+    scrollY.current = window.scrollY;
+    bodyRef.current.classList.add('popover-open');
+    bodyRef.current.style.position = 'fixed';
+    bodyRef.current.style.top = `-${scrollY.current}px`;
+    bodyRef.current.style.width = '100%';
+    bodyRef.current.style.height = '100%';
+    bodyRef.current.style.overflow = 'hidden';
+  };
+
+  const unlockScroll = () => {
+    if (!bodyRef.current) return;
+    bodyRef.current.classList.remove('popover-open');
+    bodyRef.current.style.position = '';
+    bodyRef.current.style.top = '';
+    bodyRef.current.style.width = '';
+    bodyRef.current.style.height = '';
+    bodyRef.current.style.overflow = '';
+    window.scrollTo(0, scrollY.current);
   };
 
   const updatePosition = () => {
-    if (!triggerRef.current || !contentRef.current) return;
+    if (!triggerRef.current || !popoverRef.current) return;
 
     const triggerRect = triggerRef.current.getBoundingClientRect();
-    const contentRect = contentRef.current.getBoundingClientRect();
+    const popoverRect = popoverRef.current.getBoundingClientRect();
+    const scrollX = window.scrollX;
+    const scrollY = window.scrollY;
 
     let top = 0;
     let left = 0;
 
     switch (placement) {
-      case 'bottom':
-        top = triggerRect.bottom + offset;
-        left = triggerRect.left + (triggerRect.width - contentRect.width) / 2;
-        break;
       case 'top':
-        top = triggerRect.top - contentRect.height - offset;
-        left = triggerRect.left + (triggerRect.width - contentRect.width) / 2;
-        break;
-      case 'left':
-        top = triggerRect.top + (triggerRect.height - contentRect.height) / 2;
-        left = triggerRect.left - contentRect.width - offset;
+        top = triggerRect.top + scrollY - popoverRect.height - offset;
+        left =
+          triggerRect.left +
+          scrollX +
+          triggerRect.width / 2 -
+          popoverRect.width / 2;
         break;
       case 'right':
-        top = triggerRect.top + (triggerRect.height - contentRect.height) / 2;
-        left = triggerRect.right + offset;
+        top =
+          triggerRect.top +
+          scrollY +
+          triggerRect.height / 2 -
+          popoverRect.height / 2;
+        left = triggerRect.right + scrollX + offset;
         break;
+      case 'bottom':
+        top = triggerRect.bottom + scrollY + offset;
+        left =
+          triggerRect.left +
+          scrollX +
+          triggerRect.width / 2 -
+          popoverRect.width / 2;
+        break;
+      case 'left':
+        top =
+          triggerRect.top +
+          scrollY +
+          triggerRect.height / 2 -
+          popoverRect.height / 2;
+        left = triggerRect.left + scrollX - popoverRect.width - offset;
+        break;
+      default:
+        top = triggerRect.bottom + scrollY + offset;
+        left =
+          triggerRect.left +
+          scrollX +
+          triggerRect.width / 2 -
+          popoverRect.width / 2;
     }
 
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
 
-    if (left + contentRect.width > viewportWidth) {
-      left = viewportWidth - contentRect.width - 8;
+    if (left + popoverRect.width > viewportWidth + scrollX - 10) {
+      left = viewportWidth + scrollX - popoverRect.width - 10;
     }
 
-    if (left < 8) {
-      left = 8;
+    if (left < scrollX + 10) {
+      left = scrollX + 10;
     }
 
-    // Prevent overflow on the bottom
-    if (top + contentRect.height > viewportHeight) {
-      top = viewportHeight - contentRect.height - 8;
+    if (top + popoverRect.height > viewportHeight + scrollY - 10) {
+      top = viewportHeight + scrollY - popoverRect.height - 10;
     }
 
-    if (top < 8) {
-      top = 8;
+    if (top < scrollY + 10) {
+      top = scrollY + 10;
     }
 
-    setCoords({ top, left });
+    setPosition({ top, left });
   };
+
+  useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
 
   useEffect(() => {
     if (isOpen) {
       updatePosition();
-      window.addEventListener('resize', updatePosition);
-      window.addEventListener('scroll', updatePosition, true);
-    }
+      setIsVisible(true);
+      lockScroll();
+      onOpen?.();
 
-    return () => {
-      window.removeEventListener('resize', updatePosition);
-      window.removeEventListener('scroll', updatePosition, true);
-    };
+      const handleResize = () => {
+        updatePosition();
+      };
+
+      window.addEventListener('resize', handleResize);
+
+      return () => {
+        window.removeEventListener('resize', handleResize);
+        unlockScroll();
+      };
+    } else {
+      setIsVisible(false);
+      unlockScroll();
+    }
+  }, [isOpen, placement]);
+
+  const handleOutsideClick = (e: MouseEvent) => {
+    if (!popoverRef.current || !triggerRef.current) return;
+    if (
+      !popoverRef.current.contains(e.target as Node) &&
+      !triggerRef.current.contains(e.target as Node) &&
+      closeOnOutsideClick
+    ) {
+      onClose?.();
+    }
+  };
+
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'Escape' && closeOnEscape) {
+      onClose?.();
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      document.addEventListener('mousedown', handleOutsideClick);
+      document.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.removeEventListener('mousedown', handleOutsideClick);
+        document.removeEventListener('keydown', handleKeyDown);
+      };
+    }
   }, [isOpen]);
 
-  const handleMouseEnter = () => {
-    if (trigger === 'hover') {
-      isHoveringRef.current = true;
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-      handleOpenChange(true);
+  const handleTriggerClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (isOpen) {
+      onClose?.();
     }
-  };
-
-  const handleMouseLeave = () => {
-    if (trigger === 'hover') {
-      isHoveringRef.current = false;
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-      timeoutRef.current = setTimeout(() => {
-        if (!isHoveringRef.current) {
-          handleOpenChange(false);
-        }
-      }, 150);
-    }
-  };
-
-  const handleClick = () => {
-    if (trigger === 'click') {
-      handleOpenChange(!isOpen);
-    }
-  };
-
-  const handleBackdropClick = () => {
-    handleOpenChange(false);
   };
 
   return (
-    <>
+    <div className={cn(styles.popoverContainer)} {...props}>
       <div
         ref={triggerRef}
-        style={{ zIndex: isOpen ? 1001 : 'auto' }}
-        className={cn(styles.trigger, className)}
-        onClick={handleClick}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+        className={styles.trigger}
+        onClick={handleTriggerClick}
+        aria-expanded={isOpen}
+        aria-haspopup="dialog"
       >
-        {children}
+        {triggerElement}
       </div>
-      {isOpen &&
+
+      {mounted &&
+        isOpen &&
         createPortal(
-          <div className={styles.portalContainer} onClick={handleBackdropClick}>
-            {hasBackdrop && trigger === 'click' && (
-              <div className={styles.backdrop}></div>
+          <div
+            ref={popoverRef}
+            className={cn(
+              styles.popover,
+              styles[size],
+              styles[variant],
+              styles[placement],
+              className,
             )}
-            <div
-              ref={contentRef}
-              style={{
-                top: coords.top,
-                left: coords.left,
-                zIndex: isOpen ? 1002 : 'auto',
-              }}
-              className={cn(
-                styles.content,
-                styles[placement],
-                contentClassName,
+            style={{
+              top: `${position.top}px`,
+              left: `${position.left}px`,
+            }}
+            role="dialog"
+            aria-modal="false"
+            aria-labelledby={title ? 'popover-title' : undefined}
+            data-visible={isVisible}
+            onKeyDown={(e) => {
+              if (e.key === 'Escape' && closeOnEscape) {
+                e.preventDefault();
+                onClose?.();
+              }
+            }}
+          >
+            <div className={cn(styles.content, contentClassName)}>
+              {title && (
+                <h2 id="popover-title" className={styles.title}>
+                  {title}
+                </h2>
               )}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-              onClick={(e) => e.stopPropagation()}
-            >
-              {showArrow && (
-                <div
-                  className={cn(styles.tail, styles[placement], tailClassName)}
-                />
+
+              {showClose && (
+                <button
+                  type="button"
+                  className={styles.closeButton}
+                  onClick={onClose}
+                  aria-label="Close popover"
+                >
+                  &#x2715;
+                </button>
               )}
-              {content}
+
+              {children}
             </div>
           </div>,
           document.body,
         )}
-    </>
+    </div>
   );
 };
 

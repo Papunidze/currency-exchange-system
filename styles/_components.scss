@@ -56,16 +56,33 @@
 }
 
 .link {
-  color: var(--text-color-link);
+  font-size: var(--font-size-sm);
+  color: var(--primary);
   text-decoration: none;
-  transition: color 0.3s ease;
-  font-weight: var(--font-weight-bold);
-  @include respond(md) {
-    font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  transition: all 0.2s ease;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--primary);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
   }
+
   &:hover {
-    color: color.scale(rgb(41, 153, 245), $lightness: 20%);
-    text-decoration: underline;
+    color: var(--variant-dark);
+
+    &::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
   }
 }
 

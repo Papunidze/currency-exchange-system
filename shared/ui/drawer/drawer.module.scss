@@ -1,0 +1,32 @@
+.drawer {
+  position: fixed;
+  top: 0;
+  width: 280px;
+  height: 100vh;
+  background: var(--background-light);
+  box-shadow: var(--shadow-lg);
+  z-index: 1000;
+  transition: transform 0.3s ease;
+  overflow-y: auto;
+
+  &.left {
+    left: 0;
+    transform: translateX(-100%);
+  }
+
+  &.right {
+    right: 0;
+    transform: translateX(100%);
+  }
+
+  &.open {
+    transform: translateX(0);
+  }
+}
+
+.content {
+  height: 100%;
+  padding: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+}

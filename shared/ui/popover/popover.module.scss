@@ -1,157 +1,357 @@
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+
+.popoverContainer {
+  position: relative;
+  display: inline-block;
+}
+
 .trigger {
   display: inline-block;
-  position: relative;
+  cursor: pointer;
 }
 
-.portalContainer {
+.popover {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
   z-index: 1000;
-}
-
-.backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
-.content {
-  position: fixed;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  padding: 16px;
   min-width: 200px;
-  z-index: 1001;
-  max-height: calc(100vh - 100px);
-  overflow-y: auto;
+  max-width: 400px;
+  background-color: var(--background-light);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-primary);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(0);
+  transition: opacity 0.15s ease-out;
+  will-change: opacity;
 
-  @media (max-width: 767px) {
-    max-width: calc(100vw - 32px);
-    width: calc(100vw - 32px);
+  &::before {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background-color: inherit;
+    border: inherit;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    transform: rotate(0deg);
+  }
 
-    // Remove padding for mobile to maximize space
-    &.mobileFullWidth {
-      padding: 0;
-      border-radius: 0;
-      width: 100vw;
-      max-width: 100vw;
-      left: 0 !important;
-      right: 0 !important;
-      margin: 0;
-      bottom: 0;
-      top: auto !important;
-      max-height: 80vh;
-      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  &.top::before {
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%) rotate(180deg);
+  }
 
-      // Hide tail on mobile full-width popovers
-      + .tail {
-        display: none;
+  &.right::before {
+    left: -12px;
+    top: 50%;
+    transform: translateY(-50%) rotate(-90deg);
+  }
+
+  &.bottom::before {
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &.left::before {
+    right: -12px;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+  }
+
+  &[data-visible='true'] {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &.sm {
+    max-width: 240px;
+    font-size: 0.875rem;
+
+    .title {
+      font-size: 1rem;
+      padding: 8px 12px;
+    }
+
+    .content {
+      padding: 8px 12px;
+    }
+
+    .closeButton {
+      width: 20px;
+      height: 20px;
+      top: 6px;
+      right: 6px;
+      font-size: 14px;
+    }
+  }
+
+  &.md {
+    max-width: 320px;
+    font-size: 0.9375rem;
+
+    .title {
+      font-size: 1.125rem;
+      padding: 10px 16px;
+    }
+
+    .content {
+      padding: 12px 16px;
+    }
+
+    .closeButton {
+      width: 24px;
+      height: 24px;
+      top: 8px;
+      right: 8px;
+      font-size: 16px;
+    }
+  }
+
+  &.lg {
+    max-width: 400px;
+    font-size: 1rem;
+
+    .title {
+      font-size: 1.25rem;
+      padding: 12px 20px;
+    }
+
+    .content {
+      padding: 16px 20px;
+    }
+
+    .closeButton {
+      width: 28px;
+      height: 28px;
+      top: 10px;
+      right: 10px;
+      font-size: 18px;
+    }
+  }
+
+  &.primary {
+    background-color: var(--variant-primary);
+    border-color: var(--variant-primary);
+    color: var(--text-color-light);
+
+    &::before {
+      background-color: var(--variant-primary);
+      border-color: var(--variant-primary);
+    }
+
+    .title {
+      border-bottom-color: rgba(255, 255, 255, 0.15);
+      color: var(--text-color-light);
+    }
+
+    .closeButton {
+      color: var(--text-color-light);
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.15);
       }
     }
   }
 
-  &.top {
-    margin-bottom: 12px;
+  &.secondary {
+    background-color: var(--variant-secondary);
+    border-color: var(--variant-secondary);
+    color: var(--text-color-light);
+
+    &::before {
+      background-color: var(--variant-secondary);
+      border-color: var(--variant-secondary);
+    }
+
+    .title {
+      border-bottom-color: rgba(255, 255, 255, 0.15);
+      color: var(--text-color-light);
+    }
+
+    .closeButton {
+      color: var(--text-color-light);
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+      }
+    }
   }
 
-  &.bottom {
-    margin-top: 12px;
+  &.danger {
+    background-color: var(--variant-danger);
+    border-color: var(--variant-danger);
+    color: var(--text-color-light);
+
+    &::before {
+      background-color: var(--variant-danger);
+      border-color: var(--variant-danger);
+    }
+
+    .title {
+      border-bottom-color: rgba(255, 255, 255, 0.15);
+      color: var(--text-color-light);
+    }
+
+    .closeButton {
+      color: var(--text-color-light);
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+      }
+    }
   }
 
-  &.left {
-    margin-right: 12px;
+  &.success {
+    background-color: var(--variant-success);
+    border-color: var(--variant-success);
+    color: var(--text-color-light);
+
+    &::before {
+      background-color: var(--variant-success);
+      border-color: var(--variant-success);
+    }
+
+    .title {
+      border-bottom-color: rgba(255, 255, 255, 0.15);
+      color: var(--text-color-light);
+    }
+
+    .closeButton {
+      color: var(--text-color-light);
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+      }
+    }
   }
 
-  &.right {
-    margin-left: 12px;
+  &.warning {
+    background-color: var(--variant-warning);
+    border-color: var(--variant-warning);
+    color: var(--text-color-light);
+
+    &::before {
+      background-color: var(--variant-warning);
+      border-color: var(--variant-warning);
+    }
+
+    .title {
+      border-bottom-color: rgba(255, 255, 255, 0.15);
+      color: var(--text-color-light);
+    }
+
+    .closeButton {
+      color: var(--text-color-light);
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+      }
+    }
+  }
+
+  &.outlined {
+    background-color: var(--background-light);
+    border: 1.5px solid var(--border-primary);
+    color: var(--text-color-primary);
+
+    &::before {
+      background-color: var(--background-light);
+      border-color: var(--border-primary);
+    }
+
+    .title {
+      border-bottom-color: var(--border-primary);
+      color: var(--text-color-primary);
+    }
+
+    .closeButton {
+      color: var(--text-color-secondary);
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+        color: var(--text-color-primary);
+      }
+    }
+  }
+
+  &.ghost {
+    background-color: var(--background-light);
+    border-color: transparent;
+    box-shadow: var(--shadow-md);
+    color: var(--text-color-primary);
+
+    &::before {
+      background-color: var(--background-light);
+      border-color: transparent;
+    }
+
+    .title {
+      border-bottom-color: var(--border-secondary);
+      color: var(--text-color-primary);
+    }
+
+    .closeButton {
+      color: var(--text-color-secondary);
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+        color: var(--text-color-primary);
+      }
+    }
   }
 }
 
-.tail {
+.title {
+  margin: 0;
+  font-weight: 600;
+  padding-right: 30px;
+  border-bottom: 1px solid var(--border-primary);
+  margin-bottom: 8px;
+}
+
+.content {
+  position: relative;
+}
+
+.closeButton {
   position: absolute;
-  width: 16px;
-  height: 16px;
-  background-color: white;
-  pointer-events: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  padding: 0;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
 
-  &.top {
-    bottom: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    clip-path: polygon(0 0, 100% 0, 50% 100%);
-  }
-
-  &.bottom {
-    top: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    clip-path: polygon(50% 0, 0 100%, 100% 100%);
-  }
-
-  &.left {
-    right: -8px;
-    top: 50%;
-    transform: translateY(-50%);
-    clip-path: polygon(0 0, 0 100%, 100% 50%);
-  }
-
-  &.right {
-    left: -8px;
-    top: 50%;
-    transform: translateY(-50%);
-    clip-path: polygon(100% 0, 100% 100%, 0 50%);
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.2);
   }
 }
 
-// Fix for mobile popovers
-@media (max-width: 767px) {
-  .portalContainer {
-    z-index: 1500; // Ensure it's above all content
-  }
+@include respond(md) {
+  .popover {
+    &.sm {
+      max-width: 220px;
 
-  .backdrop {
-    background-color: rgba(0, 0, 0, 0.2);
-  }
-}
+      .content {
+        padding: 6px 10px;
+      }
+    }
 
-// Mobile improvements
-@media (max-width: 767px) {
-  .portalContainer {
-    z-index: 1500;
-  }
+    &.md {
+      max-width: 300px;
+    }
 
-  .backdrop {
-    background-color: rgba(
-      0,
-      0,
-      0,
-      0.4
-    ); // Darker backdrop for better visibility
-  }
-
-  // Add a mobile close button
-  .mobileCloseButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 12px;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    text-align: center;
-    background: transparent;
-    border: none;
-    color: #6b7280;
-    font-weight: 500;
-
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.05);
+    &.lg {
+      max-width: 360px;
     }
   }
 }

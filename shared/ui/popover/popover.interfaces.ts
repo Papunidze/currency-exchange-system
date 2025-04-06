@@ -1,19 +1,31 @@
-import { ReactNode } from 'react';
+import { HTMLAttributes, ReactNode } from 'react';
 
-export type PopoverPosition = 'top' | 'bottom' | 'left' | 'right';
-export type PopoverTrigger = 'click' | 'hover';
+export type PopoverSize = 'sm' | 'md' | 'lg';
+export type PopoverVariant =
+  | 'primary'
+  | 'secondary'
+  | 'danger'
+  | 'success'
+  | 'warning'
+  | 'outlined'
+  | 'ghost';
 
-export interface PopoverProps {
+export type PopoverPlacement = 'top' | 'right' | 'bottom' | 'left';
+
+export interface PopoverProps extends HTMLAttributes<HTMLDivElement> {
+  isOpen: boolean;
   children: ReactNode;
-  content: ReactNode;
-  placement?: PopoverPosition;
-  trigger?: PopoverTrigger;
-  isOpen?: boolean;
-  onOpenChange?: (isOpen: boolean) => void;
-  showArrow?: boolean;
-  offset?: number;
+  triggerElement: ReactNode;
+  title?: string;
   className?: string;
   contentClassName?: string;
-  tailClassName?: string;
-  hasBackdrop?: boolean;
+  showClose?: boolean;
+  closeOnOutsideClick?: boolean;
+  closeOnEscape?: boolean;
+  size?: PopoverSize;
+  variant?: PopoverVariant;
+  placement?: PopoverPlacement;
+  onClose?: () => void;
+  onOpen?: () => void;
+  offset?: number;
 }

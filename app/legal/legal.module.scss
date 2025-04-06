@@ -1,0 +1,101 @@
+.legalLayout {
+  min-height: 100vh;
+  background-color: var(--background-light);
+  padding: var(--spacing-xl);
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: var(--spacing-xl);
+  text-align: center;
+
+  h1 {
+    font-size: var(--font-size-2xl);
+    color: var(--text-color-primary);
+    margin: 0;
+    font-family: var(--font-family-heading);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .subtitle {
+    color: var(--text-colors-secondary);
+    margin: var(--spacing-sm) 0 0;
+    font-size: var(--font-size-base);
+    font-family: var(--font-family-base);
+  }
+}
+
+.legalContent {
+  section {
+    margin-bottom: var(--spacing-xl);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    h2 {
+      font-size: var(--font-size-xl);
+      color: var(--text-color-primary);
+      margin-bottom: var(--spacing-md);
+      font-family: var(--font-family-heading);
+      font-weight: var(--font-weight-medium);
+    }
+
+    p {
+      color: var(--text-colors-secondary);
+      line-height: 1.5;
+      margin-bottom: var(--spacing-md);
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-base);
+
+      a {
+        font-size: var(--font-size-sm);
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: var(--font-weight-medium);
+        transition: all 0.2s ease;
+        position: relative;
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -2px;
+          left: 0;
+          width: 100%;
+          height: 1px;
+          background-color: var(--primary);
+          transform: scaleX(0);
+          transform-origin: right;
+          transition: transform 0.3s ease;
+        }
+
+        &:hover {
+          color: var(--variant-dark);
+
+          &::after {
+            transform: scaleX(1);
+            transform-origin: left;
+          }
+        }
+      }
+    }
+
+    ul {
+      list-style-type: disc;
+      margin-left: var(--spacing-xl);
+      margin-bottom: var(--spacing-md);
+
+      li {
+        color: var(--text-colors-secondary);
+        line-height: 1.5;
+        margin-bottom: var(--spacing-sm);
+        font-family: var(--font-family-base);
+        font-size: var(--font-size-base);
+      }
+    }
+  }
+}

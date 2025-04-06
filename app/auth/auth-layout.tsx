@@ -22,7 +22,7 @@ export default function AuthLayout({
       <div className={styles.authContainer}>
         {showLogo && (
           <div className={styles.logoContainer}>
-            <Logo size="md" variant="primary" text="CurrencyX" />
+            <Logo size="lg" />
           </div>
         )}
 

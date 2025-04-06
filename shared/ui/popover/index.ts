@@ -1,7 +1,7 @@
 export { default } from './popover';
-
 export type {
   PopoverProps,
-  PopoverPosition,
-  PopoverTrigger,
+  PopoverSize,
+  PopoverVariant,
+  PopoverPlacement,
 } from './popover.interfaces';

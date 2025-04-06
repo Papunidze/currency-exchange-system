@@ -18,10 +18,10 @@ const Logo = ({
       className={cn(
         styles.logoContainer,
         styles[size],
-        layout === 'vertical' && styles.vertical,
         styles[variant],
-        className,
         styles[direction],
+        layout === 'vertical' && styles.vertical,
+        className,
       )}
     >
       <div className={styles.logo}>

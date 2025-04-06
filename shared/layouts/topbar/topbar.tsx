@@ -1,7 +1,132 @@
-import React from 'react';
+'use client';
 
-const topbar = () => {
-  return <div>topbar</div>;
+import { FC, useState } from 'react';
+import { usePathname } from 'next/navigation';
+import { MenuIcon, ChevronLeftIcon } from '@app-shared/icons';
+import { TopBarProps } from './topbar.interfaces';
+import Logo from '@app-shared/components/media/logo';
+import { cn } from '@app-shared/lib/utils';
+import styles from './topbar.module.scss';
+import IconButton from '@app-shared/ui/iconButton';
+import Link from 'next/link';
+import { UserMenu } from '@app-shared/ui/user-menu';
+import { Drawer } from '@app-shared/ui/drawer';
+
+const NAV_ITEMS = [
+  { label: 'Home', href: '/' },
+  { label: 'Exchange', href: '/exchange' },
+  { label: 'History', href: '/history' },
+  { label: 'Settings', href: '/settings' },
+];
+
+export const TopBar = ({ className, showUserMenu = true }: TopBarProps) => {
+  const pathname = usePathname();
+  const isDashboard = pathname.startsWith('/dashboard');
+  const isSidebarVisible = isDashboard;
+  const isSidebarCollapsed = false;
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const handleLogout = () => {
+    console.log('Logout clicked');
+  };
+
+  const handleProfile = () => {
+    console.log('Profile clicked');
+  };
+
+  const handleSettings = () => {
+    console.log('Settings clicked');
+  };
+
+  return (
+    <header
+      className={cn(
+        styles.topbar,
+        className,
+        isSidebarVisible && styles.withSidebar,
+        isSidebarCollapsed && styles.withSidebarCollapsed,
+      )}
+    >
+      <div className={styles.leftSection}>
+        <IconButton
+          className={styles.mobileMenuButton}
+          aria-label="Menu"
+          icon={<MenuIcon />}
+          variant="ghost"
+          size="small"
+          onClick={() => setIsMobileMenuOpen(true)}
+        />
+        <Logo size="lg" showText={true} />
+      </div>
+
+      <nav className={styles.nav}>
+        <ul className={styles.navList}>
+          {NAV_ITEMS.map((item) => (
+            <li key={item.href}>
+              <Link
+                href={item.href}
+                className={cn(
+                  styles.navLink,
+                  pathname === item.href && styles.active,
+                )}
+              >
+                {item.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <div className={styles.rightSection}>
+        {showUserMenu && (
+          <UserMenu
+            username="John Doe"
+            email="john@example.com"
+            onLogout={handleLogout}
+            onProfile={handleProfile}
+            onSettings={handleSettings}
+            className={styles.userMenu}
+          />
+        )}
+      </div>
+
+      <Drawer
+        isOpen={isMobileMenuOpen}
+        onClose={() => setIsMobileMenuOpen(false)}
+        placement="left"
+      >
+        <div className={styles.mobileMenuContent}>
+          <div className={styles.mobileMenuHeader}>
+            <Logo size="md" showText={true} />
+            <IconButton
+              className={styles.closeButton}
+              aria-label="Close menu"
+              icon={<ChevronLeftIcon />}
+              variant="ghost"
+              size="small"
+              onClick={() => setIsMobileMenuOpen(false)}
+            />
+          </div>
+          <nav className={styles.mobileNav}>
+            <ul className={styles.mobileNavList}>
+              {NAV_ITEMS.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className={cn(
+                      styles.mobileNavLink,
+                      pathname === item.href && styles.active,
+                    )}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+      </Drawer>
+    </header>
+  );
 };
-
-export default topbar;

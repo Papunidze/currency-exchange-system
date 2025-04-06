@@ -1,29 +1,100 @@
 .logoContainer {
   display: flex;
   align-items: center;
-  user-select: none;
-  justify-content: center;
-  gap: var(--spacing-xs);
-}
+  gap: var(--spacing-sm);
+  transition: all 0.2s ease;
 
-.row {
-  flex-direction: row;
-}
+  &.vertical {
+    flex-direction: column;
+  }
 
-.column {
-  flex-direction: column;
-  justify-content: center;
+  &.row {
+    flex-direction: row;
+  }
+
+  &.column {
+    flex-direction: column;
+  }
+
+  &.primary {
+    .logoText {
+      color: var(--primary);
+    }
+  }
+
+  &.secondary {
+    .logoText {
+      color: var(--text-color-secondary);
+    }
+  }
+
+  &.sm {
+    .logo {
+      width: 24px;
+      height: 24px;
+    }
+
+    .logoIcon {
+      width: 24px;
+      height: 24px;
+    }
+
+    .logoText {
+      font-size: var(--font-size-sm);
+    }
+  }
+
+  &.md {
+    .logo {
+      width: 32px;
+      height: 32px;
+    }
+
+    .logoIcon {
+      width: 32px;
+      height: 32px;
+    }
+
+    .logoText {
+      font-size: var(--font-size-base);
+    }
+  }
+
+  &.lg {
+    .logo {
+      width: 48px;
+      height: 48px;
+    }
+
+    .logoIcon {
+      width: 48px;
+      height: 48px;
+    }
+
+    .logoText {
+      font-size: var(--font-size-lg);
+    }
+  }
 }
 
 .logo {
   display: flex;
   align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: all 0.2s ease;
 }
 
 .logoIcon {
-  width: auto;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.08));
-  transition: transform 0.2s ease;
+  object-fit: contain;
+  transition: all 0.2s ease;
+}
+
+.logoText {
+  font-weight: var(--font-weight-bold);
+  transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
 .logoText {
@@ -40,7 +111,7 @@
 
 .sm {
   .logoText {
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-base);
   }
 }
 

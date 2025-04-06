@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import React, { JSX } from 'react';
 
 import { Image } from '@app-shared/components/media';
@@ -41,20 +42,6 @@ const SignUp = (): JSX.Element => {
         size="medium"
         submitLabel="Create Account"
         isLoading={isLoading}
-        content={
-          <div className={styles.termsInfo}>
-            <small>
-              By signing up, you agree to our
-              <a href="/terms" target="_blank" rel="noopener noreferrer">
-                Terms of Service
-              </a>
-              and
-              <a href="/privacy" target="_blank" rel="noopener noreferrer">
-                Privacy Policy
-              </a>
-            </small>
-          </div>
-        }
       />
 
       <div className={styles.divider}>
@@ -84,7 +71,7 @@ const SignUp = (): JSX.Element => {
 
       <div className={styles.accountPrompt}>
         <span>Already have an account?</span>
-        <a href="/auth/signin">Sign in</a>
+        <Link href="/auth/signin">Sign in</Link>
       </div>
     </AuthLayout>
   );

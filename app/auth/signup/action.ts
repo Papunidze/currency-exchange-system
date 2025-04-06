@@ -36,5 +36,18 @@ export const userSchema = createSchema()
           })
           .build(),
       ),
+
+    termsAccepted: field('Terms and Conditions')
+      .type('checkbox')
+      .size('small')
+      .linkText(
+        `<small>By signing up, you agree to our <a href="/legal/terms" target="_blank" rel="noopener noreferrer" class="link">Terms of Service</a> and <a href="/legal/privacy" target="_blank" rel="noopener noreferrer" class="link ">Privacy Policy</a></small>`,
+      )
+      .validators(
+        V.boolean()
+          .required('You must accept the terms and conditions')
+          .test('Must be true', (value) => value === true)
+          .build(),
+      ),
   })
   .build();

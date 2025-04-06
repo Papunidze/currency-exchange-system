@@ -26,7 +26,8 @@
       "@app-services/*": ["shared/services/*"],
       "@app-lib/*": ["shared/lib/*"],
       "@app-components/*": ["shared/components/*"],
-      "@app-layouts/*": ["shared/layouts/*"]
+      "@app-layouts/*": ["shared/layouts/*"],
+      "@app-ui/*": ["shared/ui/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

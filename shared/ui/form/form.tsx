@@ -4,6 +4,7 @@ import React from 'react';
 import Button from '@app-shared/ui/button';
 import Input from '@app-shared/ui/input';
 import Select from '@app-shared/ui/select';
+import { Checkbox } from '@app-shared/ui/checkbox';
 import styles from './form.module.scss';
 import { FormProps } from './form.inerfaces';
 import { SchemaField, SelectField } from '@app-shared/services/schema';
@@ -30,7 +31,6 @@ function CreateForm<T>({
   const [errors, setErrors] = React.useState<Record<string, string>>({});
   const [isSubmitted, setIsSubmitted] = React.useState<boolean>(false);
 
-  // Convert formData to FormData object for validators
   const createFormDataObject = (): FormData => {
     const fData = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
@@ -47,10 +47,8 @@ function CreateForm<T>({
     }
 
     if (field.validators) {
-      // Create FormData object to pass to validators
       const formDataObj = createFormDataObject();
 
-      // Call the validator with both the value and the FormData
       return (
         field.validators as (
           val: string,
@@ -126,18 +124,31 @@ function CreateForm<T>({
           />
         );
       case 'checkbox':
+        const checkboxSize =
+          size === 'small' ? 'sm' : size === 'medium' ? 'md' : 'lg';
         return (
-          <div key={field.name} className="checkbox-field">
-            <Input
-              type="checkbox"
-              label={field.label}
+          <div key={field.name} className={styles.field}>
+            <Checkbox
+              name={field.name}
               checked={Boolean(formData[field.name])}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                handleChange(field, String(e.target.checked))
-              }
-              errorMessage={error}
-              required={field.required}
+              onChange={(checked: boolean) => {
+                setFormData((prev) => ({
+                  ...prev,
+                  [field.name]: checked,
+                }));
+              }}
+              label={field.linkText || field.label}
+              size={'sm'}
+              variant={buttonVariant}
+              disabled={isLoading}
             />
+            {field.helperText && (
+              <div
+                className={styles.helperText}
+                dangerouslySetInnerHTML={{ __html: field.helperText }}
+              />
+            )}
+            {error && <span className={styles.error}>{error}</span>}
           </div>
         );
       case 'textarea':

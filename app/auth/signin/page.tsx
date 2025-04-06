@@ -1,6 +1,8 @@
 'use client';
 
 import React, { JSX } from 'react';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 import { Image } from '@app-shared/components/media';
 import CreateForm from '@app-shared/ui/form';
@@ -11,6 +13,9 @@ import AuthLayout from '../auth-layout';
 import styles from '../auth.module.scss';
 
 const SignIn = (): JSX.Element => {
+  const searchParams = useSearchParams();
+  const isRegistered = searchParams.get('registered') === 'true';
+
   const onSubmit = (data: signInFormData): void => {
     console.warn(data);
   };
@@ -18,8 +23,19 @@ const SignIn = (): JSX.Element => {
   return (
     <AuthLayout
       title="Welcome Back"
-      subtitle="Sign in to your account to continue"
+      subtitle={
+        isRegistered
+          ? 'Registration successful! Please sign in to continue'
+          : 'Sign in to your account to continue'
+      }
     >
+      {isRegistered && (
+        <div className={styles.successMessage}>
+          Your account has been created successfully. Please sign in to
+          continue.
+        </div>
+      )}
+
       <CreateForm<signInFormData>
         schema={userSchema}
         onSubmit={onSubmit}
@@ -28,7 +44,7 @@ const SignIn = (): JSX.Element => {
         submitLabel="Sign In"
         content={
           <div className={styles.forgotPassword}>
-            <a href="/auth/forgot-password">Forgot Password?</a>
+            <Link href="/auth/forgot-password">Forgot Password?</Link>
           </div>
         }
       />
@@ -59,8 +75,8 @@ const SignIn = (): JSX.Element => {
       </div>
 
       <div className={styles.accountPrompt}>
-        <span>Don&apos;st have an account?</span>
-        <a href="/auth/signup">Sign up</a>
+        <span>Don&apos;t have an account?</span>
+        <Link href="/auth/signup">Sign up</Link>
       </div>
     </AuthLayout>
   );

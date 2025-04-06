@@ -99,6 +99,16 @@ export class FieldBuilder {
     return this;
   }
 
+  size(value: 'small' | 'medium' | 'large'): FieldBuilder {
+    this.field.size = value;
+    return this;
+  }
+
+  linkText(text: string): FieldBuilder {
+    this.field.linkText = text;
+    return this;
+  }
+
   _getField(): SchemaField {
     return { ...this.field };
   }
