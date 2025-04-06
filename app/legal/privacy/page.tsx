@@ -1,11 +1,12 @@
 'use client';
 
-import React from 'react';
 import Link from 'next/link';
+import React, { JSX } from 'react';
+
 import LegalLayout from '../legal-layout';
 import styles from '../legal.module.scss';
 
-const PrivacyPolicy = () => {
+const PrivacyPolicy = (): JSX.Element => {
   return (
     <LegalLayout
       title="Privacy Policy"

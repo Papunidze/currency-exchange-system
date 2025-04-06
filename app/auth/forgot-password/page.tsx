@@ -1,7 +1,7 @@
 'use client';
 
-import React, { JSX } from 'react';
 import Link from 'next/link';
+import React, { JSX } from 'react';
 
 import CreateForm from '@app-shared/ui/form';
 

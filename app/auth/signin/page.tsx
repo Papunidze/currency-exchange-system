@@ -1,8 +1,8 @@
 'use client';
 
-import React, { JSX } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import React, { JSX, Suspense } from 'react';
 
 import { Image } from '@app-shared/components/media';
 import CreateForm from '@app-shared/ui/form';
@@ -12,7 +12,8 @@ import { signInFormData, userSchema } from './action';
 import AuthLayout from '../auth-layout';
 import styles from '../auth.module.scss';
 
-const SignIn = (): JSX.Element => {
+// Component that uses useSearchParams
+const SignInContent = (): JSX.Element => {
   const searchParams = useSearchParams();
   const isRegistered = searchParams.get('registered') === 'true';
 
@@ -82,4 +83,21 @@ const SignIn = (): JSX.Element => {
   );
 };
 
-export default SignIn;
+const SignInLoading = (): JSX.Element => {
+  return (
+    <AuthLayout
+      title="Welcome Back"
+      subtitle="Sign in to your account to continue"
+    >
+      <div>Loading...</div>
+    </AuthLayout>
+  );
+};
+
+export default function SignIn(): JSX.Element {
+  return (
+    <Suspense fallback={<SignInLoading />}>
+      <SignInContent />
+    </Suspense>
+  );
+}

@@ -1,4 +1,5 @@
-import React, { ReactNode } from 'react';
+import React, { JSX, ReactNode } from 'react';
+
 import styles from './legal.module.scss';
 
 interface LegalLayoutProps {
@@ -7,7 +8,11 @@ interface LegalLayoutProps {
   subtitle?: string;
 }
 
-const LegalLayout = ({ children, title, subtitle }: LegalLayoutProps) => {
+const LegalLayout = ({
+  children,
+  title,
+  subtitle,
+}: LegalLayoutProps): JSX.Element => {
   return (
     <div className={styles.legalLayout}>
       <div className={styles.container}>

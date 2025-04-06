@@ -1,12 +1,12 @@
 'use client';
 
-import React from 'react';
 import Link from 'next/link';
+import React, { JSX } from 'react';
 
-import styles from '../legal.module.scss';
 import LegalLayout from '../legal-layout';
+import styles from '../legal.module.scss';
 
-const TermsOfService = () => {
+const TermsOfService = (): JSX.Element => {
   return (
     <LegalLayout
       title="Terms of Service"
@@ -60,8 +60,8 @@ const TermsOfService = () => {
         <section aria-labelledby="service-usage">
           <h2 id="service-usage">5. Service Usage</h2>
           <p>
-            Our Service is provided "as is" and we make no warranties regarding
-            its availability or performance.
+            Our Service is provided &ldquo;as is&ldquo; and we make no
+            warranties regarding its availability or performance.
           </p>
         </section>
 

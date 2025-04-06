@@ -1,9 +1,11 @@
-import { TopBar } from '@app-shared/layouts/topbar';
 import { Metadata } from 'next';
-import { JSX } from 'react';
-import styles from './page.module.scss';
-import { ExchangeIcon, SettingsIcon } from '@app-shared/icons';
 import Link from 'next/link';
+import { JSX } from 'react';
+
+import { ExchangeIcon, SettingsIcon } from '@app-shared/icons';
+import { TopBar } from '@app-shared/layouts/topbar';
+
+import styles from './page.module.scss';
 
 export const metadata: Metadata = {
   title: 'Home - Fast & Secure Currency Exchange',
