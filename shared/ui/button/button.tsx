@@ -1,6 +1,6 @@
 'use client';
 
-import React, { ReactNode, ButtonHTMLAttributes, forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import styles from './button.module.scss';
 import { ButtonProps } from './button.interfaces';
 import { cn } from '@app-shared/lib/utils';
@@ -18,26 +18,12 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       className = '',
       disabled = false,
       onClick,
+      onKeyDown,
       ...props
     },
     ref,
   ) => {
-    const handleClick = (
-      e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    ) => {
-      if (isLoading || disabled) return;
-      onClick?.(e);
-    };
-
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        handleClick(
-          e as unknown as React.MouseEvent<HTMLButtonElement, MouseEvent>,
-        );
-      }
-      props.onKeyDown?.(e);
-    };
+    const isDisabled = disabled || isLoading;
 
     return (
       <button
@@ -52,10 +38,10 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           },
           className,
         )}
-        disabled={disabled || isLoading}
-        onClick={handleClick}
+        disabled={isDisabled}
+        onClick={onClick}
         aria-busy={isLoading}
-        onKeyDown={handleKeyDown}
+        onKeyDown={onKeyDown}
         {...props}
       >
         {startIcon && !isLoading && (

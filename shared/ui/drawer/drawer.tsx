@@ -1,47 +1,45 @@
-import React from 'react';
-import { createPortal } from 'react-dom';
+import React, { useState, useEffect } from 'react';
 import { cn } from '@app-shared/lib/utils';
-import styles from './drawer.module.scss';
 import Backdrop from '@app-ui/backdrop';
-
-interface DrawerProps {
-  isOpen: boolean;
-  onClose: () => void;
-  children: React.ReactNode;
-  className?: string;
-  placement?: 'left' | 'right';
-}
+import styles from './drawer.module.scss';
+import { DrawerProps } from './drawer.interfaces';
 
 export const Drawer: React.FC<DrawerProps> = ({
-  isOpen,
-  onClose,
   children,
   className,
+  isOpen,
+  onClose,
   placement = 'left',
 }) => {
-  const [mounted, setMounted] = React.useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setMounted(true);
     return () => setMounted(false);
   }, []);
 
   if (!mounted) return null;
 
-  return createPortal(
+  return (
     <>
-      <Backdrop isOpen={isOpen} onClick={onClose} />
-      <div
+      <Backdrop isOpen={isOpen} onClick={onClose} disableScroll />
+      <aside
         className={cn(
           styles.drawer,
-          isOpen && styles.open,
           styles[placement],
+          isOpen && styles.visible,
           className,
         )}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Drawer"
       >
         <div className={styles.content}>{children}</div>
-      </div>
-    </>,
-    document.body,
+      </aside>
+    </>
   );
 };
+
+Drawer.displayName = 'Drawer';
+
+export default Drawer;

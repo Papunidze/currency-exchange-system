@@ -10,7 +10,7 @@ import styles from './topbar.module.scss';
 import IconButton from '@app-shared/ui/iconButton';
 import Link from 'next/link';
 import { UserMenu } from '@app-shared/ui/user-menu';
-import { Drawer } from '@app-shared/ui/drawer';
+import Drawer from '@app-shared/ui/drawer';
 
 const NAV_ITEMS = [
   { label: 'Home', href: '/' },

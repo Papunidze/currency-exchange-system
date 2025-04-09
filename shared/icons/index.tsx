@@ -8,38 +8,7 @@ const sizeMap: Record<string, number> = {
   lg: 32,
 };
 
-const createIcon = (displayName: string, path: string) => {
-  const IconComponent = ({
-    size = 'md',
-    className,
-    color = 'currentColor',
-    title,
-  }: IconProps) => {
-    const finalSize = typeof size === 'string' ? sizeMap[size] : size;
-
-    return (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width={finalSize}
-        height={finalSize}
-        viewBox="0 0 24 24"
-        className={`${styles.icon} ${className || ''}`}
-        fill={color}
-        role="img"
-        aria-hidden={!title}
-        aria-label={title}
-      >
-        {title && <title>{title}</title>}
-        <path d={path} fill={color} />
-      </svg>
-    );
-  };
-
-  IconComponent.displayName = displayName;
-  return IconComponent;
-};
-
-const ICON_PATHS = {
+export const ICON_PATHS = {
   MENU: 'M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z',
   HOME: 'M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z',
   SETTINGS:
@@ -63,27 +32,76 @@ const ICON_PATHS = {
   CHECKMARK: 'M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z',
 } as const;
 
-export const HomeIcon = createIcon('HomeIcon', ICON_PATHS.HOME);
-export const WalletIcon = createIcon('WalletIcon', ICON_PATHS.WALLET);
-export const ExchangeIcon = createIcon('ExchangeIcon', ICON_PATHS.EXCHANGE);
-export const ChartIcon = createIcon('ChartIcon', ICON_PATHS.CHART);
-export const SettingsIcon = createIcon('SettingsIcon', ICON_PATHS.SETTINGS);
-export const SignOutIcon = createIcon('SignOutIcon', ICON_PATHS.SIGN_OUT);
-export const SearchIcon = createIcon('SearchIcon', ICON_PATHS.SEARCH);
-export const BellIcon = createIcon('BellIcon', ICON_PATHS.BELL);
-export const UserIcon = createIcon('UserIcon', ICON_PATHS.USER);
-export const MenuIcon = createIcon('MenuIcon', ICON_PATHS.MENU);
+export type IconType = keyof typeof ICON_PATHS;
 
-// Adding the new icon exports
-export const SunIcon = createIcon('SunIcon', ICON_PATHS.SUN);
-export const MoonIcon = createIcon('MoonIcon', ICON_PATHS.MOON);
-export const DashboardIcon = createIcon('DashboardIcon', ICON_PATHS.DASHBOARD);
-export const LogoutIcon = createIcon('LogoutIcon', ICON_PATHS.LOGOUT);
-export const ChevronDownIcon = createIcon(
-  'ChevronDownIcon',
-  ICON_PATHS.CHEVRON_DOWN,
+export interface IconComponentProps extends Omit<IconProps, 'size'> {
+  icon: IconType;
+  size?: IconProps['size'];
+}
+
+export const Icon = React.memo(
+  ({
+    icon,
+    size = 'md',
+    className,
+    color = 'currentColor',
+    title,
+  }: IconComponentProps) => {
+    const finalSize = typeof size === 'string' ? sizeMap[size] : size;
+    const path = ICON_PATHS[icon];
+
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={finalSize}
+        height={finalSize}
+        viewBox="0 0 24 24"
+        className={`${styles.icon} ${className || ''}`}
+        fill={color}
+        role="img"
+        aria-hidden={!title}
+        aria-label={title}
+      >
+        {title && <title>{title}</title>}
+        <path d={path} fill={color} />
+      </svg>
+    );
+  },
 );
-export const ChevronLeftIcon = createIcon(
-  'ChevronLeftIcon',
-  ICON_PATHS.CHEVRON_LEFT,
+
+Icon.displayName = 'Icon';
+
+export const HomeIcon = (props: IconProps) => <Icon icon="HOME" {...props} />;
+export const WalletIcon = (props: IconProps) => (
+  <Icon icon="WALLET" {...props} />
+);
+export const ExchangeIcon = (props: IconProps) => (
+  <Icon icon="EXCHANGE" {...props} />
+);
+export const ChartIcon = (props: IconProps) => <Icon icon="CHART" {...props} />;
+export const SettingsIcon = (props: IconProps) => (
+  <Icon icon="SETTINGS" {...props} />
+);
+export const SignOutIcon = (props: IconProps) => (
+  <Icon icon="SIGN_OUT" {...props} />
+);
+export const SearchIcon = (props: IconProps) => (
+  <Icon icon="SEARCH" {...props} />
+);
+export const BellIcon = (props: IconProps) => <Icon icon="BELL" {...props} />;
+export const UserIcon = (props: IconProps) => <Icon icon="USER" {...props} />;
+export const MenuIcon = (props: IconProps) => <Icon icon="MENU" {...props} />;
+export const SunIcon = (props: IconProps) => <Icon icon="SUN" {...props} />;
+export const MoonIcon = (props: IconProps) => <Icon icon="MOON" {...props} />;
+export const DashboardIcon = (props: IconProps) => (
+  <Icon icon="DASHBOARD" {...props} />
+);
+export const LogoutIcon = (props: IconProps) => (
+  <Icon icon="LOGOUT" {...props} />
+);
+export const ChevronDownIcon = (props: IconProps) => (
+  <Icon icon="CHEVRON_DOWN" {...props} />
+);
+export const ChevronLeftIcon = (props: IconProps) => (
+  <Icon icon="CHEVRON_LEFT" {...props} />
 );

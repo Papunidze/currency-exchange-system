@@ -116,7 +116,6 @@ describe('Button component', () => {
     expect(handleClick).not.toHaveBeenCalled();
   });
 
-  // Accessibility tests
   it('should be focusable', () => {
     render(<Button>Focusable Button</Button>);
     const button = screen.getByRole('button');
@@ -135,23 +134,16 @@ describe('Button component', () => {
     expect(buttonElement).toHaveAttribute('aria-label', 'custom button');
   });
 
-  // Keyboard interaction tests
-  it('should trigger onClick when Space key is pressed', () => {
-    const handleClick = jest.fn();
-    render(<Button onClick={handleClick}>Space Key</Button>);
+  it('should handle keyboard events through native browser behavior', () => {
+    const handleKeyDown = jest.fn();
+    render(<Button onKeyDown={handleKeyDown}>Key Events</Button>);
     const button = screen.getByRole('button');
 
     fireEvent.keyDown(button, { key: ' ', code: 'Space' });
-    expect(handleClick).toHaveBeenCalledTimes(1);
-  });
-
-  it('should trigger onClick when Enter key is pressed', () => {
-    const handleClick = jest.fn();
-    render(<Button onClick={handleClick}>Enter Key</Button>);
-    const button = screen.getByRole('button');
+    expect(handleKeyDown).toHaveBeenCalledTimes(1);
 
     fireEvent.keyDown(button, { key: 'Enter', code: 'Enter' });
-    expect(handleClick).toHaveBeenCalledTimes(1);
+    expect(handleKeyDown).toHaveBeenCalledTimes(2);
   });
 
   it('should show loading spinner when isLoading is true', () => {

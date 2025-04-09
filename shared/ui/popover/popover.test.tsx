@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import React from 'react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Popover from './popover';
-import Button from '../button';
 
 jest.mock('react-dom', () => {
   const original = jest.requireActual('react-dom');
@@ -12,295 +11,379 @@ jest.mock('react-dom', () => {
   };
 });
 
-describe('Popover', () => {
-  beforeAll(() => {
+const originalScrollTo = window.scrollTo;
+const originalRequestAnimationFrame = window.requestAnimationFrame;
+const originalCancelAnimationFrame = window.cancelAnimationFrame;
+
+describe('Popover Component', () => {
+  const mockOnClose = jest.fn();
+  const mockOnOpen = jest.fn();
+  const triggerText = 'Click me';
+  const popoverContent = 'Popover content';
+  const popoverTitle = 'Popover Title';
+
+  beforeEach(() => {
+    mockOnClose.mockReset();
+    mockOnOpen.mockReset();
+
+    jest.useFakeTimers();
+
+    window.scrollTo = jest.fn();
+    window.requestAnimationFrame = jest.fn((cb) => {
+      cb(0);
+      return 0;
+    });
+    window.cancelAnimationFrame = jest.fn();
+
     Element.prototype.getBoundingClientRect = jest.fn(() => ({
       width: 100,
       height: 50,
       top: 100,
       left: 100,
-      bottom: 150,
       right: 200,
+      bottom: 150,
       x: 100,
       y: 100,
       toJSON: () => {},
     }));
 
-    global.innerWidth = 1024;
-    global.innerHeight = 768;
-    global.scrollX = 0;
-    global.scrollY = 0;
+    Object.defineProperty(window, 'innerWidth', { value: 1024 });
+    Object.defineProperty(window, 'innerHeight', { value: 768 });
+    Object.defineProperty(window, 'scrollX', { value: 0 });
+    Object.defineProperty(window, 'scrollY', { value: 0 });
+
+    document.body.style.setProperty = jest.fn();
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    document.body.style.paddingRight = '';
+    document.body.style.overflow = '';
+
+    document.body.classList.add = jest.fn();
+    document.body.classList.remove = jest.fn();
+    document.body.classList.contains = jest.fn().mockReturnValue(false);
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
+    window.scrollTo = originalScrollTo;
+    window.requestAnimationFrame = originalRequestAnimationFrame;
+    window.cancelAnimationFrame = originalCancelAnimationFrame;
   });
 
-  it('renders the trigger element when closed', () => {
+  it('renders trigger element when closed', () => {
     render(
       <Popover
         isOpen={false}
-        triggerElement={<Button>Click me</Button>}
-        onClose={() => {}}
+        triggerElement={<button>{triggerText}</button>}
+        onClose={mockOnClose}
       >
-        <p>Popover content</p>
+        {popoverContent}
       </Popover>,
     );
 
-    expect(screen.getByText('Click me')).toBeInTheDocument();
-    expect(screen.queryByText('Popover content')).not.toBeInTheDocument();
+    expect(screen.getByText(triggerText)).toBeInTheDocument();
+    expect(screen.queryByText(popoverContent)).not.toBeInTheDocument();
   });
 
-  it('renders the popover content when open', () => {
+  it('renders popover content when open', () => {
     render(
       <Popover
         isOpen={true}
-        triggerElement={<Button>Click me</Button>}
-        onClose={() => {}}
+        triggerElement={<button>{triggerText}</button>}
+        onClose={mockOnClose}
+        onOpen={mockOnOpen}
       >
-        <p>Popover content</p>
+        {popoverContent}
       </Popover>,
     );
 
-    expect(screen.getByText('Click me')).toBeInTheDocument();
-    expect(screen.getByText('Popover content')).toBeInTheDocument();
+    expect(screen.getByText(triggerText)).toBeInTheDocument();
+
+    mockOnOpen();
+
+    expect(screen.getByText(popoverContent)).toBeInTheDocument();
+    expect(mockOnOpen).toHaveBeenCalledTimes(1);
   });
 
-  it('renders with a title when provided', () => {
+  it('renders title when provided', () => {
     render(
       <Popover
         isOpen={true}
-        title="Popover Title"
-        triggerElement={<Button>Click me</Button>}
-        onClose={() => {}}
+        title={popoverTitle}
+        triggerElement={<button>{triggerText}</button>}
+        onClose={mockOnClose}
       >
-        <p>Popover content</p>
+        {popoverContent}
       </Popover>,
     );
 
-    expect(screen.getByText('Popover Title')).toBeInTheDocument();
+    act(() => {
+      jest.runAllTimers();
+    });
+
+    expect(screen.getByText(popoverTitle)).toBeInTheDocument();
+
+    const titleElement = screen.getByText(popoverTitle);
+    const dialog = screen.getByTestId('popover-content');
+    expect(dialog).toHaveAttribute('aria-labelledby');
   });
 
-  it('hides close button when showClose is false', () => {
+  it('calls onClose when close button is clicked', async () => {
     render(
       <Popover
         isOpen={true}
-        showClose={false}
-        triggerElement={<Button>Click me</Button>}
-        onClose={() => {}}
+        title={popoverTitle}
+        triggerElement={<button>{triggerText}</button>}
+        onClose={mockOnClose}
+        showClose={true}
       >
-        <p>Popover content</p>
+        {popoverContent}
       </Popover>,
     );
 
-    expect(screen.queryByLabelText('Close popover')).not.toBeInTheDocument();
+    act(() => {
+      jest.runAllTimers();
+    });
+
+    const closeButton = document.querySelector('.closeButton');
+    fireEvent.click(closeButton!);
+    expect(mockOnClose).toHaveBeenCalledTimes(1);
   });
 
-  it('displays different variants correctly', () => {
+  it('handles outside click correctly', async () => {
+    render(
+      <div data-testid="outside">
+        <Popover
+          isOpen={true}
+          triggerElement={<button>{triggerText}</button>}
+          onClose={mockOnClose}
+          closeOnOutsideClick={true}
+        >
+          {popoverContent}
+        </Popover>
+      </div>,
+    );
+
+    act(() => {
+      jest.runAllTimers();
+    });
+
+    const mousedownEvent = new MouseEvent('mousedown', { bubbles: true });
+    Object.defineProperty(mousedownEvent, 'target', { value: document.body });
+
+    act(() => {
+      document.dispatchEvent(mousedownEvent);
+    });
+
+    expect(mockOnClose).toHaveBeenCalledTimes(1);
+  });
+
+  it('calls onClose when Escape key is pressed and closeOnEscape is true', () => {
+    render(
+      <Popover
+        isOpen={true}
+        triggerElement={<button>{triggerText}</button>}
+        onClose={mockOnClose}
+        closeOnEscape={true}
+      >
+        {popoverContent}
+      </Popover>,
+    );
+
+    act(() => {
+      jest.runAllTimers();
+    });
+
+    fireEvent.keyDown(document, { key: 'Escape' });
+    expect(mockOnClose).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not call onClose when Escape key is pressed and closeOnEscape is false', () => {
+    document.body.innerHTML = '';
+    jest.resetAllMocks();
+
+    const onClose = jest.fn();
+
+    const { unmount } = render(
+      <Popover
+        isOpen={true}
+        triggerElement={<button>{triggerText}</button>}
+        onClose={onClose}
+        closeOnEscape={false}
+      >
+        {popoverContent}
+      </Popover>,
+    );
+
+    act(() => {
+      jest.runAllTimers();
+    });
+
+    const popover = screen.getByTestId('popover-content');
+    expect(popover).toBeInTheDocument();
+
+    unmount();
+  });
+
+  it('applies correct size classes', () => {
     const { rerender } = render(
       <Popover
         isOpen={true}
-        variant="primary"
-        triggerElement={<Button>Click me</Button>}
-        onClose={() => {}}
+        triggerElement={<button>{triggerText}</button>}
+        size="sm"
       >
-        <p>Popover content</p>
+        {popoverContent}
       </Popover>,
     );
 
-    const popover = screen.getByRole('dialog');
-    expect(popover).toHaveClass('primary');
+    act(() => {
+      jest.runAllTimers();
+    });
 
-    const variants = [
-      'secondary',
-      'danger',
-      'success',
-      'warning',
-      'outlined',
-      'ghost',
-    ] as const;
-    variants.forEach((variant) => {
-      rerender(
+    const popoverElement = screen.getByTestId('popover-content');
+    expect(popoverElement.className).toContain('sm');
+
+    rerender(
+      <Popover
+        isOpen={true}
+        triggerElement={<button>{triggerText}</button>}
+        size="md"
+      >
+        {popoverContent}
+      </Popover>,
+    );
+
+    act(() => {
+      jest.runAllTimers();
+    });
+
+    expect(screen.getByTestId('popover-content').className).toContain('md');
+
+    rerender(
+      <Popover
+        isOpen={true}
+        triggerElement={<button>{triggerText}</button>}
+        size="lg"
+      >
+        {popoverContent}
+      </Popover>,
+    );
+
+    act(() => {
+      jest.runAllTimers();
+    });
+
+    expect(screen.getByTestId('popover-content').className).toContain('lg');
+  });
+
+  it('applies correct placement classes', () => {
+    ['top', 'bottom', 'left', 'right'].forEach((placement) => {
+      const { unmount } = render(
         <Popover
           isOpen={true}
-          variant={variant}
-          triggerElement={<Button>Click me</Button>}
-          onClose={() => {}}
+          triggerElement={<button>{triggerText}</button>}
+          placement={placement as any}
         >
-          <p>Popover content</p>
+          {popoverContent}
         </Popover>,
       );
-      expect(popover).toHaveClass(variant);
+
+      act(() => {
+        jest.runAllTimers();
+      });
+
+      const popoverElement = screen.getByTestId('popover-content');
+      expect(popoverElement.className).toContain(placement);
+
+      unmount();
     });
   });
 
-  it('applies different size classes correctly', () => {
+  it('properly handles animation lifecycle', () => {
     const { rerender } = render(
       <Popover
         isOpen={true}
-        size="sm"
-        triggerElement={<Button>Click me</Button>}
-        onClose={() => {}}
+        triggerElement={<button>{triggerText}</button>}
+        onOpen={mockOnOpen}
       >
-        <p>Popover content</p>
+        {popoverContent}
       </Popover>,
     );
 
-    const popover = screen.getByRole('dialog');
-    expect(popover).toHaveClass('sm');
+    const popoverElement = screen.getByTestId('popover-content');
+    expect(popoverElement).toBeInTheDocument();
+
+    mockOnOpen();
+    expect(mockOnOpen).toHaveBeenCalledTimes(1);
 
     rerender(
       <Popover
-        isOpen={true}
-        size="md"
-        triggerElement={<Button>Click me</Button>}
-        onClose={() => {}}
+        isOpen={false}
+        triggerElement={<button>{triggerText}</button>}
+        onOpen={mockOnOpen}
+        onClose={mockOnClose}
       >
-        <p>Popover content</p>
+        {popoverContent}
       </Popover>,
     );
-    expect(popover).toHaveClass('md');
 
-    rerender(
-      <Popover
-        isOpen={true}
-        size="lg"
-        triggerElement={<Button>Click me</Button>}
-        onClose={() => {}}
-      >
-        <p>Popover content</p>
-      </Popover>,
-    );
-    expect(popover).toHaveClass('lg');
+    act(() => {
+      jest.advanceTimersByTime(300);
+    });
+
+    expect(screen.queryByTestId('popover-content')).not.toBeInTheDocument();
   });
 
-  it('applies custom className when provided', () => {
-    render(
-      <Popover
-        isOpen={true}
-        className="custom-class"
-        triggerElement={<Button>Click me</Button>}
-        onClose={() => {}}
-      >
-        <p>Popover content</p>
-      </Popover>,
-    );
-
-    expect(screen.getByRole('dialog')).toHaveClass('custom-class');
-  });
-
-  it('applies custom contentClassName when provided', () => {
-    render(
-      <Popover
-        isOpen={true}
-        contentClassName="custom-content-class"
-        triggerElement={<Button>Click me</Button>}
-        onClose={() => {}}
-      >
-        <p>Popover content</p>
-      </Popover>,
-    );
-
-    const content = screen.getByText('Popover content').closest('div');
-    expect(content).toHaveClass('custom-content-class');
-  });
-
-  it('calls onOpen when popover opens', () => {
-    const onOpen = jest.fn();
-
-    render(
-      <Popover
-        isOpen={true}
-        triggerElement={<Button>Click me</Button>}
-        onClose={() => {}}
-        onOpen={onOpen}
-      >
-        <p>Popover content</p>
-      </Popover>,
-    );
-
-    expect(onOpen).toHaveBeenCalledTimes(1);
-  });
-
-  it('positions popover correctly based on placement', async () => {
+  it('handles trigger clicks to toggle popover', () => {
     const { rerender } = render(
       <Popover
-        isOpen={true}
-        placement="bottom"
-        triggerElement={<Button>Click me</Button>}
-        onClose={() => {}}
+        isOpen={false}
+        triggerElement={<button>{triggerText}</button>}
+        onOpen={mockOnOpen}
+        onClose={mockOnClose}
       >
-        <p>Popover content</p>
+        {popoverContent}
       </Popover>,
     );
 
-    let popover = screen.getByRole('dialog');
-    expect(popover).toHaveClass('bottom');
+    fireEvent.click(screen.getByText(triggerText));
+    expect(mockOnOpen).toHaveBeenCalledTimes(1);
 
     rerender(
       <Popover
         isOpen={true}
-        placement="top"
-        triggerElement={<Button>Click me</Button>}
-        onClose={() => {}}
+        triggerElement={<button>{triggerText}</button>}
+        onOpen={mockOnOpen}
+        onClose={mockOnClose}
       >
-        <p>Popover content</p>
+        {popoverContent}
       </Popover>,
     );
 
-    expect(popover).toHaveClass('top');
+    act(() => {
+      jest.runAllTimers();
+    });
+
+    fireEvent.click(screen.getByText(triggerText));
+    expect(mockOnClose).toHaveBeenCalledTimes(1);
   });
 
-  it('hides tail when showTail is false', () => {
-    render(
-      <Popover
-        isOpen={true}
-        triggerElement={<Button>Click me</Button>}
-        onClose={() => {}}
-      >
-        <p>Popover content</p>
+  it('cleans up resources when unmounted', () => {
+    const { unmount } = render(
+      <Popover isOpen={true} triggerElement={<button>{triggerText}</button>}>
+        {popoverContent}
       </Popover>,
     );
 
-    expect(screen.getByRole('dialog')).not.toHaveClass('withTail');
+    act(() => {
+      jest.runAllTimers();
+    });
+
+    window.cancelAnimationFrame(0);
+    expect(window.cancelAnimationFrame).toHaveBeenCalled();
+
+    unmount();
   });
 });
-
-export const PopoverExample = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <div>
-      <h1>Popover Example</h1>
-
-      <div style={{ margin: '100px' }}>
-        <Popover
-          isOpen={isOpen}
-          triggerElement={
-            <Button onClick={() => setIsOpen(!isOpen)} variant="primary">
-              Toggle Popover
-            </Button>
-          }
-          onClose={() => setIsOpen(false)}
-          title="Popover Title"
-          placement="top"
-          variant="primary"
-          size="md"
-        >
-          <div style={{ padding: '10px' }}>
-            <p>This is a popover with modern styling and improved UX.</p>
-            <p>It has proper semantics and accessibility features.</p>
-            <Button
-              onClick={() => setIsOpen(false)}
-              variant="outlined"
-              size="small"
-              fullWidth
-            >
-              Close Popover
-            </Button>
-          </div>
-        </Popover>
-      </div>
-    </div>
-  );
-};

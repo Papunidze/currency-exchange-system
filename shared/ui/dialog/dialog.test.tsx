@@ -27,7 +27,9 @@ describe('Dialog Component', () => {
       </Dialog>,
     );
 
-    expect(screen.getByRole('dialog', { hidden: true })).toBeInTheDocument();
+    expect(
+      screen.getAllByRole('dialog', { hidden: true })[1],
+    ).toBeInTheDocument();
     expect(screen.getByText('Dialog content')).toBeInTheDocument();
   });
 
@@ -94,9 +96,8 @@ describe('Dialog Component', () => {
       </Dialog>,
     );
 
-    const backdrop = screen
-      .getByRole('dialog', { hidden: true })
-      .closest('[aria-hidden="true"]');
+    // Get the backdrop element directly
+    const backdrop = document.querySelector('.backdrop');
     fireEvent.click(backdrop!);
     expect(defaultProps.onClose).toHaveBeenCalledTimes(1);
   });
@@ -108,9 +109,8 @@ describe('Dialog Component', () => {
       </Dialog>,
     );
 
-    const backdrop = screen
-      .getByRole('dialog', { hidden: true })
-      .closest('[aria-hidden="true"]');
+    // Get the backdrop element directly
+    const backdrop = document.querySelector('.backdrop');
     fireEvent.click(backdrop!);
     expect(defaultProps.onClose).not.toHaveBeenCalled();
   });
@@ -144,7 +144,9 @@ describe('Dialog Component', () => {
       </Dialog>,
     );
 
-    expect(screen.getByRole('dialog', { hidden: true })).toHaveClass('sm');
+    // Get the inner dialog element
+    const innerDialog = screen.getAllByRole('dialog', { hidden: true })[1];
+    expect(innerDialog).toHaveClass('sm');
 
     rerender(
       <Dialog {...defaultProps} size="md">
@@ -152,7 +154,8 @@ describe('Dialog Component', () => {
       </Dialog>,
     );
 
-    expect(screen.getByRole('dialog', { hidden: true })).toHaveClass('md');
+    const mdDialog = screen.getAllByRole('dialog', { hidden: true })[1];
+    expect(mdDialog).toHaveClass('md');
 
     rerender(
       <Dialog {...defaultProps} size="lg">
@@ -160,7 +163,8 @@ describe('Dialog Component', () => {
       </Dialog>,
     );
 
-    expect(screen.getByRole('dialog', { hidden: true })).toHaveClass('lg');
+    const lgDialog = screen.getAllByRole('dialog', { hidden: true })[1];
+    expect(lgDialog).toHaveClass('lg');
   });
 
   it('applies position class correctly', () => {
@@ -170,7 +174,8 @@ describe('Dialog Component', () => {
       </Dialog>,
     );
 
-    expect(screen.getByRole('dialog', { hidden: true })).toHaveClass('center');
+    const centerDialog = screen.getAllByRole('dialog', { hidden: true })[1];
+    expect(centerDialog).toHaveClass('center');
 
     rerender(
       <Dialog {...defaultProps} position="top">
@@ -178,7 +183,8 @@ describe('Dialog Component', () => {
       </Dialog>,
     );
 
-    expect(screen.getByRole('dialog', { hidden: true })).toHaveClass('top');
+    const topDialog = screen.getAllByRole('dialog', { hidden: true })[1];
+    expect(topDialog).toHaveClass('top');
   });
 
   it('applies custom className and contentClassName', () => {
@@ -192,12 +198,11 @@ describe('Dialog Component', () => {
       </Dialog>,
     );
 
-    expect(screen.getByRole('dialog', { hidden: true })).toHaveClass(
-      'custom-dialog',
+    const customDialog = screen.getAllByRole('dialog', { hidden: true })[1];
+    expect(customDialog).toHaveClass('custom-dialog');
+    expect(customDialog.querySelector('.content')).toHaveClass(
+      'custom-content',
     );
-    expect(
-      screen.getByRole('dialog', { hidden: true }).querySelector('.content'),
-    ).toHaveClass('custom-content');
   });
 
   it('sets correct ARIA attributes', () => {
@@ -211,7 +216,7 @@ describe('Dialog Component', () => {
       </Dialog>,
     );
 
-    const dialog = screen.getByRole('dialog', { hidden: true });
+    const dialog = screen.getAllByRole('dialog', { hidden: true })[1];
     expect(dialog).toHaveAttribute('aria-modal', 'true');
     expect(dialog).toHaveAttribute('aria-labelledby', 'dialog-title');
     expect(dialog).toHaveAttribute('aria-describedby', 'dialog-description');

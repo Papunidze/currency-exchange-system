@@ -1,8 +1,11 @@
-import { FC, useEffect } from 'react';
+import { useEffect } from 'react';
 import styles from './backdrop.module.scss';
 import { cn } from '@app-shared/lib/utils';
 import { BackdropProps } from './backdrop.interfaces';
 
+/**
+ * Backdrop component that provides an overlay effect with customizable opacity and blur
+ */
 const Backdrop = ({
   isOpen = false,
   className,
@@ -13,19 +16,20 @@ const Backdrop = ({
   zIndex = 50,
   children,
 }: BackdropProps) => {
+  // Handle scroll locking when backdrop is open
   useEffect(() => {
-    if (disableScroll) {
-      if (isOpen) {
-        document.body.style.overflow = 'hidden';
-      } else {
-        document.body.style.overflow = '';
-      }
+    if (!disableScroll) return;
+
+    const originalOverflow = document.body.style.overflow;
+
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
     }
 
     return () => {
-      if (disableScroll) {
-        document.body.style.overflow = '';
-      }
+      document.body.style.overflow = originalOverflow;
     };
   }, [isOpen, disableScroll]);
 
@@ -33,6 +37,8 @@ const Backdrop = ({
 
   return (
     <div
+      role="dialog"
+      aria-modal="true"
       className={cn(
         styles.backdrop,
         blur && styles.blur,
@@ -42,17 +48,19 @@ const Backdrop = ({
       onClick={onClick}
       style={
         {
-          '--backdrop-opacity': opacity / 100,
+          '--backdrop-opacity': `${opacity / 100}`,
           zIndex,
         } as React.CSSProperties
       }
-      aria-hidden="true"
     >
-      <div
-        className={styles.backdropContent}
-        onClick={(e) => e.stopPropagation()}
-      >
-        {children}
+      <div className={styles.backdropContent}>
+        {/* Prevent clicks on the content from bubbling up to the backdrop */}
+        <div
+          className={styles.contentWrapper}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {children}
+        </div>
       </div>
     </div>
   );

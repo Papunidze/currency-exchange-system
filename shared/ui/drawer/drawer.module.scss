@@ -6,8 +6,11 @@
   background: var(--background-light);
   box-shadow: var(--shadow-lg);
   z-index: 1000;
-  transition: transform 0.3s ease;
   overflow-y: auto;
+  transition:
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.25s ease;
+  opacity: 0;
 
   &.left {
     left: 0;
@@ -19,8 +22,9 @@
     transform: translateX(100%);
   }
 
-  &.open {
+  &.visible {
     transform: translateX(0);
+    opacity: 1;
   }
 }
 

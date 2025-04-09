@@ -11,124 +11,145 @@
   cursor: pointer;
 }
 
+.popoverWrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+}
+
 .popover {
   position: fixed;
   z-index: 1000;
-  min-width: 200px;
-  max-width: 400px;
+  min-width: 180px;
+  max-width: 380px;
   background-color: var(--background-light);
   border-radius: var(--border-radius-md);
   box-shadow: var(--shadow-lg);
   border: 1px solid var(--border-primary);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(0);
-  transition: opacity 0.15s ease-out;
-  will-change: opacity;
-
-  &::before {
-    content: '';
-    position: absolute;
-    width: 12px;
-    height: 12px;
-    background-color: inherit;
-    border: inherit;
-    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-    transform: rotate(0deg);
+  pointer-events: auto;
+  transform-origin: center top;
+  overflow: hidden;
+  &.entering {
+    opacity: 0;
+    transform: scale(0.95);
+    transition:
+      opacity 0.2s ease-out,
+      transform 0.2s cubic-bezier(0.3, 1.2, 0.2, 1);
   }
 
-  &.top::before {
-    bottom: -12px;
-    left: 50%;
-    transform: translateX(-50%) rotate(180deg);
-  }
-
-  &.right::before {
-    left: -12px;
-    top: 50%;
-    transform: translateY(-50%) rotate(-90deg);
-  }
-
-  &.bottom::before {
-    top: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  &.left::before {
-    right: -12px;
-    top: 50%;
-    transform: translateY(-50%) rotate(90deg);
-  }
-
-  &[data-visible='true'] {
+  &.entered {
     opacity: 1;
-    visibility: visible;
+    transform: scale(1);
+    transition:
+      opacity 0.2s ease-out,
+      transform 0.2s cubic-bezier(0.3, 1.2, 0.2, 1);
+  }
+
+  &.exiting {
+    opacity: 0;
+    transform: scale(0.95);
+    transition:
+      opacity 0.15s ease-in,
+      transform 0.15s ease-in;
+  }
+
+  &.exited {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  &.top {
+    transform-origin: center bottom;
+  }
+
+  &.bottom {
+    transform-origin: center top;
+  }
+
+  &.left {
+    transform-origin: right center;
+  }
+
+  &.right {
+    transform-origin: left center;
   }
 
   &.sm {
-    max-width: 240px;
+    max-width: 220px;
     font-size: 0.875rem;
 
     .title {
-      font-size: 1rem;
-      padding: var(--spacing-sm);
+      font-size: 0.9375rem;
+      padding: var(--spacing-2xs) var(--spacing-xs);
     }
 
-    .content {
-      padding: var(--spacing-sm);
+    .closeButton {
+      width: 18px;
+      height: 18px;
+      font-size: 12px;
+      top: var(--spacing-2xs);
+      right: var(--spacing-2xs);
+    }
+
+    .header {
+      padding: var(--spacing-2xs) var(--spacing-xs);
+    }
+
+    .body {
+      padding: var(--spacing-2xs) var(--spacing-xs);
+    }
+  }
+
+  &.md {
+    max-width: 300px;
+    font-size: 0.9375rem;
+
+    .title {
+      font-size: 1.0625rem;
+      padding: var(--spacing-xs);
     }
 
     .closeButton {
       width: 20px;
       height: 20px;
-      top: 6px;
-      right: 6px;
       font-size: 14px;
-    }
-  }
-
-  &.md {
-    max-width: 320px;
-    font-size: 0.9375rem;
-
-    .title {
-      font-size: 1.125rem;
-      padding: var(--spacing-md);
+      top: var(--spacing-2xs);
+      right: var(--spacing-2xs);
     }
 
-    .content {
-      padding: var(--spacing-md);
+    .header {
+      padding: var(--spacing-xs);
     }
 
-    .closeButton {
-      width: 24px;
-      height: 24px;
-      top: 8px;
-      right: 8px;
-      font-size: 16px;
+    .body {
+      padding: var(--spacing-xs);
     }
   }
 
   &.lg {
-    max-width: 400px;
+    max-width: 380px;
     font-size: 1rem;
 
     .title {
-      font-size: 1.25rem;
-      padding: var(--spacing-lg);
-    }
-
-    .content {
-      padding: var(--spacing-lg);
+      font-size: 1.125rem;
+      padding: var(--spacing-xs) var(--spacing-sm);
     }
 
     .closeButton {
-      width: 28px;
-      height: 28px;
-      top: 10px;
-      right: 10px;
-      font-size: 18px;
+      width: 22px;
+      height: 22px;
+      font-size: 16px;
+      top: var(--spacing-xs);
+      right: var(--spacing-xs);
+    }
+
+    .header {
+      padding: var(--spacing-xs) var(--spacing-sm);
+    }
+
+    .body {
+      padding: var(--spacing-xs) var(--spacing-sm);
     }
   }
 
@@ -137,22 +158,17 @@
     border-color: var(--variant-primary);
     color: var(--text-color-light);
 
-    &::before {
-      background-color: var(--variant-primary);
-      border-color: var(--variant-primary);
-    }
-
-    .title {
+    .header {
       border-bottom-color: rgba(255, 255, 255, 0.15);
-      color: var(--text-color-light);
     }
 
+    .title,
     .closeButton {
       color: var(--text-color-light);
+    }
 
-      &:hover {
-        background-color: rgba(255, 255, 255, 0.15);
-      }
+    .closeButton:hover {
+      background-color: rgba(255, 255, 255, 0.15);
     }
   }
 
@@ -161,22 +177,17 @@
     border-color: var(--variant-secondary);
     color: var(--text-color-light);
 
-    &::before {
-      background-color: var(--variant-secondary);
-      border-color: var(--variant-secondary);
-    }
-
-    .title {
+    .header {
       border-bottom-color: rgba(255, 255, 255, 0.15);
-      color: var(--text-color-light);
     }
 
+    .title,
     .closeButton {
       color: var(--text-color-light);
+    }
 
-      &:hover {
-        background-color: rgba(255, 255, 255, 0.15);
-      }
+    .closeButton:hover {
+      background-color: rgba(255, 255, 255, 0.15);
     }
   }
 
@@ -185,22 +196,17 @@
     border-color: var(--variant-danger);
     color: var(--text-color-light);
 
-    &::before {
-      background-color: var(--variant-danger);
-      border-color: var(--variant-danger);
-    }
-
-    .title {
+    .header {
       border-bottom-color: rgba(255, 255, 255, 0.15);
-      color: var(--text-color-light);
     }
 
+    .title,
     .closeButton {
       color: var(--text-color-light);
+    }
 
-      &:hover {
-        background-color: rgba(255, 255, 255, 0.15);
-      }
+    .closeButton:hover {
+      background-color: rgba(255, 255, 255, 0.15);
     }
   }
 
@@ -209,22 +215,17 @@
     border-color: var(--variant-success);
     color: var(--text-color-light);
 
-    &::before {
-      background-color: var(--variant-success);
-      border-color: var(--variant-success);
-    }
-
-    .title {
+    .header {
       border-bottom-color: rgba(255, 255, 255, 0.15);
-      color: var(--text-color-light);
     }
 
+    .title,
     .closeButton {
       color: var(--text-color-light);
+    }
 
-      &:hover {
-        background-color: rgba(255, 255, 255, 0.15);
-      }
+    .closeButton:hover {
+      background-color: rgba(255, 255, 255, 0.15);
     }
   }
 
@@ -233,22 +234,17 @@
     border-color: var(--variant-warning);
     color: var(--text-color-light);
 
-    &::before {
-      background-color: var(--variant-warning);
-      border-color: var(--variant-warning);
-    }
-
-    .title {
+    .header {
       border-bottom-color: rgba(255, 255, 255, 0.15);
-      color: var(--text-color-light);
     }
 
+    .title,
     .closeButton {
       color: var(--text-color-light);
+    }
 
-      &:hover {
-        background-color: rgba(255, 255, 255, 0.15);
-      }
+    .closeButton:hover {
+      background-color: rgba(255, 255, 255, 0.15);
     }
   }
 
@@ -257,13 +253,11 @@
     border: 1.5px solid var(--border-primary);
     color: var(--text-color-primary);
 
-    &::before {
-      background-color: var(--background-light);
-      border-color: var(--border-primary);
+    .header {
+      border-bottom-color: var(--border-primary);
     }
 
     .title {
-      border-bottom-color: var(--border-primary);
       color: var(--text-color-primary);
     }
 
@@ -283,13 +277,11 @@
     box-shadow: var(--shadow-md);
     color: var(--text-color-primary);
 
-    &::before {
-      background-color: var(--background-light);
-      border-color: transparent;
+    .header {
+      border-bottom-color: var(--border-secondary);
     }
 
     .title {
-      border-bottom-color: var(--border-secondary);
       color: var(--text-color-primary);
     }
 
@@ -304,54 +296,87 @@
   }
 }
 
+.content {
+  position: relative;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-primary);
+  margin-bottom: var(--spacing-2xs);
+}
+
 .title {
   margin: 0;
   font-weight: 600;
-  padding-right: 30px;
-  border-bottom: 1px solid var(--border-primary);
-  margin-bottom: 8px;
+  padding-right: 16px;
+  flex-grow: 1;
+  line-height: 1.3;
 }
 
-.content {
+.body {
   position: relative;
+  overflow-y: auto;
+  max-height: 60vh;
 }
 
 .closeButton {
   position: absolute;
-  background: transparent;
+  background: none;
   border: none;
   cursor: pointer;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  padding: 0;
-  transition:
-    background-color 0.2s,
-    color 0.2s;
+  color: var(--text-color-primary);
+  transition: background-color 0.2s ease;
+  border-radius: var(--border-radius-sm);
 
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.2);
+  &:hover {
+    background-color: var(--background-hover);
   }
+}
+
+.closeIcon {
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @include respond(md) {
   .popover {
     &.sm {
-      max-width: 220px;
-
-      .content {
-        padding: 6px 10px;
-      }
+      max-width: 200px;
     }
 
     &.md {
-      max-width: 300px;
+      max-width: 280px;
     }
 
     &.lg {
-      max-width: 360px;
+      max-width: 340px;
+    }
+  }
+}
+
+@include respond(sm) {
+  .popover {
+    min-width: 160px;
+
+    &.sm,
+    &.md,
+    &.lg {
+      max-width: calc(100vw - 24px);
+    }
+
+    .header,
+    .body {
+      padding: var(--spacing-2xs);
     }
   }
 }

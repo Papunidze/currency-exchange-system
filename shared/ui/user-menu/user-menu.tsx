@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useState, useCallback } from 'react';
 import Popover from '../popover';
 import Button from '../button';
 import styles from './user-menu.module.scss';
@@ -15,108 +15,96 @@ interface UserMenuProps {
   className?: string;
 }
 
-export const UserMenu: React.FC<UserMenuProps> = ({
-  username,
-  email,
-  avatar,
-  onLogout,
-  onProfile,
-  onSettings,
-  className,
-}) => {
-  const [isOpen, setIsOpen] = React.useState(false);
+// Use memo to prevent unnecessary re-renders
+export const UserMenu = memo<UserMenuProps>(
+  ({ username, email, avatar, onLogout, onProfile, onSettings, className }) => {
+    const [isOpen, setIsOpen] = useState(false);
 
-  const handleClose = () => {
-    setIsOpen(false);
-  };
+    // Combine all handlers into a single function that accepts an action
+    const handleAction = useCallback((action?: () => void) => {
+      action?.();
+      setIsOpen(false);
+    }, []);
 
-  const handleLogout = () => {
-    onLogout?.();
-    handleClose();
-  };
+    // Using single toggle function instead of separate open/close functions
+    const toggleMenu = useCallback(() => {
+      setIsOpen((prev) => !prev);
+    }, []);
 
-  const handleProfile = () => {
-    onProfile?.();
-    handleClose();
-  };
-
-  const handleSettings = () => {
-    onSettings?.();
-    handleClose();
-  };
-
-  return (
-    <div className={cn(styles.userMenu, className)}>
-      <Popover
-        isOpen={isOpen}
-        onClose={handleClose}
-        triggerElement={
-          <button
-            className={styles.trigger}
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="User menu"
-          >
-            <div className={styles.avatar}>
-              {avatar ? (
-                <img src={avatar} alt={username || 'User avatar'} />
-              ) : (
-                <span>{username?.[0]?.toUpperCase() || 'U'}</span>
-              )}
-              <ChevronDownIcon
-                size="md"
-                className={styles.chevron}
-                color="var(--text-color-primary)"
-              />
-            </div>
-          </button>
-        }
-        placement="bottom"
-        variant="outlined"
-      >
-        <div className={styles.menuContent}>
-          {username && (
-            <div className={styles.userInfo}>
+    return (
+      <div className={cn(styles.userMenu, className)}>
+        <Popover
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          triggerElement={
+            <button
+              className={styles.trigger}
+              onClick={toggleMenu}
+              aria-label={`User menu for ${username}`}
+              aria-haspopup="true"
+            >
               <div className={styles.avatar}>
                 {avatar ? (
-                  <img src={avatar} alt={username} />
+                  <img src={avatar} alt={username || 'User avatar'} />
                 ) : (
-                  <span>{username[0].toUpperCase()}</span>
+                  <span>{username?.[0]?.toUpperCase() || 'U'}</span>
                 )}
+                <ChevronDownIcon
+                  size="md"
+                  className={styles.chevron}
+                  color="var(--text-color-primary)"
+                />
               </div>
-              <div className={styles.details}>
-                <div className={styles.username}>{username}</div>
-                {email && <div className={styles.email}>{email}</div>}
+            </button>
+          }
+          placement="bottom"
+          variant="outlined"
+        >
+          <div className={styles.menuContent}>
+            {username && (
+              <div className={styles.userInfo}>
+                <div className={styles.avatar}>
+                  {avatar ? (
+                    <img src={avatar} alt={username} />
+                  ) : (
+                    <span>{username[0].toUpperCase()}</span>
+                  )}
+                </div>
+                <div className={styles.details}>
+                  <div className={styles.username}>{username}</div>
+                  {email && <div className={styles.email}>{email}</div>}
+                </div>
               </div>
+            )}
+            <div className={styles.menuItems}>
+              <Button
+                variant="ghost"
+                fullWidth
+                onClick={() => handleAction(onProfile)}
+                className={styles.menuItem}
+              >
+                Profile
+              </Button>
+              <Button
+                variant="ghost"
+                fullWidth
+                onClick={() => handleAction(onSettings)}
+                className={styles.menuItem}
+              >
+                Settings
+              </Button>
+              <Button
+                variant="ghost"
+                fullWidth
+                onClick={() => handleAction(onLogout)}
+                className={styles.menuItem}
+              >
+                Logout
+              </Button>
             </div>
-          )}
-          <div className={styles.menuItems}>
-            <Button
-              variant="ghost"
-              fullWidth
-              onClick={handleProfile}
-              className={styles.menuItem}
-            >
-              Profile
-            </Button>
-            <Button
-              variant="ghost"
-              fullWidth
-              onClick={handleSettings}
-              className={styles.menuItem}
-            >
-              Settings
-            </Button>
-            <Button
-              variant="ghost"
-              fullWidth
-              onClick={handleLogout}
-              className={styles.menuItem}
-            >
-              Logout
-            </Button>
           </div>
-        </div>
-      </Popover>
-    </div>
-  );
-};
+        </Popover>
+      </div>
+    );
+  },
+);
