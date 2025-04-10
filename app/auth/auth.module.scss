@@ -46,7 +46,7 @@
 .authContainer {
   background-color: var(--background-light);
   border-radius: var(--radius-lg);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   padding: var(--spacing-xl) var(--spacing-xl);
   width: 100%;
   max-width: 480px;
@@ -112,11 +112,12 @@
 
 .copyright {
   font-size: var(--font-size-xs);
-  color: var(--text-color-tertiary);
+  color: var(--text-color-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: var(--spacing-xs);
+  font-weight: var(--font-weight-medium);
 }
 
 .forgotPassword {
