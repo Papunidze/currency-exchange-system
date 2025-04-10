@@ -1,382 +1,314 @@
+@use 'sass:color';
 @use 'styles/variables' as *;
-@use 'styles/mixins' as *;
-
-.popoverContainer {
-  position: relative;
-  display: inline-block;
-}
 
 .trigger {
   display: inline-block;
   cursor: pointer;
 }
 
-.popoverWrapper {
-  position: fixed;
-  inset: 0;
-  z-index: 999;
-  pointer-events: none;
-}
-
 .popover {
+  z-index: 99;
+  max-width: 90vw;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.1))
+    drop-shadow(0 2px 4px rgba(0, 0, 0, 0.06));
+  animation: popoverFadeIn 0.2s ease-out;
   position: fixed;
-  z-index: 1000;
-  min-width: 180px;
-  max-width: 380px;
-  background-color: var(--background-light);
-  border-radius: var(--border-radius-md);
-  box-shadow: var(--shadow-lg);
-  border: 1px solid var(--border-primary);
-  pointer-events: auto;
-  transform-origin: center top;
-  overflow: hidden;
-  &.entering {
-    opacity: 0;
-    transform: scale(0.95);
-    transition:
-      opacity 0.2s ease-out,
-      transform 0.2s cubic-bezier(0.3, 1.2, 0.2, 1);
-  }
-
-  &.entered {
-    opacity: 1;
-    transform: scale(1);
-    transition:
-      opacity 0.2s ease-out,
-      transform 0.2s cubic-bezier(0.3, 1.2, 0.2, 1);
-  }
-
-  &.exiting {
-    opacity: 0;
-    transform: scale(0.95);
-    transition:
-      opacity 0.15s ease-in,
-      transform 0.15s ease-in;
-  }
-
-  &.exited {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-
-  &.top {
-    transform-origin: center bottom;
-  }
-
-  &.bottom {
-    transform-origin: center top;
-  }
-
-  &.left {
-    transform-origin: right center;
-  }
-
-  &.right {
-    transform-origin: left center;
-  }
-
-  &.sm {
-    max-width: 220px;
-    font-size: 0.875rem;
-
-    .title {
-      font-size: 0.9375rem;
-      padding: var(--spacing-2xs) var(--spacing-xs);
-    }
-
-    .closeButton {
-      width: 18px;
-      height: 18px;
-      font-size: 12px;
-      top: var(--spacing-2xs);
-      right: var(--spacing-2xs);
-    }
-
-    .header {
-      padding: var(--spacing-2xs) var(--spacing-xs);
-    }
-
-    .body {
-      padding: var(--spacing-2xs) var(--spacing-xs);
-    }
-  }
-
-  &.md {
-    max-width: 300px;
-    font-size: 0.9375rem;
-
-    .title {
-      font-size: 1.0625rem;
-      padding: var(--spacing-xs);
-    }
-
-    .closeButton {
-      width: 20px;
-      height: 20px;
-      font-size: 14px;
-      top: var(--spacing-2xs);
-      right: var(--spacing-2xs);
-    }
-
-    .header {
-      padding: var(--spacing-xs);
-    }
-
-    .body {
-      padding: var(--spacing-xs);
-    }
-  }
-
-  &.lg {
-    max-width: 380px;
-    font-size: 1rem;
-
-    .title {
-      font-size: 1.125rem;
-      padding: var(--spacing-xs) var(--spacing-sm);
-    }
-
-    .closeButton {
-      width: 22px;
-      height: 22px;
-      font-size: 16px;
-      top: var(--spacing-xs);
-      right: var(--spacing-xs);
-    }
-
-    .header {
-      padding: var(--spacing-xs) var(--spacing-sm);
-    }
-
-    .body {
-      padding: var(--spacing-xs) var(--spacing-sm);
-    }
-  }
-
-  &.primary {
-    background-color: var(--variant-primary);
-    border-color: var(--variant-primary);
-    color: var(--text-color-light);
-
-    .header {
-      border-bottom-color: rgba(255, 255, 255, 0.15);
-    }
-
-    .title,
-    .closeButton {
-      color: var(--text-color-light);
-    }
-
-    .closeButton:hover {
-      background-color: rgba(255, 255, 255, 0.15);
-    }
-  }
-
-  &.secondary {
-    background-color: var(--variant-secondary);
-    border-color: var(--variant-secondary);
-    color: var(--text-color-light);
-
-    .header {
-      border-bottom-color: rgba(255, 255, 255, 0.15);
-    }
-
-    .title,
-    .closeButton {
-      color: var(--text-color-light);
-    }
-
-    .closeButton:hover {
-      background-color: rgba(255, 255, 255, 0.15);
-    }
-  }
-
-  &.danger {
-    background-color: var(--variant-danger);
-    border-color: var(--variant-danger);
-    color: var(--text-color-light);
-
-    .header {
-      border-bottom-color: rgba(255, 255, 255, 0.15);
-    }
-
-    .title,
-    .closeButton {
-      color: var(--text-color-light);
-    }
-
-    .closeButton:hover {
-      background-color: rgba(255, 255, 255, 0.15);
-    }
-  }
-
-  &.success {
-    background-color: var(--variant-success);
-    border-color: var(--variant-success);
-    color: var(--text-color-light);
-
-    .header {
-      border-bottom-color: rgba(255, 255, 255, 0.15);
-    }
-
-    .title,
-    .closeButton {
-      color: var(--text-color-light);
-    }
-
-    .closeButton:hover {
-      background-color: rgba(255, 255, 255, 0.15);
-    }
-  }
-
-  &.warning {
-    background-color: var(--variant-warning);
-    border-color: var(--variant-warning);
-    color: var(--text-color-light);
-
-    .header {
-      border-bottom-color: rgba(255, 255, 255, 0.15);
-    }
-
-    .title,
-    .closeButton {
-      color: var(--text-color-light);
-    }
-
-    .closeButton:hover {
-      background-color: rgba(255, 255, 255, 0.15);
-    }
-  }
-
-  &.outlined {
-    background-color: var(--background-light);
-    border: 1.5px solid var(--border-primary);
-    color: var(--text-color-primary);
-
-    .header {
-      border-bottom-color: var(--border-primary);
-    }
-
-    .title {
-      color: var(--text-color-primary);
-    }
-
-    .closeButton {
-      color: var(--text-color-secondary);
-
-      &:hover {
-        background-color: rgba(0, 0, 0, 0.05);
-        color: var(--text-color-primary);
-      }
-    }
-  }
-
-  &.ghost {
-    background-color: var(--background-light);
-    border-color: transparent;
-    box-shadow: var(--shadow-md);
-    color: var(--text-color-primary);
-
-    .header {
-      border-bottom-color: var(--border-secondary);
-    }
-
-    .title {
-      color: var(--text-color-primary);
-    }
-
-    .closeButton {
-      color: var(--text-color-secondary);
-
-      &:hover {
-        background-color: rgba(0, 0, 0, 0.05);
-        color: var(--text-color-primary);
-      }
-    }
-  }
+  top: var(--popover-top, 0);
+  left: var(--popover-left, 0);
 }
 
 .content {
   position: relative;
-  width: 100%;
-}
-
-.header {
+  background-color: var(--background-light);
+  overflow: hidden;
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--border-primary);
-  margin-bottom: var(--spacing-2xs);
+  flex-direction: column;
+  width: max-content;
+  min-width: 100px;
+  max-width: 90vw;
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: background-color 0.2s ease;
 }
 
 .title {
-  margin: 0;
-  font-weight: 600;
-  padding-right: 16px;
-  flex-grow: 1;
-  line-height: 1.3;
+  font-weight: var(--font-weight-medium);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-bottom: 1px solid var(--border-primary);
 }
 
 .body {
-  position: relative;
-  overflow-y: auto;
-  max-height: 60vh;
+  padding: var(--spacing-sm) var(--spacing-md);
 }
 
-.closeButton {
+.placement-top::after,
+.placement-bottom::after,
+.placement-left::after,
+.placement-right::after {
+  content: '';
   position: absolute;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-color-primary);
-  transition: background-color 0.2s ease;
-  border-radius: var(--border-radius-sm);
+  width: 8px;
+  height: 8px;
+  background-color: inherit;
 
-  &:hover {
-    background-color: var(--background-hover);
+  border: 1px solid var(--border-primary);
+}
+
+.placement-top {
+  transform-origin: center bottom;
+  &::after {
+    bottom: -4px;
+    left: 50%;
+    margin-left: -4px;
+    transform: rotate(45deg);
+    border-top: none;
+    border-left: none;
   }
 }
 
-.closeIcon {
-  line-height: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-@include respond(md) {
-  .popover {
-    &.sm {
-      max-width: 200px;
-    }
-
-    &.md {
-      max-width: 280px;
-    }
-
-    &.lg {
-      max-width: 340px;
-    }
+.placement-bottom {
+  transform-origin: center top;
+  &::after {
+    top: -4px;
+    left: 50%;
+    margin-left: -4px;
+    transform: rotate(45deg);
+    border-bottom: none;
+    border-right: none;
   }
 }
 
-@include respond(sm) {
-  .popover {
-    min-width: 160px;
+.placement-left {
+  transform-origin: right center;
+  &::after {
+    right: -4px;
+    top: 50%;
+    margin-top: -4px;
+    transform: rotate(45deg);
+    border-bottom: none;
+    border-left: none;
+  }
+}
 
-    &.sm,
-    &.md,
-    &.lg {
-      max-width: calc(100vw - 24px);
-    }
+.placement-right {
+  transform-origin: left center;
+  &::after {
+    left: -4px;
+    top: 50%;
+    margin-top: -4px;
+    transform: rotate(45deg);
+    border-top: none;
+    border-right: none;
+  }
+}
 
-    .header,
-    .body {
-      padding: var(--spacing-2xs);
-    }
+.popover-sm .content {
+  min-width: 100px;
+  max-width: 200px;
+  border-radius: var(--border-radius-md);
+}
+
+.popover-md .content {
+  min-width: 150px;
+  max-width: 300px;
+  border-radius: var(--border-radius-lg);
+}
+
+.popover-lg .content {
+  min-width: 200px;
+  max-width: 400px;
+  border-radius: var(--border-radius-xl);
+}
+
+@mixin variant-arrow-style($bg-color, $border-color) {
+  &.placement-top::after,
+  &.placement-bottom::after,
+  &.placement-left::after,
+  &.placement-right::after {
+    background-color: $bg-color;
+    border-color: $border-color;
+  }
+}
+
+.popover-primary {
+  @include variant-arrow-style(var(--variant-primary), var(--variant-primary));
+
+  .content {
+    background-color: var(--variant-primary);
+    color: var(--text-color-light);
+    border: 1px solid var(--variant-primary);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .title {
+    background-color: var(--variant-primary);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-color-light);
+    font-weight: var(--font-weight-medium);
+  }
+}
+
+.popover-secondary {
+  @include variant-arrow-style(
+    var(--variant-secondary),
+    var(--variant-secondary)
+  );
+
+  .content {
+    background-color: var(--variant-secondary);
+    color: var(--text-color-light);
+    border: 1px solid var(--variant-secondary);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .title {
+    background-color: var(--variant-secondary);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-color-light);
+    font-weight: var(--font-weight-medium);
+  }
+}
+
+.popover-danger {
+  @include variant-arrow-style(var(--variant-danger), var(--variant-danger));
+
+  .content {
+    background-color: var(--variant-danger);
+    color: var(--text-color-light);
+    border: 1px solid var(--variant-danger);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .title {
+    background-color: var(--variant-danger);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-color-light);
+    font-weight: var(--font-weight-medium);
+  }
+}
+
+.popover-success {
+  @include variant-arrow-style(var(--variant-success), var(--variant-success));
+
+  .content {
+    background-color: var(--variant-success);
+    color: var(--text-color-light);
+    border: 1px solid var(--variant-success);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .title {
+    background-color: var(--variant-success);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-color-light);
+    font-weight: var(--font-weight-medium);
+  }
+}
+
+.popover-warning {
+  @include variant-arrow-style(var(--variant-warning), var(--variant-warning));
+
+  .content {
+    background-color: var(--variant-warning);
+    color: var(--text-color-light);
+    border: 1px solid var(--variant-warning);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .title {
+    background-color: var(--variant-warning);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-color-light);
+    font-weight: var(--font-weight-medium);
+  }
+}
+
+.popover-outlined {
+  @include variant-arrow-style(
+    var(--background-light),
+    var(--border-secondary)
+  );
+
+  .content {
+    background-color: var(--background-light);
+    color: var(--text-color-primary);
+    border: 1px solid var(--border-secondary);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .title {
+    background-color: rgba(0, 0, 0, 0.02);
+    border-bottom: 1px solid var(--border-primary);
+    color: var(--text-color-primary);
+    font-weight: var(--font-weight-medium);
+  }
+}
+
+.popover-ghost {
+  @include variant-arrow-style(transparent, rgba(0, 0, 0, 0.05));
+
+  .content {
+    background-color: transparent;
+    color: var(--text-color-primary);
+    border: none;
+    box-shadow: none;
+  }
+
+  .title {
+    background-color: transparent;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    color: var(--text-color-primary);
+    font-weight: var(--font-weight-medium);
+  }
+}
+
+.popover-dark {
+  @include variant-arrow-style(var(--variant-dark), var(--variant-dark));
+
+  .content {
+    background-color: var(--variant-dark);
+    color: var(--text-color-light);
+    border: 1px solid var(--variant-dark);
+    box-shadow: var(--shadow-md);
+  }
+
+  .title {
+    background-color: var(--variant-dark);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-color-light);
+    font-weight: var(--font-weight-medium);
+  }
+}
+
+.transparent {
+  @include variant-arrow-style(
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.2)
+  );
+
+  .content {
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .title {
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    border-bottom-color: rgba(255, 255, 255, 0.3);
+    color: var(--text-color-primary);
+    font-weight: var(--font-weight-medium);
+  }
+}
+
+@keyframes popoverFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }

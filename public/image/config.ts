@@ -4,7 +4,7 @@ export type ImageCategory = 'social' | 'logo' | 'banner' | 'avatar' | 'icon';
 
 export interface BaseImageConfig {
   priority?: boolean;
-  src: StaticImageData;
+  src: StaticImageData | string;
   alt: string;
   width: number;
   height: number;

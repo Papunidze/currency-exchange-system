@@ -1,0 +1,138 @@
+.avatar {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e2e8f0;
+  color: #475569;
+  font-weight: 500;
+  user-select: none;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    overflow: hidden;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: inherit;
+  }
+
+  &.clickable {
+    cursor: pointer;
+    transition:
+      transform 0.2s,
+      opacity 0.2s;
+
+    &:hover {
+      opacity: 0.9;
+      transform: scale(1.05);
+    }
+  }
+}
+
+// Sizes
+.xs {
+  width: 24px;
+  height: 24px;
+  font-size: 10px;
+}
+
+.sm {
+  width: 32px;
+  height: 32px;
+  font-size: 12px;
+}
+
+.md {
+  width: 40px;
+  height: 40px;
+  font-size: 14px;
+}
+
+.lg {
+  width: 48px;
+  height: 48px;
+  font-size: 16px;
+}
+
+.xl {
+  width: 64px;
+  height: 64px;
+  font-size: 20px;
+}
+
+.circle {
+  border-radius: 50%;
+}
+
+.square {
+  border-radius: 0;
+}
+
+.rounded {
+  border-radius: 6px;
+}
+
+//
+.fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.statusIndicator {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  pointer-events: none;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  transform: translate(0, 0);
+
+  .xs + &,
+  .sm + & {
+    width: 8px;
+    height: 8px;
+    border-width: 1px;
+  }
+
+  .lg + &,
+  .xl + & {
+    width: 12px;
+    height: 12px;
+    border-width: 2px;
+  }
+}
+
+.statusOnline {
+  background-color: #10b981;
+}
+
+.statusOffline {
+  background-color: #6b7280;
+}
+
+.statusAway {
+  background-color: #f59e0b;
+}
+
+.statusBusy {
+  background-color: #ef4444;
+}

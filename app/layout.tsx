@@ -1,18 +1,70 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Open_Sans } from 'next/font/google';
+import { Inter, Poppins, Roboto, Roboto_Mono } from 'next/font/google';
+import localFont from 'next/font/local';
+import Script from 'next/script';
 import { JSX } from 'react';
+
 import 'styles/main.scss';
+import { Preconnect } from '@app-shared/components/preconnect';
 
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
+  preload: true,
+  weight: ['300', '400', '500', '700'],
 });
 
-const openSans = Open_Sans({
+const poppins = Poppins({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-open-sans',
+  variable: '--font-poppins',
+  preload: true,
+  weight: ['300', '400', '500', '700'],
+});
+
+const roboto = Roboto({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-roboto',
+  preload: true,
+  weight: ['300', '400', '500', '700'],
+});
+
+const robotoMono = Roboto_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-roboto-mono',
+  preload: true,
+  weight: ['400', '500', '700'],
+});
+
+const satoshi = localFont({
+  src: [
+    {
+      path: '../public/fonts/Satoshi-Light.woff2',
+      weight: '300',
+      style: 'normal',
+    },
+    {
+      path: '../public/fonts/Satoshi-Regular.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../public/fonts/Satoshi-Medium.woff2',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../public/fonts/Satoshi-Bold.woff2',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
+  display: 'swap',
+  variable: '--font-satoshi',
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -90,8 +142,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }): JSX.Element {
   return (
-    <html lang="en" className={`${inter.variable} ${openSans.variable}`}>
+    <html
+      lang="en"
+      className={`
+        ${inter.variable} 
+        ${poppins.variable} 
+        ${roboto.variable} 
+        ${robotoMono.variable}
+        ${satoshi.variable}
+      `}
+    >
+      <head>
+        <Preconnect />
+      </head>
       <body>
+        <Script
+          src="/scripts/preload.js"
+          strategy="beforeInteractive"
+          id="preload-script"
+        />
+
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>

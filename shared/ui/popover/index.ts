@@ -1,7 +1,19 @@
-export { default } from './popover';
-export type {
+import Popover from './popover';
+import {
   PopoverProps,
   PopoverSize,
   PopoverVariant,
   PopoverPlacement,
-} from './popover.interfaces';
+  PopoverTrigger,
+} from './popover.inerfaces';
+
+export {
+  Popover,
+  type PopoverProps,
+  type PopoverSize,
+  type PopoverVariant,
+  type PopoverPlacement,
+  type PopoverTrigger,
+};
+
+export default Popover;

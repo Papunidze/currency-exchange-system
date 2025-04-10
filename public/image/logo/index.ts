@@ -1,5 +1,7 @@
 import type { LogoVariant, LogoImageConfig } from '../config';
-import PrimaryLogo from '@app-image/logo/primary.svg';
+
+// Using direct path for production compatibility
+const PrimaryLogo = '/image/logo/primary.svg';
 
 export const logoImages: Record<LogoVariant, LogoImageConfig> = {
   primary: {

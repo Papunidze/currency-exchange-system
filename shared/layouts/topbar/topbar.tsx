@@ -9,7 +9,6 @@ import { cn } from '@app-shared/lib/utils';
 import styles from './topbar.module.scss';
 import IconButton from '@app-shared/ui/iconButton';
 import Link from 'next/link';
-import { UserMenu } from '@app-shared/ui/user-menu';
 import Drawer from '@app-shared/ui/drawer';
 
 const NAV_ITEMS = [
@@ -77,18 +76,7 @@ export const TopBar = ({ className, showUserMenu = true }: TopBarProps) => {
         </ul>
       </nav>
 
-      <div className={styles.rightSection}>
-        {showUserMenu && (
-          <UserMenu
-            username="John Doe"
-            email="john@example.com"
-            onLogout={handleLogout}
-            onProfile={handleProfile}
-            onSettings={handleSettings}
-            className={styles.userMenu}
-          />
-        )}
-      </div>
+      <div className={styles.rightSection}></div>
 
       <Drawer
         isOpen={isMobileMenuOpen}

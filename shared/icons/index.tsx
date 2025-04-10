@@ -30,6 +30,8 @@ export const ICON_PATHS = {
   CHEVRON_DOWN: 'M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z',
   CHEVRON_LEFT: 'M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12l4.58-4.59z',
   CHECKMARK: 'M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z',
+  CLOSE:
+    'm256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z',
 } as const;
 
 export type IconType = keyof typeof ICON_PATHS;
@@ -105,3 +107,5 @@ export const ChevronDownIcon = (props: IconProps) => (
 export const ChevronLeftIcon = (props: IconProps) => (
   <Icon icon="CHEVRON_LEFT" {...props} />
 );
+
+export const CloseIcon = (props: IconProps) => <Icon icon="CLOSE" {...props} />;

@@ -1,0 +1,17 @@
+:root {
+  --satoshi-font: var(--font-satoshi, 'Helvetica Neue', Arial, sans-serif);
+  --poppins-font: var(--font-poppins, 'Helvetica Neue', Arial, sans-serif);
+  --inter-font: var(--font-inter, 'Helvetica Neue', Arial, sans-serif);
+  --roboto-font: var(--font-roboto, 'Helvetica Neue', Arial, sans-serif);
+  --roboto-mono-font: var(--font-roboto-mono, monospace);
+
+  --font-family-base: var(--satoshi-font);
+  --font-family-heading: var(--poppins-font);
+  --font-family-monospace: var(--roboto-mono-font);
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}

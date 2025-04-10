@@ -1,0 +1,139 @@
+/* Badge Container */
+.badgeContainer {
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+/* Badge Wrapper */
+.badgeWrapper {
+  position: absolute;
+  z-index: 1;
+
+  &.top-right {
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+  }
+
+  &.top-left {
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+  }
+
+  &.bottom-right {
+    bottom: 0;
+    right: 0;
+    transform: translate(50%, 50%);
+  }
+
+  &.bottom-left {
+    bottom: 0;
+    left: 0;
+    transform: translate(-50%, 50%);
+  }
+}
+
+/* Badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f00;
+  color: #fff;
+  line-height: 1;
+  white-space: nowrap;
+  font-weight: 500;
+  transition: all 0.2s ease;
+
+  &.rounded {
+    border-radius: 9999px;
+  }
+
+  &.standalone {
+    position: relative;
+    transform: none;
+  }
+
+  &.dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border-radius: 50%;
+  }
+}
+
+/* Sizes */
+.small {
+  height: 18px;
+  min-width: 18px;
+  padding: 0 5px;
+  font-size: 0.75rem;
+  border-radius: 9px;
+
+  &.dot {
+    width: 6px;
+    height: 6px;
+    padding: 0;
+  }
+}
+
+.medium {
+  height: 22px;
+  min-width: 22px;
+  padding: 0 8px;
+  font-size: 0.8125rem;
+  border-radius: 11px;
+
+  &.dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+  }
+}
+
+.large {
+  height: 26px;
+  min-width: 26px;
+  padding: 0 10px;
+  font-size: 0.875rem;
+  border-radius: 13px;
+
+  &.dot {
+    width: 10px;
+    height: 10px;
+    padding: 0;
+  }
+}
+
+/* Variants */
+.primary {
+  background-color: #1976d2;
+  color: #fff;
+}
+
+.secondary {
+  background-color: #9c27b0;
+  color: #fff;
+}
+
+.success {
+  background-color: #2e7d32;
+  color: #fff;
+}
+
+.warning {
+  background-color: #ed6c02;
+  color: #fff;
+}
+
+.danger {
+  background-color: #d32f2f;
+  color: #fff;
+}
+
+.info {
+  background-color: #0288d1;
+  color: #fff;
+}

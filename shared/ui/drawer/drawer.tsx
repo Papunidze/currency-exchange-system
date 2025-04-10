@@ -23,7 +23,7 @@ export const Drawer: React.FC<DrawerProps> = ({
   return (
     <>
       <Backdrop isOpen={isOpen} onClick={onClose} disableScroll />
-      <aside
+      <div
         className={cn(
           styles.drawer,
           styles[placement],
@@ -35,7 +35,7 @@ export const Drawer: React.FC<DrawerProps> = ({
         aria-label="Drawer"
       >
         <div className={styles.content}>{children}</div>
-      </aside>
+      </div>
     </>
   );
 };

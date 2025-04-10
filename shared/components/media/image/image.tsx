@@ -67,6 +67,7 @@ export const Image = ({
         height={finalHeight}
         className={styles.image}
         style={{ objectFit }}
+        unoptimized={typeof config.src === 'string'}
       />
     </div>
   );

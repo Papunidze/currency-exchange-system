@@ -1,8 +1,9 @@
 import type { BannerImageConfig } from '../config';
 
-import HeroBanner from '@app-image/banner/hero.png';
-import WelcomeBanner from '@app-image/banner/welcome.png';
-import AuthBanner from '@app-image/banner/auth.png';
+// Using direct paths to ensure compatibility with production builds
+const HeroBanner = '/image/banner/hero.png';
+const WelcomeBanner = '/image/banner/welcome.png';
+const AuthBanner = '/image/banner/auth.png';
 
 export type BannerKey = 'hero' | 'welcome' | 'auth';
 
