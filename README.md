@@ -17,9 +17,9 @@ A web-based currency exchange system designed for kiosks, offering real-time con
 
 ## 🏗️ Tech Stack
 
-- **Frontend:** Next.js, React, TypeScript, Tailwind CSS
+- **Frontend:** Next.js, React, TypeScript, SCSS
 - **Backend:** Node.js (NestJS/Express)
-- **Database:** PostgreSQL
+- **Database:** MongoDb
 - **Authentication:** JWT
 - **API Integration:** Fixer.io for exchange rates
 - **Deployment:** Vercel (Frontend), AWS/DigitalOcean (Backend)
