@@ -4,4 +4,4 @@ export type {
   PopoverSize,
   PopoverVariant,
   PopoverPlacement,
-} from './popover.interfaces';
+} from './popover.inerfaces';
