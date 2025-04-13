@@ -16,5 +16,4 @@ export default function SignIn(): JSX.Element {
 export const metadata: Metadata = {
   title: 'Sign In',
   description: 'Sign in to your Currency Exchange System account.',
-  robots: 'noindex',
 };

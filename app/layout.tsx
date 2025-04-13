@@ -90,7 +90,6 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL('https://currency-exchange-system.web.app/'),
   alternates: {
-    canonical: '/',
     languages: {
       'en-US': '/en-US',
       'fr-FR': '/fr-FR',

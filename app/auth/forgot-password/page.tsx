@@ -8,7 +8,6 @@ import ForgotPasswordContent from './forgot-password-content';
 export const metadata: Metadata = {
   title: 'Forgot Password',
   description: 'Reset your Currency Exchange System password.',
-  robots: 'noindex',
 };
 
 export default function ForgotPasswordPage(): JSX.Element {
