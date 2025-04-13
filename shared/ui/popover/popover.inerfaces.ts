@@ -30,4 +30,5 @@ export interface PopoverProps extends HTMLAttributes<HTMLDivElement> {
   autoFocus?: boolean;
   trapFocus?: boolean;
   transparent?: boolean;
+  triggerAriaLabel?: string;
 }

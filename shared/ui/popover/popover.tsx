@@ -4,7 +4,7 @@ import { PopoverProps } from './popover.inerfaces';
 import styles from './popover.module.scss';
 import { cn } from '../../lib/utils';
 
-const Popover: React.FC<PopoverProps> = ({
+const Popover = ({
   children,
   triggerElement,
   title,
@@ -23,8 +23,9 @@ const Popover: React.FC<PopoverProps> = ({
   autoFocus = false,
   trapFocus = false,
   transparent = false,
+  triggerAriaLabel,
   ...rest
-}) => {
+}: PopoverProps) => {
   const [isOpen, setIsOpen] = useState(controlledIsOpen || false);
   const [position, setPosition] = useState({ top: 0, left: 0 });
   const [actualPlacement, setActualPlacement] = useState(placement);
@@ -268,16 +269,18 @@ const Popover: React.FC<PopoverProps> = ({
     <>
       <div
         ref={triggerRef}
+        className={triggerClasses}
         onClick={handleClickTrigger}
         onMouseEnter={handleMouseEnterTrigger}
         onMouseLeave={handleMouseLeaveTrigger}
         onFocus={handleFocusTrigger}
         onBlur={handleBlurTrigger}
-        className={triggerClasses}
+        aria-label={triggerAriaLabel}
         role="button"
+        tabIndex={0}
         aria-haspopup="dialog"
         aria-expanded={isOpen}
-        tabIndex={0}
+        {...rest}
       >
         {triggerElement}
       </div>

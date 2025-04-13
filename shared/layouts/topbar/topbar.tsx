@@ -84,6 +84,7 @@ export const TopBar = ({ className, showUserMenu = true }: TopBarProps) => {
             triggerElement={
               <Avatar src={`https://picsum.photos/seed/20/40/40`} />
             }
+            triggerAriaLabel="Open user menu"
             placement="bottom"
             offset={8}
             variant="outlined"
