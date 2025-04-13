@@ -156,12 +156,6 @@ export default function RootLayout({
         <Preconnect />
       </head>
       <body>
-        <Script
-          src="/scripts/preload.js"
-          strategy="beforeInteractive"
-          id="preload-script"
-        />
-
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
