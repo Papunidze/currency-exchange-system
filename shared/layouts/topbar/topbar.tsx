@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { MenuIcon, ChevronLeftIcon } from '@app-shared/icons';
 import { TopBarProps } from './topbar.interfaces';
@@ -10,6 +10,9 @@ import styles from './topbar.module.scss';
 import IconButton from '@app-shared/ui/iconButton';
 import Link from 'next/link';
 import Drawer from '@app-shared/ui/drawer';
+import { Avatar } from '@app-shared/ui/avatar';
+import Popover from '@app-shared/ui/popover';
+import Button from '@app-shared/ui/button';
 
 const NAV_ITEMS = [
   { label: 'Home', href: '/' },
@@ -75,8 +78,47 @@ export const TopBar = ({ className, showUserMenu = true }: TopBarProps) => {
           ))}
         </ul>
       </nav>
-
-      <div className={styles.rightSection}></div>
+      <div className={styles.rightSection}>
+        {showUserMenu && (
+          <Popover
+            triggerElement={
+              <Avatar src={`https://picsum.photos/seed/20/40/40`} />
+            }
+            placement="bottom"
+            offset={8}
+            variant="outlined"
+            autoFocus={false}
+            trapFocus={false}
+          >
+            <div className={styles.userMenuContent}>
+              <div className={styles.menuItems}>
+                <Button
+                  variant="ghost"
+                  onClick={handleProfile}
+                  className={styles.menuItem}
+                >
+                  Profile
+                </Button>
+                <Button
+                  variant="ghost"
+                  onClick={handleSettings}
+                  className={styles.menuItem}
+                >
+                  Settings
+                </Button>
+                <hr className={styles.userMenuDivider} />
+                <Button
+                  variant="ghost"
+                  onClick={handleLogout}
+                  className={styles.menuItem}
+                >
+                  Logout
+                </Button>
+              </div>
+            </div>
+          </Popover>
+        )}
+      </div>
 
       <Drawer
         isOpen={isMobileMenuOpen}

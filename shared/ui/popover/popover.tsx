@@ -256,7 +256,6 @@ const Popover: React.FC<PopoverProps> = ({
     className,
   );
 
-  const contentClasses = cn(styles.content, contentClassName);
   const titleClasses = cn(styles.title);
   const bodyClasses = cn(styles.body);
 
@@ -294,10 +293,8 @@ const Popover: React.FC<PopoverProps> = ({
             aria-modal="true"
             {...rest}
           >
-            <div className={contentClasses}>
-              {title && <div className={titleClasses}>{title}</div>}
-              <div className={bodyClasses}>{children}</div>
-            </div>
+            {title && <div className={titleClasses}>{title}</div>}
+            <div className={bodyClasses}>{children}</div>
           </div>,
           document.body,
         )}
