@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter, Poppins, Roboto, Roboto_Mono } from 'next/font/google';
 import localFont from 'next/font/local';
-import Script from 'next/script';
 import { JSX } from 'react';
 
 import 'styles/main.scss';
@@ -87,7 +86,7 @@ export const metadata: Metadata = {
   formatDetection: {
     telephone: false,
   },
-  metadataBase: new URL('https://your-domain.com'),
+  metadataBase: new URL('https://currency-exchange-system.web.app/'),
   alternates: {
     canonical: '/',
     languages: {
@@ -98,11 +97,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Currency Exchange System',
     description: 'Secure, fast and reliable currency exchange platform',
-    url: 'https://your-domain.com',
+    url: 'https://currency-exchange-system.web.app/',
     siteName: 'Currency Exchange System',
     images: [
       {
-        url: 'https://your-domain.com/og-image.jpg',
+        url: 'https://currency-exchange-system.web.app//og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Currency Exchange System',
@@ -115,7 +114,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Currency Exchange System',
     description: 'Secure, fast and reliable currency exchange platform',
-    images: ['https://your-domain.com/twitter-image.jpg'],
+    images: ['https://currency-exchange-system.web.app//twitter-image.jpg'],
   },
   robots: {
     index: true,

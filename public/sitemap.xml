@@ -28,17 +28,17 @@
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://your-domain.com/</loc>
+  <loc>https://currency-exchange-system.web.app/</loc>
   <changefreq>daily</changefreq>
   <priority>1.0</priority>
 </url>
 <url>
-  <loc>https://your-domain.com/privacy</loc>
+  <loc>https://currency-exchange-system.web.app/legal/privacy</loc>
   <changefreq>monthly</changefreq>
   <priority>0.8</priority>
 </url>
 <url>
-  <loc>https://your-domain.com/terms</loc>
+  <loc>https://currency-exchange-system.web.app/legal/terms</loc>
   <changefreq>monthly</changefreq>
   <priority>0.8</priority>
 </url>
