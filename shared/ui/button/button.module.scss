@@ -22,8 +22,8 @@
   min-height: 40px;
 
   &:focus-visible {
-    box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.4);
-    outline: none;
+    outline: 2px dashed var(--primary);
+    outline-offset: 2px;
   }
 
   &:active:not(:disabled) {

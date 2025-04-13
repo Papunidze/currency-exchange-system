@@ -1,10 +1,12 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter, Poppins, Roboto, Roboto_Mono } from 'next/font/google';
 import localFont from 'next/font/local';
+import Link from 'next/link';
 import { JSX } from 'react';
 
-import 'styles/main.scss';
 import { Preconnect } from '@app-shared/components/preconnect';
+
+import 'styles/main.scss';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -155,9 +157,9 @@ export default function RootLayout({
         <Preconnect />
       </head>
       <body>
-        <a href="#main-content" className="skip-link">
+        <Link href="/" className="skip-link">
           Skip to main content
-        </a>
+        </Link>
         <div className="main-layout">
           <main id="main-content" role="main">
             {children}

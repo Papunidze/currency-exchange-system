@@ -8,8 +8,8 @@
   z-index: 1000;
   overflow-y: auto;
   transition:
-    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.25s ease;
+    transform 0.3s ease-out,
+    opacity 0.25s ease-out;
   opacity: 0;
 
   &.left {

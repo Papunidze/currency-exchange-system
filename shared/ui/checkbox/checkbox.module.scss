@@ -95,10 +95,12 @@
   height: 20px;
   border: 2px solid var(--border-primary);
   border-radius: 4px;
-  background: var(--backgrounds-light);
+  background: var(--background-light);
   cursor: pointer;
   position: relative;
-  transition: border-color 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
   flex-shrink: 0;
   margin-top: 2px;
   overflow: visible;
@@ -133,12 +135,12 @@
 
   &:hover:not(:disabled) {
     border-color: var(--primary);
-    box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.1);
+    box-shadow: var(--shadow-sm);
   }
 
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.2);
+  &:focus-visible {
+    outline: 2px dashed var(--primary);
+    outline-offset: 2px;
   }
 
   &:disabled {

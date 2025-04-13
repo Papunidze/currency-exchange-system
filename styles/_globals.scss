@@ -11,6 +11,14 @@
 :root {
   color-scheme: light dark;
 }
+*:focus {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 2px dashed var(--primary);
+  outline-offset: 3px;
+}
 
 html {
   font-size: var(--font-size-base);
@@ -110,6 +118,9 @@ a {
       transform-origin: left;
     }
   }
+  &:focus-visible {
+    text-decoration: underline;
+  }
 }
 
 img,
@@ -177,20 +188,28 @@ ol {
   white-space: nowrap;
   border: 0;
 }
-
 .skip-link {
   position: absolute;
   top: -40px;
   left: 0;
-  padding: 0.5rem 1rem;
-  background-color: transparent;
-  color: white;
-  z-index: 9999;
-  transition: top 0.2s ease;
+  background: var(--primary);
+  color: var(--text-color-light);
+  padding: 8px 16px;
+  z-index: 99999;
+  transition: top 0.3s ease;
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
 
-  &:focus {
-    top: 0;
+  &::after {
+    content: none;
   }
+}
+
+.skip-link:focus {
+  top: 0;
+  outline: 2px solid var(--variant-dark);
+  outline-offset: 2px;
 }
 
 @media print {
