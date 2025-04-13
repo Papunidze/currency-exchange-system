@@ -1,14 +1,8 @@
+# robots.txt file for Currency Exchange System
+
+# Allow all user agents
 User-agent: *
-Allow: /
-Disallow: /admin/
-Disallow: /api/
-Disallow: /dashboard/private/
-Disallow: /user/account/
-Disallow: /settings/security/
+Disallow:
 
-# Allow Googlebot to access everything
-User-agent: Googlebot
-Allow: /
-
-# Sitemap location
+# Specify the location of the sitemap
 Sitemap: https://currency-exchange-system.web.app/sitemap.xml
