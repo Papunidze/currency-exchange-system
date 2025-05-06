@@ -172,3 +172,22 @@
     background-clip: text;
   }
 }
+
+@media screen and (max-width: 600px) {
+  .logoContainer,
+  .logoContainer.lg {
+    .logo {
+      width: 40px;
+      height: 40px;
+    }
+
+    .logoIcon {
+      width: 40px;
+      height: 40px;
+    }
+
+    .logoText {
+      font-size: var(--font-size-base);
+    }
+  }
+}
