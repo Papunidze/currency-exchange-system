@@ -1,12 +1,11 @@
 import { Metadata } from 'next';
 import { JSX } from 'react';
 
-import styles from './page.module.scss';
-
-import Home from './home/home';
-import Statistic from './statistic/statistic';
-import History from './history/history';
 import Contact from './contact/contact';
+import History from './history/history';
+import Home from './home/home';
+import styles from './page.module.scss';
+import Statistic from './statistic/statistic';
 
 export const metadata: Metadata = {
   title: 'Home - Fast & Secure Currency Exchange',

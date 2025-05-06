@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { JSX } from 'react';
 
-const HistoryContent = () => {
+const HistoryContent = (): JSX.Element => {
   return <div>HistoryContent</div>;
 };
 

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { JSX } from 'react';
 
-const StatisticContent = () => {
+const StatisticContent = (): JSX.Element => {
   return <div>StatisticContent</div>;
 };
 
