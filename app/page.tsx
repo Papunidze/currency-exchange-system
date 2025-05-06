@@ -1,9 +1,12 @@
 import { Metadata } from 'next';
 import { JSX } from 'react';
 
-import { TopBar } from '@app-shared/layouts/topbar';
-
 import styles from './page.module.scss';
+
+import Home from './home/home';
+import Statistic from './statistic/statistic';
+import History from './history/history';
+import Contact from './contact/contact';
 
 export const metadata: Metadata = {
   title: 'Home - Fast & Secure Currency Exchange',
@@ -12,10 +15,21 @@ export const metadata: Metadata = {
   keywords: ['currency exchange', 'home', 'exchange rates', 'forex'],
 };
 
-export default function Home(): JSX.Element {
+export default function HomePage(): JSX.Element {
   return (
-    <div className={styles.page}>
-      <TopBar />
-    </div>
+    <main className={styles.main}>
+      <section id="home" className={styles.section}>
+        <Home />
+      </section>
+      <section id="statistic" className={styles.section}>
+        <Statistic />
+      </section>
+      <section id="history" className={styles.section}>
+        <History />
+      </section>
+      <section id="contact" className={styles.section}>
+        <Contact />
+      </section>
+    </main>
   );
 }

@@ -15,10 +15,10 @@ import Popover from '@app-shared/ui/popover';
 import Button from '@app-shared/ui/button';
 
 const NAV_ITEMS = [
-  { label: 'Home', href: '/' },
-  { label: 'Exchange', href: '/exchange' },
-  { label: 'History', href: '/history' },
-  { label: 'Settings', href: '/settings' },
+  { label: 'Home', href: '/#home' },
+  { label: 'Statistic', href: '/#statistic' },
+  { label: 'History', href: '/#history' },
+  { label: 'Contact', href: '/#contact' },
 ];
 
 export const TopBar = ({ className, showUserMenu = true }: TopBarProps) => {
@@ -58,7 +58,9 @@ export const TopBar = ({ className, showUserMenu = true }: TopBarProps) => {
           size="small"
           onClick={() => setIsMobileMenuOpen(true)}
         />
-        <Logo size="lg" showText={true} />
+        <Link href="#home" className={styles.logoLink}>
+          <Logo size="lg" showText={true} />
+        </Link>
       </div>
 
       <nav className={styles.nav}>

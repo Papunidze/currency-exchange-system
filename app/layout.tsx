@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { JSX } from 'react';
 
 import { Preconnect } from '@app-shared/components/preconnect';
+import { TopBar } from '@app-shared/layouts/topbar';
 
 import 'styles/main.scss';
 
@@ -156,9 +157,10 @@ export default function RootLayout({
         <Preconnect />
       </head>
       <body>
-        <Link href="/" className="skip-link">
+        <Link href="#main-content" className="skip-link">
           Skip to main content
         </Link>
+        <TopBar />
         <div className="main-layout">
           <main id="main-content" role="main">
             {children}

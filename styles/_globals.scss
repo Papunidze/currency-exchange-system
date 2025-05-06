@@ -8,9 +8,6 @@
   padding: 0;
 }
 
-:root {
-  color-scheme: light dark;
-}
 *:focus {
   outline: none;
 }
@@ -36,10 +33,10 @@ body {
   color: var(--text-color-primary);
   min-height: 100vh;
   min-height: -webkit-fill-available;
-  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
 
   &:focus {
     outline: none;
