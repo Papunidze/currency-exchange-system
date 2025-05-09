@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import { MenuIcon, ChevronLeftIcon } from '@app-shared/icons';
 import { TopBarProps } from './topbar.interfaces';
@@ -27,6 +27,8 @@ export const TopBar = ({ className, showUserMenu = true }: TopBarProps) => {
   const isSidebarVisible = isDashboard;
   const isSidebarCollapsed = false;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSolid, setIsSolid] = useState(false);
+  const observerRef = useRef<IntersectionObserver | null>(null);
 
   const handleLogout = () => {
     console.log('Logout clicked');
@@ -40,6 +42,30 @@ export const TopBar = ({ className, showUserMenu = true }: TopBarProps) => {
     console.log('Settings clicked');
   };
 
+  useEffect(() => {
+    const homeSection = document.getElementById('home');
+    if (!homeSection) return;
+
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        setIsSolid(!entry.isIntersecting);
+      },
+      {
+        threshold: 0,
+        rootMargin: '-100px 0px 0px 0px',
+      },
+    );
+
+    observerRef.current.observe(homeSection);
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, []);
+
   return (
     <header
       className={cn(
@@ -47,6 +73,7 @@ export const TopBar = ({ className, showUserMenu = true }: TopBarProps) => {
         className,
         isSidebarVisible && styles.withSidebar,
         isSidebarCollapsed && styles.withSidebarCollapsed,
+        isSolid ? styles.solid : '',
       )}
     >
       <div className={styles.leftSection}>
@@ -59,7 +86,11 @@ export const TopBar = ({ className, showUserMenu = true }: TopBarProps) => {
           onClick={() => setIsMobileMenuOpen(true)}
         />
         <Link href="#home" className={styles.logoLink}>
-          <Logo size="lg" showText={true} />
+          <Logo
+            size="lg"
+            showText={true}
+            variant={isSolid ? 'primary' : 'light'}
+          />
         </Link>
       </div>
 
@@ -130,12 +161,16 @@ export const TopBar = ({ className, showUserMenu = true }: TopBarProps) => {
       >
         <div className={styles.mobileMenuContent}>
           <div className={styles.mobileMenuHeader}>
-            <Logo size="md" showText={true} />
+            <Logo
+              size="md"
+              showText={true}
+              variant={isSolid ? 'primary' : 'light'}
+            />
             <IconButton
               className={styles.closeButton}
               aria-label="Close menu"
               icon={<ChevronLeftIcon />}
-              variant="ghost"
+              variant={isSolid ? 'primary' : 'ghost'}
               size="small"
               onClick={() => setIsMobileMenuOpen(false)}
             />

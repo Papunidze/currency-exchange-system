@@ -161,11 +161,9 @@ export default function RootLayout({
           Skip to main content
         </Link>
         <TopBar />
-        <div className="main-layout">
-          <main id="main-content" role="main">
-            {children}
-          </main>
-        </div>
+        <main id="main-content" role="main">
+          {children}
+        </main>
       </body>
     </html>
   );
