@@ -160,7 +160,6 @@ export default function RootLayout({
         <Link href="#main-content" className="skip-link">
           Skip to main content
         </Link>
-        <TopBar />
         <main id="main-content" role="main">
           {children}
         </main>

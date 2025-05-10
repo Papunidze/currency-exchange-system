@@ -1,3 +1,5 @@
+@use 'styles/mixins' as *;
+
 .homeContainer {
   width: 100%;
   display: flex;
@@ -19,29 +21,38 @@
     );
   border-radius: 0px 0px 200px 200px / 0px 0px 120px 120px;
 
-  @media (max-width: 1024px) {
+  @include respond(xxl) {
+    max-width: 1440px;
+    margin: 0 auto;
+    border-radius: 0px 0px 150px 150px / 0px 0px 80px 80px;
+  }
+
+  @include respond(lg) {
     padding: var(--spacing-lg) var(--spacing-md);
     min-height: 85vh;
     border-radius: 0px 0px 80px 80px / 0px 0px 40px 40px;
   }
 
-  @media (max-width: 768px) {
+  @include respond(md) {
     min-height: 80vh;
     border-radius: 0px 0px 50px 50px / 0px 0px 30px 30px;
   }
 }
 
 .homeContent {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--spacing-xl);
+  @include grid(2, var(--spacing-xl));
   align-items: center;
   max-width: 1444px;
   margin: 0 auto;
   width: 100%;
   justify-content: space-between;
 
-  @media (max-width: 1024px) {
+  @include respond(xxl) {
+    max-width: 1200px;
+    gap: var(--spacing-md);
+  }
+
+  @include respond(lg) {
     margin-top: var(--topbar-height);
     grid-template-columns: 1fr;
     text-align: center;
@@ -52,9 +63,12 @@
 .textContent {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-lg);
 
-  @media (max-width: 1024px) {
+  @include respond(xxl) {
+    gap: var(--spacing-md);
+  }
+
+  @include respond(lg) {
     align-items: center;
   }
 }
@@ -65,16 +79,21 @@
   color: var(--text-color-light);
   line-height: 1.2;
 
-  @media (max-width: 768px) {
+  @include respond(xxl) {
     font-size: var(--font-size-xl);
+    line-height: 1.1;
   }
 
-  @media (max-width: 480px) {
+  @include respond(md) {
     font-size: var(--font-size-lg);
   }
 
+  @include respond(sm) {
+    font-size: var(--font-size-base);
+  }
+
   .highlight {
-    background: linear-gradient(to right, var(--secondary), var(--primary));
+    @include gradient-bg(var(--secondary), var(--primary));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -82,7 +101,7 @@
     display: block;
   }
   .highlight_subtitle {
-    background: linear-gradient(to right, var(--primary), var(--secondary));
+    @include gradient-bg(var(--primary), var(--secondary));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -94,14 +113,17 @@
   font-size: var(--font-size-xl);
   color: var(--text-color-light);
   opacity: 0.9;
-  margin-top: var(--spacing-md);
 
-  @media (max-width: 768px) {
+  @include respond(xxl) {
     font-size: var(--font-size-lg);
   }
 
-  @media (max-width: 480px) {
+  @include respond(md) {
     font-size: var(--font-size-base);
+  }
+
+  @include respond(sm) {
+    font-size: var(--font-size-sm);
   }
 }
 
@@ -110,12 +132,18 @@
   color: var(--text-color-light);
   opacity: 0.8;
   line-height: 1.6;
-  margin-bottom: var(--spacing-lg);
   max-width: 600px;
 
-  @media (max-width: 768px) {
+  @include respond(xxl) {
     font-size: var(--font-size-base);
+    line-height: 1.4;
     margin-bottom: var(--spacing-md);
+    max-width: 500px;
+  }
+
+  @include respond(md) {
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--spacing-sm);
   }
 }
 
@@ -124,11 +152,16 @@
   gap: var(--spacing-md);
   margin-top: var(--spacing-lg);
 
-  @media (max-width: 1024px) {
+  @include respond(xxl) {
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+  }
+
+  @include respond(lg) {
     justify-content: center;
   }
 
-  @media (max-width: 480px) {
+  @include respond(sm) {
     flex-direction: column;
     width: 100%;
     max-width: 300px;
@@ -148,7 +181,19 @@
   & img {
     border-radius: var(--radius-lg);
   }
-  @media (max-width: 1024px) {
+
+  @include respond(xxl) {
+    min-height: 350px;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: var(--spacing-md);
+    & img {
+      max-width: 90%;
+      height: auto;
+    }
+  }
+
+  @include respond(lg) {
     order: -1;
     min-height: 280px;
     max-width: 600px;
@@ -156,7 +201,7 @@
     padding: var(--spacing-md);
   }
 
-  @media (max-width: 768px) {
+  @include respond(md) {
     min-height: 220px;
     padding: var(--spacing-sm);
   }
@@ -169,12 +214,17 @@
   object-fit: contain;
   filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3));
 
-  @media (max-width: 1024px) {
+  @include respond(xxl) {
+    max-width: 85%;
+    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.25));
+  }
+
+  @include respond(lg) {
     max-width: 90%;
     filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.25));
   }
 
-  @media (max-width: 768px) {
+  @include respond(md) {
     max-width: 85%;
     filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
   }
@@ -182,111 +232,126 @@
 
 .statsSection {
   position: absolute;
-  bottom: -60px;
-  max-width: 1200px;
-  margin: var(--spacing-xl) auto 0;
+  bottom: -40px;
+  max-width: 1000px;
+  margin: var(--spacing-lg) auto 0;
   width: 100%;
   text-align: center;
 
-  @media (max-width: 1024px) {
+  @include respond(xxl) {
+    max-width: 1100px;
+    bottom: -30px;
+  }
+
+  @include respond(lg) {
     position: relative;
     bottom: 0;
-    margin-top: var(--spacing-lg);
+    margin-top: var(--spacing-md);
     padding: 0 var(--spacing-md);
   }
 }
 
 .statsTitle {
   color: var(--text-color-light);
-  font-size: var(--font-size-xl);
-  margin-bottom: var(--spacing-xl);
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-lg);
 
-  @media (max-width: 768px) {
+  @include respond(xxl) {
     font-size: var(--font-size-lg);
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+  }
+
+  @include respond(md) {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--spacing-sm);
   }
 }
 
 .statsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--spacing-xl);
+  @include grid(3, var(--spacing-md));
 
-  @media (max-width: 1024px) {
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--spacing-md);
+  @include respond(xxl) {
+    @include grid(3, var(--spacing-md));
+    max-width: 1000px;
+  }
+
+  @include respond(lg) {
+    @include grid(3, var(--spacing-sm));
     max-width: 800px;
     margin: 0 auto;
   }
 
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: var(--spacing-sm);
+  @include respond(md) {
+    @include grid(2, var(--spacing-sm));
   }
 
-  @media (max-width: 480px) {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-sm);
+  @include respond(sm) {
+    @include grid(1, var(--spacing-sm));
   }
 }
 
 .statCard {
-  backdrop-filter: blur(10px);
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-xl);
+  @include blur-bg(10px);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-xs);
   transition: transform 0.3s ease;
 
-  @media (max-width: 1024px) {
-    padding: var(--spacing-lg);
+  @include respond(xxl) {
+    padding: var(--spacing-md);
     border-radius: var(--radius-md);
   }
 
-  @media (max-width: 768px) {
-    padding: var(--spacing-md);
+  @include respond(lg) {
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-sm);
+  }
+
+  @include respond(md) {
+    padding: var(--spacing-sm);
   }
 
   &:hover {
-    transform: translateY(-5px);
+    transform: translateY(-3px);
   }
 
   &:nth-child(1) {
-    background: linear-gradient(to right, var(--primary), var(--variant-dark));
+    @include gradient-bg(var(--primary), var(--variant-dark));
   }
   &:nth-child(2) {
-    background: linear-gradient(
-      to right,
-      var(--primary),
-      var(--variant-danger)
-    );
+    @include gradient-bg(var(--primary), var(--variant-danger));
   }
   &:nth-child(3) {
-    background: linear-gradient(
-      to right,
-      var(--primary),
-      var(--variant-success)
-    );
+    @include gradient-bg(var(--primary), var(--variant-success));
   }
 }
 
 .statNumber {
   color: var(--text-color-light);
-  font-size: var(--font-size-xxl);
+  font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
 
-  @media (max-width: 768px) {
-    font-size: var(--font-size-xl);
+  @include respond(xxl) {
+    font-size: var(--font-size-lg);
+  }
+
+  @include respond(md) {
+    font-size: var(--font-size-base);
   }
 }
 
 .statLabel {
   color: var(--text-color-light);
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-sm);
   opacity: 0.8;
 
-  @media (max-width: 768px) {
+  @include respond(xxl) {
     font-size: var(--font-size-sm);
+  }
+
+  @include respond(md) {
+    font-size: var(--font-size-xs);
   }
 }

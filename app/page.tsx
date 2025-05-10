@@ -1,11 +1,12 @@
 import { Metadata } from 'next';
-import { JSX } from 'react';
+import React, { JSX } from 'react';
 
 import Contact from './contact/contact';
 import History from './history/history';
 import Home from './home/home';
 import styles from './page.module.scss';
 import Statistic from './statistic/statistic';
+import { TopBar } from '@app-shared/layouts';
 
 export const metadata: Metadata = {
   title:
@@ -55,23 +56,26 @@ export const metadata: Metadata = {
 
 export default function HomePage(): JSX.Element {
   return (
-    <section className={styles.main}>
-      <section id="home" className={styles.section} aria-label="Home">
-        <Home />
+    <React.Fragment>
+      <TopBar />
+      <section className={styles.main}>
+        <section id="home" className={styles.section} aria-label="Home">
+          <Home />
+        </section>
+        <section
+          id="statistic"
+          className={styles.section}
+          aria-label="Statistics"
+        >
+          <Statistic />
+        </section>
+        <section id="history" className={styles.section} aria-label="History">
+          <History />
+        </section>
+        <section id="contact" className={styles.section} aria-label="Contact">
+          <Contact />
+        </section>
       </section>
-      <section
-        id="statistic"
-        className={styles.section}
-        aria-label="Statistics"
-      >
-        <Statistic />
-      </section>
-      <section id="history" className={styles.section} aria-label="History">
-        <History />
-      </section>
-      <section id="contact" className={styles.section} aria-label="Contact">
-        <Contact />
-      </section>
-    </section>
+    </React.Fragment>
   );
 }

@@ -18,6 +18,10 @@
     @media (max-width: 1280px) {
       @content;
     }
+  } @else if $breakpoint == xxl {
+    @media (max-width: 1440px) {
+      @content;
+    }
   }
 }
 
