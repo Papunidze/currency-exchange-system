@@ -1,12 +1,13 @@
 import { Metadata } from 'next';
 import React, { JSX } from 'react';
 
+import { TopBar } from '@app-shared/layouts';
+
 import Contact from './contact/contact';
 import History from './history/history';
 import Home from './home/home';
 import styles from './page.module.scss';
 import Statistic from './statistic/statistic';
-import { TopBar } from '@app-shared/layouts';
 
 export const metadata: Metadata = {
   title:
@@ -56,7 +57,7 @@ export const metadata: Metadata = {
 
 export default function HomePage(): JSX.Element {
   return (
-    <React.Fragment>
+    <>
       <TopBar />
       <section className={styles.main}>
         <section id="home" className={styles.section} aria-label="Home">
@@ -76,6 +77,6 @@ export default function HomePage(): JSX.Element {
           <Contact />
         </section>
       </section>
-    </React.Fragment>
+    </>
   );
 }

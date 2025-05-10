@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { JSX } from 'react';
 
 import { Preconnect } from '@app-shared/components/preconnect';
-import { TopBar } from '@app-shared/layouts/topbar';
 
 import 'styles/main.scss';
 
