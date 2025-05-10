@@ -71,4 +71,11 @@
   --topbar-height: 64px;
   --logo-size: 32px;
   --home-botom-radius: 200px;
+  --home-gradient:
+    radial-gradient(circle at 30% 30%, #1b1e38, #0a0c23 70%),
+    radial-gradient(
+      circle at bottom left,
+      rgba(255, 195, 160, 0.3),
+      transparent 60%
+    );
 }

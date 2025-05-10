@@ -19,7 +19,7 @@ const Popover = ({
   isOpen: controlledIsOpen,
   onClose,
   onOpen,
-  offset = 8,
+  offset = 12,
   autoFocus = false,
   trapFocus = false,
   transparent = false,
@@ -137,39 +137,18 @@ const Popover = ({
     const triggerRect = triggerRef.current.getBoundingClientRect();
     const contentRect = contentRef.current.getBoundingClientRect();
 
-    const spaceTop = triggerRect.top;
-    const spaceRight =
-      window.innerWidth - (triggerRect.left + triggerRect.width);
-    const spaceBottom =
-      window.innerHeight - (triggerRect.top + triggerRect.height);
-    const spaceLeft = triggerRect.left;
-
     let newPlacement = placement;
     let top = 0;
     let left = 0;
 
-    // Determine best placement
-    if (placement === 'top' && spaceTop < contentRect.height + offset) {
-      newPlacement = 'bottom';
-    } else if (
-      placement === 'right' &&
-      spaceRight < contentRect.width + offset
-    ) {
-      newPlacement = 'left';
-    } else if (
-      placement === 'bottom' &&
-      spaceBottom < contentRect.height + offset
-    ) {
-      newPlacement = 'top';
-    } else if (placement === 'left' && spaceLeft < contentRect.width + offset) {
-      newPlacement = 'right';
-    }
-
-    // Calculate position based on placement
     switch (newPlacement) {
       case 'top':
         top = triggerRect.top - contentRect.height - offset;
         left = triggerRect.left + triggerRect.width / 2 - contentRect.width / 2;
+        break;
+      case 'top-right':
+        top = triggerRect.top - contentRect.height - offset;
+        left = triggerRect.right - contentRect.width - offset;
         break;
       case 'right':
         top = triggerRect.top + triggerRect.height / 2 - contentRect.height / 2;
@@ -179,23 +158,35 @@ const Popover = ({
         top = triggerRect.top + triggerRect.height + offset;
         left = triggerRect.left + triggerRect.width / 2 - contentRect.width / 2;
         break;
+      case 'bottom-left':
+        top = triggerRect.top + triggerRect.height + offset;
+        left = triggerRect.left;
+        break;
+      case 'bottom-right':
+        top = triggerRect.top + triggerRect.height + offset;
+        left = triggerRect.right - contentRect.width - offset;
+        break;
       case 'left':
         top = triggerRect.top + triggerRect.height / 2 - contentRect.height / 2;
         left = triggerRect.left - contentRect.width - offset;
         break;
     }
 
-    // Ensure popover stays within viewport
-    if (left < 0) {
-      left = 10;
-    } else if (left + contentRect.width > window.innerWidth) {
-      left = window.innerWidth - contentRect.width - 10;
+    const viewportPadding = 16;
+
+    if (left < viewportPadding) {
+      left = viewportPadding;
+    } else if (left + contentRect.width > window.innerWidth - viewportPadding) {
+      left = window.innerWidth - contentRect.width - viewportPadding;
     }
 
-    if (top < 0) {
-      top = 10;
-    } else if (top + contentRect.height > window.innerHeight) {
-      top = window.innerHeight - contentRect.height - 10;
+    if (top < viewportPadding) {
+      top = viewportPadding;
+    } else if (
+      top + contentRect.height >
+      window.innerHeight - viewportPadding
+    ) {
+      top = window.innerHeight - contentRect.height - viewportPadding;
     }
 
     setPosition({ top, left });
@@ -237,11 +228,14 @@ const Popover = ({
       updatePosition();
       setFocusableElements();
 
+      document.body.style.overflow = 'hidden';
+
       return () => {
         document.removeEventListener('mousedown', handleOutsideClick);
         document.removeEventListener('keydown', handleKeyDown);
         window.removeEventListener('resize', updatePosition);
         window.removeEventListener('scroll', handleScroll, true);
+        document.body.style.overflow = '';
       };
     }
   }, [isOpen]);

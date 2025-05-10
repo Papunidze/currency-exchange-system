@@ -74,11 +74,19 @@
   }
 
   .highlight {
-    color: var(--primary);
+    background: linear-gradient(to right, var(--secondary), var(--primary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
     display: block;
   }
   .highlight_subtitle {
-    color: var(--text-color-light);
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
   }
 }
 
@@ -245,24 +253,20 @@
   }
 
   &:nth-child(1) {
-    background: linear-gradient(
-      135deg,
-      var(--variant-primary) 0%,
-      #4a90e2 100%
-    );
+    background: linear-gradient(to right, var(--primary), var(--variant-dark));
   }
   &:nth-child(2) {
     background: linear-gradient(
-      135deg,
-      var(--variant-secondary) 0%,
-      #6c5ce7 100%
+      to right,
+      var(--primary),
+      var(--variant-danger)
     );
   }
   &:nth-child(3) {
     background: linear-gradient(
-      135deg,
-      var(--variant-warning) 0%,
-      #fdcb6e 100%
+      to right,
+      var(--primary),
+      var(--variant-success)
     );
   }
 }

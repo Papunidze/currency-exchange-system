@@ -118,7 +118,7 @@ export const TopBar = ({ className, showUserMenu = true }: TopBarProps) => {
               <Avatar src={`https://picsum.photos/seed/20/40/40`} />
             }
             triggerAriaLabel="Open user menu"
-            placement="bottom"
+            placement="bottom-left"
             offset={8}
             variant="outlined"
             autoFocus={false}
@@ -161,16 +161,12 @@ export const TopBar = ({ className, showUserMenu = true }: TopBarProps) => {
       >
         <div className={styles.mobileMenuContent}>
           <div className={styles.mobileMenuHeader}>
-            <Logo
-              size="md"
-              showText={true}
-              variant={isSolid ? 'primary' : 'light'}
-            />
+            <Logo size="md" showText={true} variant="primary" />
             <IconButton
               className={styles.closeButton}
               aria-label="Close menu"
               icon={<ChevronLeftIcon />}
-              variant={isSolid ? 'primary' : 'ghost'}
+              variant="ghost"
               size="small"
               onClick={() => setIsMobileMenuOpen(false)}
             />

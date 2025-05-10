@@ -9,7 +9,14 @@ export type PopoverVariant =
   | 'outlined'
   | 'ghost'
   | 'dark';
-export type PopoverPlacement = 'top' | 'bottom' | 'left' | 'right';
+export type PopoverPlacement =
+  | 'top'
+  | 'top-right'
+  | 'right'
+  | 'bottom'
+  | 'bottom-left'
+  | 'bottom-right'
+  | 'left';
 export type PopoverTrigger = 'click' | 'hover' | 'focus';
 export interface PopoverProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;

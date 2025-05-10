@@ -4,14 +4,18 @@
   left: 0;
   right: 0;
   height: var(--topbar-height);
-  background: transparent;
   border-bottom: 1px solid transparent;
   display: flex;
   align-items: center;
+  background: var(--home-gradient);
   justify-content: space-between;
   padding: 0 var(--spacing-lg);
   z-index: 999;
   transition: all 0.3s ease;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  &.solid {
+    background: var(--background-light) !important;
+  }
 
   &.withSidebar {
     left: var(--sidebar-width);
