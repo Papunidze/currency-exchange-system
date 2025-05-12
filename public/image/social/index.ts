@@ -1,10 +1,10 @@
 import type { SocialProvider, SocialImageConfig } from '../config';
 
-// Instead of importing images directly, use URLs
-// This ensures they work properly in both dev and production
+
 const FacebookIcon = '/image/social/facebook.png';
 const GoogleIcon = '/image/social/google.png';
 const AppleIcon = '/image/social/apple.png';
+
 
 export const socialImages: Record<SocialProvider, SocialImageConfig> = {
   facebook: {
@@ -31,6 +31,7 @@ export const socialImages: Record<SocialProvider, SocialImageConfig> = {
     category: 'social',
     provider: 'apple',
   },
+
 };
 
 export default socialImages;

@@ -1,9 +1,8 @@
 import type { BannerImageConfig } from '../config';
 
-// Using direct paths to ensure compatibility with production builds
 const kiosky = '/image/banner/kiosky.jpg';
-
-export type BannerKey = 'kiosky'
+const placeholder = "/image/banner/placeholder.svg"
+export type BannerKey = 'kiosky' | "placeholder"
 
 export const bannerImages: Record<BannerKey, BannerImageConfig> = {
   kiosky: {
@@ -14,5 +13,12 @@ export const bannerImages: Record<BannerKey, BannerImageConfig> = {
     category: 'banner',
     position: 'center',
   },
-
+  placeholder: {
+    src: placeholder,
+    alt: 'Hero Banner',
+    width: 1920,
+    height: 600,
+    category: 'banner',
+    position: 'center',
+  },
 }; 

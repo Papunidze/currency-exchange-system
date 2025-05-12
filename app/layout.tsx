@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { JSX } from 'react';
 
 import { Preconnect } from '@app-shared/components/preconnect';
+import { Footer } from '@app-shared/layouts';
 
 import 'styles/main.scss';
 
@@ -162,6 +163,7 @@ export default function RootLayout({
         <main id="main-content" role="main">
           {children}
         </main>
+        <Footer />
       </body>
     </html>
   );

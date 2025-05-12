@@ -24,7 +24,7 @@
   padding: var(--spacing-xl) 0;
   position: relative;
   overflow: hidden;
-
+  background-color: var(--background-light);
   &::before {
     content: '';
     position: absolute;

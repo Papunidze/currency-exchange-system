@@ -34,7 +34,7 @@ export interface AvatarImageConfig extends BaseImageConfig {
   fallback?: string;
 }
 
-export type IconType = 'ui' | 'action' | 'navigation';
+export type IconType = "check" | "close";
 export interface IconImageConfig extends BaseImageConfig {
   category: 'icon';
   type: IconType;

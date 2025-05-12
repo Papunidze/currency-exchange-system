@@ -1,0 +1,291 @@
+@use 'styles/mixins' as *;
+
+.featuresWrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.featuresContainer {
+  width: 100%;
+  max-width: 1440px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+  padding: var(--spacing-xl) var(--spacing-lg);
+
+  @include respond(lg) {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+
+  @include respond(md) {
+    padding: var(--spacing-md) var(--spacing-sm);
+  }
+}
+
+.heroSection {
+  width: 100%;
+  text-align: center;
+  padding: var(--spacing-xl) 0;
+
+  @include respond(lg) {
+    padding: var(--spacing-lg) 0;
+  }
+}
+
+.title {
+  @include gradient-bg(var(--primary), var(--variant-dark));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  display: block;
+  font-size: var(--font-size-3xl);
+
+  @include respond(lg) {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-md);
+  }
+
+  @include respond(md) {
+    font-size: var(--font-size-lg);
+  }
+}
+
+.subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--text-color-muted);
+  max-width: 700px;
+  margin: 0 auto var(--spacing-xl);
+  line-height: 1.6;
+
+  @include respond(lg) {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  @include respond(md) {
+    font-size: var(--font-size-sm);
+  }
+}
+
+.tabsWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.tabsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+  max-width: 800px;
+  padding: var(--spacing-sm);
+  background: var(--bg-card);
+  border-radius: var(--radius-full);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+  @include respond(md) {
+    gap: var(--spacing-sm);
+    padding: var(--spacing-xs);
+  }
+}
+
+.contentSection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-xl);
+  width: 100%;
+  margin: var(--spacing-xl) 0;
+
+  @include respond(lg) {
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    text-align: center;
+  }
+}
+
+.imageContainer {
+  flex: 1;
+  max-width: 50%;
+  position: relative;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  height: auto;
+
+  & img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-lg);
+  }
+
+  @include respond(lg) {
+    max-width: 90%;
+    order: -1;
+  }
+}
+
+.featureContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+
+  @include respond(lg) {
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+  }
+}
+
+.featureTitle {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-color-dark);
+  margin-bottom: var(--spacing-sm);
+
+  @include respond(lg) {
+    font-size: var(--font-size-lg);
+  }
+
+  @include respond(md) {
+    font-size: var(--font-size-base);
+  }
+}
+
+.featureList {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  width: 100%;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-base);
+  color: var(--text-color-muted);
+
+  @include respond(lg) {
+    text-align: left;
+  }
+
+  @include respond(md) {
+    font-size: var(--font-size-sm);
+  }
+}
+
+.featureIcon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  flex-shrink: 0;
+
+  @include respond(md) {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.featureCards {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  flex-wrap: wrap;
+  width: 100%;
+  margin: var(--spacing-xl) 0;
+
+  @include respond(lg) {
+    gap: var(--spacing-md);
+  }
+
+  @include respond(md) {
+    gap: var(--spacing-sm);
+  }
+}
+
+.featureCard {
+  flex: 1;
+  min-width: 300px;
+  max-width: 350px;
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  border: 1px solid var(--border-color);
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  @include respond(lg) {
+    min-width: 280px;
+    max-width: 320px;
+  }
+
+  @include respond(md) {
+    padding: var(--spacing-md);
+    min-width: 100%;
+    max-width: 100%;
+  }
+}
+
+.cardIcon {
+  width: 50px;
+  height: 50px;
+  margin-bottom: var(--spacing-md);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(var(--primary-rgb), 0.1);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-sm);
+}
+
+.cardTitle {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-color-dark);
+  margin-bottom: var(--spacing-sm);
+  width: 100%;
+
+  @include respond(md) {
+    font-size: var(--font-size-sm);
+  }
+}
+
+.cardDescription {
+  font-size: var(--font-size-sm);
+  color: var(--text-color-muted);
+  line-height: 1.5;
+  margin-bottom: var(--spacing-md);
+  flex-grow: 1;
+
+  @include respond(md) {
+    font-size: var(--font-size-xs);
+  }
+}

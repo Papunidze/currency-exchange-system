@@ -4,10 +4,10 @@ import React, { JSX } from 'react';
 import { TopBar } from '@app-shared/layouts';
 
 import Contact from './contact/contact';
-import History from './history/history';
+import Features from './features/features';
 import Home from './home/home';
 import styles from './page.module.scss';
-import Statistic from './statistic/statistic';
+import Subscription from './subscription/subscription';
 
 export const metadata: Metadata = {
   title:
@@ -63,15 +63,15 @@ export default function HomePage(): JSX.Element {
         <section id="home" className={styles.section} aria-label="Home">
           <Home />
         </section>
-        <section
-          id="statistic"
-          className={styles.section}
-          aria-label="Statistics"
-        >
-          <Statistic />
+        <section id="features" className={styles.section} aria-label="Features">
+          <Features />
         </section>
-        <section id="history" className={styles.section} aria-label="History">
-          <History />
+        <section
+          id="subscription"
+          className={styles.section}
+          aria-label="Subscription"
+        >
+          <Subscription />
         </section>
         <section id="contact" className={styles.section} aria-label="Contact">
           <Contact />

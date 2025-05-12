@@ -2,12 +2,12 @@ import React, { JSX, Suspense } from 'react';
 
 import { Loading } from '@app-shared/layouts';
 
-import StatisticContent from './statistic-content';
+import SubscriptionContent from './subscription-content';
 
-export default function Statistic(): JSX.Element {
+export default function Subscription(): JSX.Element {
   return (
     <Suspense fallback={<Loading />}>
-      <StatisticContent />
+      <SubscriptionContent />
     </Suspense>
   );
 }

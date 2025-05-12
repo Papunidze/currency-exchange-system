@@ -9,6 +9,7 @@ import styles from './form.module.scss';
 import { FormProps } from './form.inerfaces';
 import { SchemaField, SelectField } from '@app-shared/services/schema';
 import { cn } from '@app-shared/lib/utils';
+import Textarea from '../textarea';
 
 function CreateForm<T>({
   schema,
@@ -154,7 +155,7 @@ function CreateForm<T>({
         );
       case 'textarea':
         return (
-          <Input
+          <Textarea
             key={field.name}
             label={field.label}
             value={value}

@@ -1,0 +1,273 @@
+@use 'styles/mixins' as *;
+
+.subscriptionContainer {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-3xl) var(--spacing-lg);
+}
+
+.subscriptionHeader {
+  text-align: center;
+  margin-bottom: var(--spacing-3xl);
+
+  h1 {
+    @include gradient-bg(var(--primary), var(--variant-dark));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    display: block;
+    font-size: var(--font-size-3xl);
+  }
+
+  p {
+    font-size: var(--font-size-lg);
+    color: var(--text-color-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
+
+.subscriptionButtons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-xl);
+  margin-top: var(--spacing-3xl);
+}
+
+.subscriptionCard {
+  background-color: var(--background-light);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-md);
+  transition: var(--transition-medium);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border-primary);
+  position: relative;
+  overflow: hidden;
+  min-height: 500px;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  h1 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--spacing-xs);
+    color: var(--text-color-primary);
+  }
+
+  p {
+    font-size: var(--font-size-sm);
+    color: var(--text-color-tertiary);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  h2 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--variant-primary);
+    margin-bottom: var(--spacing-xl);
+    display: flex;
+    align-items: baseline;
+
+    span {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-regular);
+      color: var(--text-color-tertiary);
+      margin-left: var(--spacing-xs);
+    }
+  }
+
+  &.popular {
+    border: 2px solid var(--variant-primary);
+    transform: scale(1.05);
+    z-index: 1;
+
+    &:hover {
+      transform: scale(1.05) translateY(-4px);
+    }
+
+    &::before {
+      content: 'Most Popular';
+      position: absolute;
+      top: var(--spacing-sm);
+      right: var(--spacing-sm);
+      background-color: var(--variant-primary);
+      color: white;
+      padding: var(--spacing-xs) var(--spacing-sm);
+      font-size: var(--font-size-xs);
+      border-radius: var(--radius-full);
+      font-weight: var(--font-weight-medium);
+    }
+  }
+}
+
+.uiContainer {
+  margin-top: auto;
+}
+
+.uiItem {
+  margin-bottom: var(--spacing-xl);
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+
+  img {
+    width: var(--icon-size-md);
+    height: var(--icon-size-md);
+    margin-right: var(--spacing-sm);
+  }
+
+  p {
+    margin: 0;
+    font-size: var(--font-size-sm);
+    color: var(--text-color-secondary);
+  }
+}
+
+.featureGroup {
+  margin-bottom: var(--spacing-lg);
+
+  h3 {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-color-tertiary);
+    margin-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--border-primary);
+    padding-bottom: var(--spacing-xs);
+  }
+}
+
+.cta {
+  width: 100%;
+  margin-top: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  align-items: center;
+
+  small {
+    color: var(--text-color-tertiary);
+    font-size: var(--font-size-xs);
+  }
+}
+
+.saveBadge {
+  position: absolute;
+  top: var(--spacing-sm);
+  left: var(--spacing-sm);
+  background-color: var(--variant-success);
+  color: white;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: var(--font-size-xs);
+  border-radius: var(--radius-full);
+  font-weight: var(--font-weight-medium);
+}
+
+.switchToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: var(--spacing-xl) auto 0;
+  gap: var(--spacing-md);
+
+  span {
+    font-size: var(--font-size-sm);
+    color: var(--text-color-secondary);
+
+    &.active {
+      color: var(--variant-primary);
+      font-weight: var(--font-weight-medium);
+    }
+
+    small {
+      color: var(--variant-success);
+      font-weight: var(--font-weight-medium);
+    }
+  }
+
+  /* The switch - the box around the slider */
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+
+    /* Hide default HTML checkbox */
+    input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    /* The slider */
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--border-secondary);
+      transition: var(--transition-fast);
+      border-radius: 34px;
+
+      &:before {
+        position: absolute;
+        content: '';
+        height: 18px;
+        width: 18px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: var(--transition-fast);
+        border-radius: 50%;
+      }
+    }
+
+    input:checked + .slider {
+      background-color: var(--variant-primary);
+    }
+
+    input:focus + .slider {
+      box-shadow: 0 0 1px var(--variant-primary);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .subscriptionButtons {
+    grid-template-columns: 1fr;
+  }
+
+  .subscriptionHeader h1 {
+    font-size: var(--font-size-2xl);
+  }
+
+  .subscriptionCard {
+    min-height: auto;
+
+    &.popular {
+      transform: none;
+
+      &:hover {
+        transform: translateY(-4px);
+      }
+    }
+  }
+}

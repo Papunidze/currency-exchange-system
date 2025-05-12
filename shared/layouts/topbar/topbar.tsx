@@ -16,8 +16,8 @@ import Button from '@app-shared/ui/button';
 
 const NAV_ITEMS = [
   { label: 'Home', href: '/#home' },
-  { label: 'Statistic', href: '/#statistic' },
-  { label: 'History', href: '/#history' },
+  { label: 'Features', href: '/#features' },
+  { label: 'Subscription', href: '/#subscription' },
   { label: 'Contact', href: '/#contact' },
 ];
 

@@ -1,3 +1,5 @@
+'use client';
+
 import { forwardRef, useId, useState } from 'react';
 import { cn } from '@app-shared/lib/utils';
 import styles from './textarea.module.scss';
