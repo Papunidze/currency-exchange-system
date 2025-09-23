@@ -2,7 +2,7 @@
 
 import React, { forwardRef } from 'react';
 import styles from './button.module.scss';
-import { ButtonProps } from './button.interfaces';
+import type { ButtonProps } from './button.interfaces';
 import { cn } from '@app-shared/lib/utils';
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(

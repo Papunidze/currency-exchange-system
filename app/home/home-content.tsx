@@ -4,6 +4,7 @@ import { Image } from '@app-shared/components/media';
 import Button from '@app-shared/ui/button';
 
 import styles from './home.module.scss';
+import Link from 'next/link';
 
 const HomeContent = (): JSX.Element => {
   return (
@@ -25,7 +26,15 @@ const HomeContent = (): JSX.Element => {
           </p>
           <div className={styles.ctaButtons}>
             <Button variant="primary" size="large">
-              Start Free Trial
+              <Link
+                href={'/#subscription'}
+                style={{
+                  textDecoration: 'none',
+                  color: 'var(--text-color-light)',
+                }}
+              >
+                Start Free Trial
+              </Link>
             </Button>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AvatarProps } from './avatar.interfaces';
+import type { AvatarProps } from './avatar.interfaces';
 import styles from './avatar.module.scss';
 import { cn } from '../../lib/utils';
 

@@ -1,11 +1,8 @@
 import { useEffect } from 'react';
 import styles from './backdrop.module.scss';
 import { cn } from '@app-shared/lib/utils';
-import { BackdropProps } from './backdrop.interfaces';
+import type { BackdropProps } from './backdrop.interfaces';
 
-/**
- * Backdrop component that provides an overlay effect with customizable opacity and blur
- */
 const Backdrop = ({
   isOpen = false,
   className,
@@ -16,7 +13,6 @@ const Backdrop = ({
   zIndex = 50,
   children,
 }: BackdropProps) => {
-  // Handle scroll locking when backdrop is open
   useEffect(() => {
     if (!disableScroll) return;
 
@@ -54,7 +50,6 @@ const Backdrop = ({
       }
     >
       <div className={styles.backdropContent}>
-        {/* Prevent clicks on the content from bubbling up to the backdrop */}
         <div
           className={styles.contentWrapper}
           onClick={(e) => e.stopPropagation()}

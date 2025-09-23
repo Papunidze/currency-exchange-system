@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { BadgeProps } from './badge.interfaces';
+import type { BadgeProps } from './badge.interfaces';
 import styles from './badge.module.scss';
 import { cn } from '@app-shared/lib/utils';
 

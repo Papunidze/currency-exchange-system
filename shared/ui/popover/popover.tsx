@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { PopoverProps } from './popover.inerfaces';
+import type { PopoverProps } from './popover.inerfaces';
 import styles from './popover.module.scss';
 import { cn } from '../../lib/utils';
 

@@ -18,6 +18,7 @@ $form-transition: var(--transition-fast);
   border: 1px solid var(--border-primary);
   font-family: var(--font-family-base);
   transition: all $form-transition;
+  overflow: visible;
 
   h1 {
     font-family: var(--font-family-heading);
@@ -44,6 +45,7 @@ $form-transition: var(--transition-fast);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-lg);
+  overflow: visible;
 
   @include respond(sm) {
     gap: var(--spacing-md);
@@ -54,6 +56,7 @@ $form-transition: var(--transition-fast);
   width: 100%;
   transition: all $form-transition;
   position: relative;
+  overflow: visible;
 
   &.grid {
     @include grid(2, var(--spacing-lg));

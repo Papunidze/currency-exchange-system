@@ -8,6 +8,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-3xl);
+  overflow: visible;
 
   @include respond(md) {
     padding: var(--spacing-2xl) var(--spacing-md);
@@ -134,7 +135,7 @@
   margin: 0 auto;
   border: 1px solid var(--border-color);
   border-radius: 10px;
-  overflow: hidden;
+  overflow: visible;
   box-shadow: var(--shadow-sm);
 }
 
@@ -170,7 +171,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  color: #00c544;
+  color: var(--text-color-secondary);
   font-size: 22px;
   font-weight: bold;
   line-height: 1;
@@ -184,6 +185,7 @@
   border-top: 1px solid var(--border-color);
   width: 100%;
   animation: fadeIn 0.3s ease-in-out;
+  overflow: visible;
 }
 
 .contactForm {

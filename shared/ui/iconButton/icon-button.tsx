@@ -1,6 +1,6 @@
 import { forwardRef, memo } from 'react';
 import styles from './icon-button.module.scss';
-import { IconButtonProps } from './iconButton.interfaces';
+import type { IconButtonProps } from './iconButton.interfaces';
 import { cn } from '@app-shared/lib/utils';
 
 const IconButton = memo(

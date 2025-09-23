@@ -3,37 +3,7 @@ import React, { useId, useState, useRef, useEffect } from 'react';
 import styles from './select.module.scss';
 import IconButton from '../iconButton';
 import { cn } from '@app-shared/lib/utils';
-
-export interface SelectOption {
-  value: string;
-  label: string;
-  disabled?: boolean;
-}
-
-export type SelectVariant =
-  | 'primary'
-  | 'secondary'
-  | 'success'
-  | 'warning'
-  | 'danger'
-  | 'ghost';
-
-export interface SelectProps {
-  options: SelectOption[];
-  value?: string;
-  defaultValue?: string;
-  onChange?: (value: string) => void;
-  label?: string;
-  placeholder?: string;
-  disabled?: boolean;
-  required?: boolean;
-  error?: string;
-  helperText?: string;
-  className?: string;
-  size?: 'small' | 'medium' | 'large';
-  fullWidth?: boolean;
-  variant?: SelectVariant;
-}
+import type { SelectOption, SelectProps } from './select.interfaces';
 
 const Select = ({
   options,

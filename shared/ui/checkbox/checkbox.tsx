@@ -1,9 +1,9 @@
 import { FC } from 'react';
-import { CheckboxProps } from './checkbox.interfaces';
+import type { CheckboxProps } from './checkbox.interfaces';
 import { cn } from '@app-shared/lib/utils';
 import styles from './checkbox.module.scss';
 
-export const Checkbox: FC<CheckboxProps> = ({
+export const Checkbox = ({
   checked = false,
   onChange,
   label,
@@ -13,7 +13,7 @@ export const Checkbox: FC<CheckboxProps> = ({
   variant = 'primary',
   error,
   name,
-}) => {
+}: CheckboxProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!disabled && onChange) {
       onChange(e.target.checked);

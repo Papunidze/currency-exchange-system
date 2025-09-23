@@ -4,9 +4,9 @@ import Backdrop from '@app-shared/ui/backdrop';
 import IconButton from '@app-shared/ui/iconButton';
 import { cn } from '@app-shared/lib/utils';
 import styles from './dialog.module.scss';
-import { DialogProps } from './dialog.interfaces';
+import type { DialogProps } from './dialog.interfaces';
 
-const Dialog: FC<DialogProps> = ({
+const Dialog = ({
   isOpen,
   title,
   description,
@@ -19,7 +19,7 @@ const Dialog: FC<DialogProps> = ({
   position = 'center',
   onClose,
   children,
-}) => {
+}: DialogProps) => {
   const dialogRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

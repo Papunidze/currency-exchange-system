@@ -2,7 +2,7 @@
 
 import React, { useId, forwardRef, useState } from 'react';
 import styles from './input.module.scss';
-import { InputProps } from './input.interfaces';
+import type { InputProps } from './input.interfaces';
 import { cn } from '@app-shared/lib/utils';
 
 const Input = forwardRef<HTMLInputElement, InputProps>(

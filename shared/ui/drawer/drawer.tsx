@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { cn } from '@app-shared/lib/utils';
 import Backdrop from '@app-ui/backdrop';
 import styles from './drawer.module.scss';
-import { DrawerProps } from './drawer.interfaces';
+import type { DrawerProps } from './drawer.interfaces';
 
-export const Drawer: React.FC<DrawerProps> = ({
+export const Drawer = ({
   children,
   className,
   isOpen,
   onClose,
   placement = 'left',
-}) => {
+}: DrawerProps) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
