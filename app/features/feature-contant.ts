@@ -1,4 +1,4 @@
-export const FEATURE_TABS = [
+﻿export const FEATURE_TABS = [
   {
     id: 'data-management',
     label: 'Data Management',

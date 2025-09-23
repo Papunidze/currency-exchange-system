@@ -5,8 +5,8 @@ import React, { JSX, useState } from 'react';
 import { Image } from '@app-shared/components/media';
 import { Icon, IconType } from '@app-shared/icons';
 import Button from '@app-shared/ui/button';
-import { FEATURE_CARDS, FEATURE_TABS } from './feature-contant';
 
+import { FEATURE_CARDS, FEATURE_TABS } from './feature-contant';
 import styles from './features.module.scss';
 
 const FeatureContent = (): JSX.Element => {

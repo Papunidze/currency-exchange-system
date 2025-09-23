@@ -1,10 +1,10 @@
+import Link from 'next/link';
 import React, { JSX } from 'react';
 
 import { Image } from '@app-shared/components/media';
 import Button from '@app-shared/ui/button';
 
 import styles from './home.module.scss';
-import Link from 'next/link';
 
 const HomeContent = (): JSX.Element => {
   return (
