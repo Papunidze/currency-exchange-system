@@ -75,6 +75,10 @@
   display: flex;
   justify-content: center;
   margin-bottom: var(--spacing-xl);
+
+  @include respond(md) {
+    margin-bottom: 0;
+  }
 }
 
 .tabsContainer {
@@ -90,11 +94,17 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 
   @include respond(md) {
-    gap: var(--spacing-sm);
     padding: var(--spacing-xs);
   }
 }
 
+.tabButton {
+  @include respond(md) {
+    span {
+      display: none;
+    }
+  }
+}
 .contentSection {
   display: flex;
   justify-content: space-between;
@@ -126,6 +136,9 @@
   @include respond(lg) {
     max-width: 90%;
     order: -1;
+  }
+  @include respond(md) {
+    margin: auto;
   }
 }
 
@@ -171,6 +184,10 @@
   gap: var(--spacing-md);
   margin-bottom: var(--spacing-lg);
   width: 100%;
+
+  @include respond(md) {
+    align-items: center;
+  }
 }
 
 .featureItem {
