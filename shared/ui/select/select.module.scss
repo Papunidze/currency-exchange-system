@@ -225,6 +225,39 @@
     }
   }
 
+  &.outlined {
+    border-color: var(--border-secondary);
+
+    .value,
+    .chevron {
+      color: var(--text-color-secondary);
+    }
+
+    .label {
+      color: var(--text-color-primary);
+    }
+
+    &:hover:not(.disabled) {
+      border-color: var(--border-primary);
+
+      .value,
+      .chevron,
+      .label {
+        color: var(--text-color-primary);
+      }
+    }
+
+    &.focused,
+    &.open {
+      border-color: var(--border-secondary);
+      box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
+
+      .label {
+        color: var(--text-color-secondary);
+      }
+    }
+  }
+
   &.small {
     height: 36px;
     .value {

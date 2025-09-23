@@ -100,6 +100,9 @@ describe('Select Component', () => {
 
     rerender(<Select options={options} variant="success" />);
     expect(screen.getByRole('combobox')).toHaveClass('success');
+
+    rerender(<Select options={options} variant="outlined" />);
+    expect(screen.getByRole('combobox')).toHaveClass('outlined');
   });
 
   it('renders with different sizes', () => {

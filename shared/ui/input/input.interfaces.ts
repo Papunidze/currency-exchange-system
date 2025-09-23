@@ -2,6 +2,7 @@ import { InputHTMLAttributes, ReactNode } from 'react';
 
 export type InputSize = 'small' | 'medium' | 'large';
 export type InputVariant = 'primary' | 'secondary' | 'outlined';
+
 export type InputType =
   | 'text'
   | 'email'

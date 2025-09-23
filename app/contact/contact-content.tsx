@@ -113,6 +113,7 @@ export default function ContactContent(): JSX.Element {
                 buttonVariant="primary"
                 size="medium"
                 submitLabel="Submit Inquiry"
+                selectVariant="outlined"
                 className={styles.contactForm}
               />
             </div>

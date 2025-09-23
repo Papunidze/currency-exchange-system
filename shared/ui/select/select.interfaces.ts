@@ -14,6 +14,7 @@ export type SelectVariant =
   | 'success'
   | 'warning'
   | 'danger'
+  | 'outlined'
   | 'ghost';
 
 export interface SelectProps {
