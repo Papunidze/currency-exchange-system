@@ -97,12 +97,11 @@
 
 .contentSection {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: var(--spacing-xl);
+  gap: var(--spacing-5xl);
   width: 100%;
-  margin: var(--spacing-xl) 0;
-
+  max-width: 900px;
+  margin: auto;
   @include respond(lg) {
     flex-direction: column;
     gap: var(--spacing-lg);
@@ -112,9 +111,7 @@
 
 .imageContainer {
   flex: 1;
-  max-width: 50%;
   position: relative;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   border-radius: var(--radius-lg);
   overflow: hidden;
   height: auto;
@@ -136,6 +133,8 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  padding: var(--spacing-sm);
   gap: var(--spacing-md);
 
   @include respond(lg) {
@@ -158,6 +157,10 @@
   @include respond(md) {
     font-size: var(--font-size-base);
   }
+}
+
+.ctaButton {
+  width: fit-content;
 }
 
 .featureList {
@@ -187,8 +190,8 @@
 }
 
 .featureIcon {
-  width: 24px;
-  height: 24px;
+  width: 6px;
+  height: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -196,11 +199,6 @@
   background: var(--primary);
   color: white;
   flex-shrink: 0;
-
-  @include respond(md) {
-    width: 20px;
-    height: 20px;
-  }
 }
 
 .featureCards {
@@ -237,7 +235,6 @@
   border: 1px solid var(--border-color);
 
   &:hover {
-    transform: translateY(-5px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   }
 

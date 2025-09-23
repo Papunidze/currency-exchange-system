@@ -64,16 +64,19 @@ const FEATURE_CARDS = [
     icon: 'WALLET',
     title: 'Document Management',
     description: 'Keep all your important documents organized and accessible',
+    hoverColor: '--variant-dark',
   },
   {
     icon: 'CHART',
     title: 'Premium Features',
     description: 'Access advanced tools designed for power users',
+    hoverColor: '--variant-danger',
   },
   {
     icon: 'DASHBOARD',
     title: 'Advanced Reports',
     description: 'Generate detailed reports with customizable parameters',
+    hoverColor: '--variant-success',
   },
 ];
 
@@ -134,7 +137,11 @@ const FeatureContent = (): JSX.Element => {
                 </li>
               ))}
             </ul>
-            <Button variant="primary" size="medium">
+            <Button
+              variant="primary"
+              size="medium"
+              className={styles.ctaButton}
+            >
               More details
             </Button>
           </div>
@@ -153,9 +160,9 @@ const FeatureContent = (): JSX.Element => {
               <h3 className={styles.cardTitle}>{card.title}</h3>
               <p className={styles.cardDescription}>{card.description}</p>
               <Button
-                variant="secondary"
                 size="small"
-                endIcon={<Icon icon="CHEVRON_DOWN" size="sm" />}
+                className={styles.cardButton}
+                variant="outlined"
               >
                 Learn more
               </Button>
